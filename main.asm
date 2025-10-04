@@ -31229,7 +31229,7 @@ VInt_SEGA_Screen:											   ; Offset_0x034926
 		move.w	(VBlank_Subroutine).w,d0					; $FFFFF662
 		beq.w	Null_Sub_3							   ; Offset_0x034652
 		clr.w	(VBlank_Subroutine).w						 ; $FFFFF662
-		move.w	Offset_0x03493A-$02(pc,d0.w),d0
+		move.w	Offset_0x03493A-2(pc,d0.w),d0
 		jmp	Offset_0x03493A(pc,d0.w)
 ; ---------------------------------------------------------------------------
 Offset_0x03493A:
@@ -31240,17 +31240,17 @@ Offset_0x03493E:
 		dma68kToVDP SegaScreenScaledSpriteDataStart,tiles_to_bytes($88),\
 					SegaScreenScaledSpriteDataEnd-SegaScreenScaledSpriteDataStart,VRAM
 		lea	Offset_0x0349E8(PC),a1
-		move.l	#$49500003,d0
+		move.l	#vdpComm(VRAM_SegaScr_Plane_A_Name_Table + planeLoc(128,40,9),VRAM,WRITE),d0
 		bra.w	Offset_0x0349AC
 ; ---------------------------------------------------------------------------
 Offset_0x034970:
 		dmaFillVRAM 0,VRAM_SegaScr_Plane_A_Name_Table,VRAM_SegaScr_Plane_Table_Size ; clear Plane A pattern name table
 		lea	Offset_0x0349F8(PC),a1
-		move.l	#$49A00003,d0
+		move.l	#vdpComm(VRAM_SegaScr_Plane_A_Name_Table + planeLoc(128,80,9),VRAM,WRITE),d0
 		bra.w	Offset_0x0349AC
 Offset_0x0349AC:
 		lea	(VDP_Data_Port).l,a6							; $00C00000
-		move.l	#$1000000,d6
+		move.l	#vdpCommDelta(planeLoc(128,0,1)),d6
 		moveq	#7,d1
 		moveq	#9,d2
 Offset_0x0349BC:
