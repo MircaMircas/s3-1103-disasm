@@ -667,13 +667,13 @@ Offset_0x00071E:
 		cmpi.b	#$10,(S2_Teleport_Timer).w					; $FFFFF622
 		bcs.s	Offset_0x00075A
 		lea	(VDP_Data_Port).l,a6						  ; $00C00000
-		move.l	#$C0000000,(VDP_Control_Port)				; $00C00004
+		move.l	#$C0000000,(VDP_Control_Port).l				; $00C00004
 		move.w	#$EEE,d0
 		move.w	#bytesToWcnt($40),d1
 Offset_0x00073E:
 		move.w	D0,(A6)
 		dbf	D1, Offset_0x00073E
-		move.l	#$C0420000,(VDP_Control_Port)				; $00C00004
+		move.l	#$C0420000,(VDP_Control_Port).l				; $00C00004
 	if FixBugs
 		move.w	#bytesToWcnt($3E),d1
 	else
@@ -796,42 +796,12 @@ Offset_0x000A18:
 		dc.w	Offset_0x000A1C-Offset_0x000A18
 		dc.w	Offset_0x000A4C-Offset_0x000A18
 Offset_0x000A1C:
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.w	#$8F01,(A5)
-		move.l	#$941F93FF,(A5)
-		move.w	#$9780,(A5)
-		move.l	#$40000083,(A5)
-		move.w	#0,(VDP_Data_Port).l						; $00C00000
-Offset_0x000A3E:
-		move.w	(A5),d1
-		btst	#1,d1
-		bne.s	Offset_0x000A3E
-		move.w	#$8F02,(A5)
+		dmaFillVRAM 0,VRAM_EndSeq_Plane_A_Name_Table,VRAM_EndSeq_Plane_Table_Size	; VRAM Fill $C000 with $2000 zeros
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x000A4C:
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.w	#$8F01,(A5)
-		move.l	#$941F93FF,(A5)
-		move.w	#$9780,(A5)
-		move.l	#$40000081,(A5)
-		move.w	#0,(VDP_Data_Port).l						; $00C00000
-Offset_0x000A6E:
-		move.w	(A5),d1
-		btst	#1,d1
-		bne.s	Offset_0x000A6E
-		move.w	#$8F02,(A5)
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.w	#$8F01,(A5)
-		move.l	#$941F93FF,(A5)
-		move.w	#$9780,(A5)
-		move.l	#$40000083,(A5)
-		move.w	#0,(VDP_Data_Port).l						; $00C00000
-Offset_0x000A9C:
-		move.w	(A5),d1
-		btst	#1,d1
-		bne.s	Offset_0x000A9C
-		move.w	#$8F02,(A5)
+		dmaFillVRAM 0,VRAM_EndSeq_Plane_B_Name_Table2,VRAM_EndSeq_Plane_Table_Size
+		dmaFillVRAM 0,VRAM_EndSeq_Plane_A_Name_Table,VRAM_EndSeq_Plane_Table_Size
 		lea	(VDP_Control_Port).l,a6						; $00C00004
 		move.w	#$8B00,(A6)
 		move.w	#$8402,(A6)

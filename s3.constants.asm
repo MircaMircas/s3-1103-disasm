@@ -646,6 +646,12 @@ VDP_Control_Port	= $C00004
 VDP_data_port		= VDP_Data_Port
 VDP_control_port	= VDP_Control_Port
 
+; VRAM Reserved regions, Ending sequence and credits.
+VRAM_EndSeq_Plane_A_Name_Table	= $C000	; Extends until $DFFF
+VRAM_EndSeq_Plane_B_Name_Table1	= $E000	; Extends until $EFFF (plane size is 64x32)
+VRAM_EndSeq_Plane_B_Name_Table2	= $4000	; Extends until $5FFF
+VRAM_EndSeq_Plane_Table_Size	= $2000	; 64 cells x 64 cells x 2 bytes per cell
+
 ; sign-extends a 32-bit integer to 64-bit
 ; all RAM addresses are run through this function to allow them to work in both 16-bit and 32-bit addressing modes
 ramaddr function x,(-(x&$80000000)<<1)|x
