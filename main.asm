@@ -551,24 +551,12 @@ Offset_0x00052C:
 		stopZ80
 		tst.b	(Underwater_Flag).w
 		bne.s	Offset_0x000570
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94009340,(a5)
-		move.l	#$96F69580,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$C000,(a5)
-		move.w	#$80,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x000594
 ; ---------------------------------------------------------------------------
 
 Offset_0x000570:
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94009340,(a5)
-		move.l	#$96F89540,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$C000,(a5)
-		move.w	#$80,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP	Palette_Underwater_Buffer,$0000,$80,CRAM
 
 Offset_0x000594:
 		move.w	(Horizontal_Int_Count_Cmd).w,(a5)
@@ -603,23 +591,11 @@ Offset_0x0005BE:
 		; resolve a bug that caused glitched sprites to appear in lag frames
 		tst.w	(Use_Normal_Sprite_Table).w
 		beq.s	.useAltSpriteTable
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94019340,(a5)
-		move.l	#$96FC9500,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7800,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
 		bra.s	Offset_0x000646
 ; Offset_0x000622:
 .useAltSpriteTable:
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94019340,(a5)
-		move.l	#$96BC9540,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7800,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Sprite_Table_Buffer_2,$F800,$280,VRAM
 
 Offset_0x000646:
 		bsr.w	sndDriverInput
@@ -630,13 +606,7 @@ Offset_0x000646:
 ; Offset_0x000656: VBlank_02:
 VBlank_SEGA:
 		bsr.w	Offset_0x000B80
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$940193C0,(a5)
-		move.l	#$96F09500,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7000,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
 		jsr	(VInt_SEGA_Screen).l
 		tst.w	(Demo_Timer).w
 		beq.w	Offset_0x000690
@@ -716,32 +686,14 @@ Offset_0x000752:
 Offset_0x00075A:
 		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
 		bne.s	Offset_0x000786
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F69580,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$80,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x0007AA
 Offset_0x000786:
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F89540,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$80,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Underwater_Buffer,$0000,$80,CRAM
 
 Offset_0x0007AA:
 		move.w	(Horizontal_Int_Count_Cmd).w,(a5)
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$940193C0,(a5)
-		move.l	#$96F09500,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7000,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
 		tst.w	(Two_Player_Flag).w
 		beq.s	.useNormalSpriteTable
 		tst.w	(Normal_Sprite_Table_Flag).w
@@ -754,23 +706,11 @@ Offset_0x0007AA:
 		; resolve a bug that caused glitched sprites to appear in lag frames
 		tst.w	(Use_Normal_Sprite_Table).w
 		bne.s	.useNormalSpriteTable
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94019340,(a5)
-		move.l	#$96BC9540,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7800,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Sprite_Table_Buffer_2,$F800,$280,VRAM
 		bra.s	Offset_0x000838
 ; Offset_0x000814:
 .useNormalSpriteTable:
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94019340,(a5)
-		move.l	#$96FC9500,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7800,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
 
 Offset_0x000838:
 		bsr.w	ProcessDMAQueue
@@ -816,38 +756,14 @@ VBlank_0C:
 		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
 		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
 		bne.s	Offset_0x0008DA
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F69580,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$80,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x0008FE
 Offset_0x0008DA:
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F89540,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$80,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Underwater_Buffer,$0000,$80,CRAM
 Offset_0x0008FE:
 		move.w	(Horizontal_Int_Count_Cmd).w,(A5)			; $FFFFF624
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$940193C0,(A5)
-		move.l	#$96F09500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7000,(A5)
-		move.w	#$83,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94019340,(A5)
-		move.l	#$96FC9500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7800,(A5)
-		move.w	#$83,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
+		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
 		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
 		move.l	(Vertical_Scroll_Value_P2).w,(Vertical_Scroll_Value_P2_2).w ; $FFFFF61E, $FFFFEE3A
 		jsr	(sndDriverInput).l
@@ -868,27 +784,9 @@ VBlank_12:													   ; Offset_0x000978
 VBlank_18:													   ; Offset_0x000984
 		stopZ80
 		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F69580,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$80,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$94019340,(A5)
-		move.l	#$96FC9500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7800,(A5)
-		move.w	#$0083,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.l	#$940193C0,(A5)
-		move.l	#$96F09500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7000,(A5)
-		move.w	#$83,(DMA_Trigger).w					  ; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
+		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
+		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
 		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
 		bsr.w	sndDriverInput
 		startZ80
@@ -948,27 +846,9 @@ Offset_0x000A9C:
 VBlank_16:													   ; Offset_0x000AD2
 		stopZ80
 		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F69580,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$0080,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$94019340,(A5)
-		move.l	#$96FC9500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7800,(A5)
-		move.w	#$0083,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$940193C0,(A5)
-		move.l	#$96F09500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7000,(A5)
-		move.w	#$0083,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
+		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
+		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
 		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
 		bsr.w	sndDriverInput
 		startZ80
@@ -989,37 +869,13 @@ Offset_0x000B80:
 		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
 		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
 		bne.s	Offset_0x000BC2
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F69580,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$0080,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x000BE6
 Offset_0x000BC2:
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$94009340,(A5)
-		move.l	#$96F89540,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$C000,(A5)
-		move.w	#$0080,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP	Palette_Underwater_Buffer,$0000,$80,CRAM
 Offset_0x000BE6:
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$94019340,(A5)
-		move.l	#$96FC9500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7800,(A5)
-		move.w	#$0083,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$940193C0,(A5)
-		move.l	#$96F09500,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$7000,(A5)
-		move.w	#$0083,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
+		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
 		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
 		bsr.w	sndDriverInput
 		startZ80
@@ -16758,10 +16614,10 @@ Offset_0x011860:
 		moveq	#80-1,d7
 		lea	(Sprite_Table_Input).w,a5					; $FFFFAC00
 		lea	(Screen_Pos_Buffer_X_P2).w,a3				; $FFFFEE68
-		lea	(Sprite_Table_Buffer_P2&$FFFFFF),a6		  ; $00FF7B00
+		lea	(Sprite_Table_Buffer_P2&$FFFFFF).l,a6		  ; $00FF7B00
 		tst.w	(Use_Normal_Sprite_Table).w					 ; $FFFFEF3C
 		beq.s	Offset_0x01187C
-		lea	(Sprite_Table_Buffer_P2_2&$FFFFFF),a6	  ; $00FF7D80
+		lea	(Sprite_Table_Buffer_P2_2&$FFFFFF).l,a6	  ; $00FF7D80
 Offset_0x01187C:
 		tst.b	(Title_Card_Flag).w							 ; $FFFFF711
 		beq.s	Offset_0x011888

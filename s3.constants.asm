@@ -885,6 +885,7 @@ Random_Seed:		ds.l	1
 Pause_Status:		ds.w	1
 		ds.l	1
 DMA_Trigger:		ds.l	1
+DMA_data_thunk	= DMA_Trigger
 Horizontal_Interrupt_Flag:		ds.w	1
 Water_Level_Move:		ds.w	1
 Current_Water_Level:		ds.w	1
