@@ -96,8 +96,8 @@ zPalDblUpdCounter:	ds.b	1	; used to update the sound driver twice every five fra
 			ds.b	1	; unused
 	endif
 
-zTempVariablesStart:	ds.b	1
-zNextSound:		=	zTempVariablesStart
+zTempVariablesStart:
+zNextSound:			ds.b	1
 ; the following three variables are used for 68000 input, although only the first is functional
 zMusicNumber:		ds.b	1
 zSFXNumber0:		ds.b	1
