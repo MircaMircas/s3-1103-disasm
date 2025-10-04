@@ -38461,7 +38461,7 @@ Offset_0x04B24C:
 Offset_0x04B270:
 		moveq	#0,d4
 		move.w	#1,d1
-		move.b	(Control_Ports_Buffer_Data+$01).w,d4		; $FFFFF605
+		move.b	(Control_Ports_Buffer_Data+1).w,d4		; $FFFFF605
 		andi.w	#$F,d4
 		bne.s	Offset_0x04B2B2
 		move.b	(Control_Ports_Buffer_Data).w,d0			; $FFFFF604
@@ -38523,14 +38523,14 @@ Offset_0x04B30E:
 Offset_0x04B316:
 		btst	#6,(Control_Ports_Buffer_Data).w			; $FFFFF604
 		beq.s	Offset_0x04B34E
-		btst	#5,(Control_Ports_Buffer_Data+$01).w		; $FFFFF605
+		btst	#5,(Control_Ports_Buffer_Data+1).w		; $FFFFF605
 		beq.s	Offset_0x04B332
 		subq.b	#1,(Debug_object).w			 ; $FFFFFE06
 		bcc.s	Offset_0x04B34A
 		add.b	D6,(Debug_object).w				 ; $FFFFFE06
 		bra.s	Offset_0x04B34A
 Offset_0x04B332:
-		btst	#6,(Control_Ports_Buffer_Data+$01).w		; $FFFFF605
+		btst	#6,(Control_Ports_Buffer_Data+1).w		; $FFFFF605
 		beq.s	Offset_0x04B34E
 		addq.b	#1,(Debug_object).w			 ; $FFFFFE06
 		cmp.b	(Debug_object).w,d6				 ; $FFFFFE06
