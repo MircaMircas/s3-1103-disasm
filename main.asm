@@ -28069,7 +28069,7 @@ Setup_Tile_Row_Draw:										   ; Offset_0x02F93E
 		bra.s	Offset_0x02F9C4
 Offset_0x02F984:
 		neg.w	D5
-		move.w	D5, -(sp)
+		move.w	D5,-(sp)
 		move.w	D0,d5
 		andi.w	#$F0,d5
 		lsl.w	#4,d5
