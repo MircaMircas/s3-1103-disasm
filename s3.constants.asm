@@ -646,6 +646,11 @@ VDP_Control_Port	= $C00004
 VDP_data_port		= VDP_Data_Port
 VDP_control_port	= VDP_Control_Port
 
+; VRAM Reserved regions, Sega screen.
+VRAM_SegaScr_Plane_A_Name_Table          = $C000	; Extends until $DFFF
+VRAM_SegaScr_Plane_B_Name_Table          = $A000	; Extends until $BFFF
+VRAM_SegaScr_Plane_Table_Size            = $2000	; 128 cells x 32 cells x 2 bytes per cell
+
 ; VRAM Reserved regions, Ending sequence and credits.
 VRAM_EndSeq_Plane_A_Name_Table	= $C000	; Extends until $DFFF
 VRAM_EndSeq_Plane_B_Name_Table1	= $E000	; Extends until $EFFF (plane size is 64x32)

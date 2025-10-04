@@ -31237,29 +31237,14 @@ Offset_0x03493A:
 		dc.w	Offset_0x034970-Offset_0x03493A
 ; ---------------------------------------------------------------------------
 Offset_0x03493E:
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.l	#$94169300,(A5)
-		move.l	#$96859580,(A5)
-		move.w	#$977F,(A5)
-		move.w	#$5100,(A5)
-		move.w	#$0080,(DMA_Trigger).w						; $FFFFF640
-		move.w	(DMA_Trigger).w,(A5)						; $FFFFF640
+		dma68kToVDP SegaScreenScaledSpriteDataStart,tiles_to_bytes($88),\
+					SegaScreenScaledSpriteDataEnd-SegaScreenScaledSpriteDataStart,VRAM
 		lea	Offset_0x0349E8(PC),a1
 		move.l	#$49500003,d0
 		bra.w	Offset_0x0349AC
 ; ---------------------------------------------------------------------------
 Offset_0x034970:
-		lea	(VDP_Control_Port).l,a5						; $00C00004
-		move.w	#$8F01,(A5)
-		move.l	#$941F93FF,(A5)
-		move.w	#$9780,(A5)
-		move.l	#$40000083,(A5)
-		move.w	#$0000,(VDP_Data_Port)						; $00C00000
-Offset_0x034992:
-		move.w	(A5),d1
-		btst	#1,d1
-		bne.s	Offset_0x034992
-		move.w	#$8F02,(A5)
+		dmaFillVRAM 0,VRAM_SegaScr_Plane_A_Name_Table,VRAM_SegaScr_Plane_Table_Size ; clear Plane A pattern name table
 		lea	Offset_0x0349F8(PC),a1
 		move.l	#$49A00003,d0
 		bra.w	Offset_0x0349AC
