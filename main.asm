@@ -2630,7 +2630,7 @@ Process_Kos_Module_Queue:
 		bmi.s	.decompressionStarted
 		cmpi.w	#(Kos_decomp_queue_End-Kos_decomp_queue)/8,(Kos_decomp_queue_count).w
 		bcc.s	.done					; branch if the Kosinski decompression queue is full
-		move.l	(Kos_module_queue).w,a1
+		movea.l	(Kos_module_queue).w,a1
 		lea	(Kosinski_Decomp_Buffer).w,a2
 		bsr.w	Queue_Kos				; add current module to decompression queue
 		ori.b	#$80,(Kos_modules_left).w		; and set bit to signify decompression in progress
@@ -2738,8 +2738,8 @@ Process_Kos_Queue:
 		bmi.w	Restore_Kos_Bookmark			; branch if decompression was interrupted by V-int
 
 		ori.w	#$8000,(Kos_decomp_queue_count).w	; set sign bit to signify decompression in progress
-		move.l	(Kos_decomp_queue).w,a0
-		move.l	(Kos_decomp_destination).w,a1
+		movea.l	(Kos_decomp_queue).w,a0
+		movea.l	(Kos_decomp_destination).w,a1
 
 		; what follows is identical to the normal Kosinski decompressor except for using Kos_description_field instead of the stack
 		lea	(Kos_description_field).w,a2
