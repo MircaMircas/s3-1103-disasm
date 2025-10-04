@@ -7814,7 +7814,7 @@ SS_Sprite_Table:											   ; Offset_0x0067EC
 		dc.b	$71, $72, $73, $74, $75, $76, $76, $00
 ; ---------------------------------------------------------------------------
 Obj_Spheres:												   ; Offset_0x006874
-		include "data\objects\spheres.asm"
+		include "objects\spheres.asm"
 ; ---------------------------------------------------------------------------
 Special_Stage_Test_2:										   ; Offset_0x0070DC
 		moveq	#signextendB(cmd_Stop),d0									; -$1F
@@ -7871,7 +7871,7 @@ Pal_Special_Stage_2_Test:									   ; Offset_0x0071D6
 		binclude	"data\ss_test\ss_test.pal"
 ; ---------------------------------------------------------------------------
 Obj_Spheres_2:												   ; Offset_0x007256
-		include "data\objects\spheres2.asm"
+		include "objects\spheres2.asm"
 ;===============================================================================
 ; Modo de teste para o Special Stage
 ; <<<-
@@ -11180,14 +11180,14 @@ Add_SpriteToCollisionResponseList:
 
 ; ---------------------------------------------------------------------------
 Obj_Sonic_Knuckles_2P:										   ; Offset_0x00A552
-		include "data\objects\chars_2p.asm"
+		include "objects\chars_2p.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object - Sonic
 ; ---------------------------------------------------------------------------
 ; Offset_0x00AA36:
 Obj_Sonic:
-		include	"data\objects\sonic.asm"
+		include	"objects\sonic.asm"
 ; ---------------------------------------------------------------------------
 Sonic_Animate_Data:							; Offset_0x00C5A4
 		dc.w	Offset_0x00C5EC-Sonic_Animate_Data
@@ -11811,15 +11811,15 @@ Offset_0x00CC08:
 ; End of function LoadSonicDynamicPLC_2P
 
 Obj_Miles_2P:												   ; Offset_0x00CC0A
-		include "data\objects\miles_2p.asm"
+		include "objects\miles_2p.asm"
 Obj_Miles:													   ; Offset_0x00D11E
-		include "data\objects\miles.asm"
+		include "objects\miles.asm"
 Obj_Miles_Tails:											   ; Offset_0x00F1A6
-		include "data\objects\milestls.asm"
+		include "objects\milestls.asm"
 Obj_Miles_Tails_2P:											   ; Offset_0x00F2AE
-		include "data\objects\milest2p.asm"
+		include "objects\milest2p.asm"
 Obj_Player_Underwater:										   ; Offset_0x00F38C
-		include "data\objects\underwtr.asm"
+		include "objects\underwtr.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to play music after a countdown (when Sonic leaves the water)
@@ -12265,11 +12265,11 @@ Offset_0x00FD5A:
 		dc.w	$F00F, $0012, $FFF0
 ; ---------------------------------------------------------------------------
 Obj_Dust_Water_Splash:										   ; Offset_0x00FD62
-		include "data\objects\dustwtrs.asm"
+		include "objects\dustwtrs.asm"
 Obj_Dust_Water_Splash_2P:									   ; Offset_0x0100DA
-		include "data\objects\dstwtr2p.asm"
+		include "objects\dstwtr2p.asm"
 Obj_Super_Sonic_Stars:										   ; Offset_0x0102AA
-		include "data\objects\ss_stars.asm"
+		include "objects\ss_stars.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object - Fire Shield
@@ -12901,7 +12901,7 @@ Offset_0x010AD0:
 ; <<<-		  com vida extra ao adiquirir 100 e 200 an�is
 ;===============================================================================
 Rings_Lost:													   ; Offset_0x010AD6
-		include "data\objects\ringlost.asm"
+		include "objects\ringlost.asm"
 Obj_S1_0x4B_Big_Ring: ; Sonic 1 Left over					   ; Offset_0x010C60
 		include "data\s1_obj\obj_0x4B.asm"
 Obj_S1_0x7C_Big_Ring_Flash: ; Sonic 1 Left over				   ; Offset_0x010D26
@@ -17608,23 +17608,23 @@ ZiplinePeg_ChkDel:
 ZiplinePeg_Mappings:	include	"data/mappings/0A - AIZ Zipline Peg.asm"
 
 Obj_0x26_Auto_Spin:											   ; Offset_0x013FA8
-		include "data\objects\obj_0x26.asm"
+		include "objects\obj_0x26.asm"
 ; Obj_0x27_Lava_Attributes: ; Sonic 2 left over				   ; Offset_0x0141F2
-		include "data\objects\obj_0x27.asm"
+		include "objects\obj_0x27.asm"
 Obj_0x28_Invisible_Block:									   ; Offset_0x0142D4
-		include "data\objects\obj_0x28.asm"
+		include "objects\obj_0x28.asm"
 ; Obj_0x36_Hz_Breakable_Bar:								   ; Offset_0x0143B2
-		include "data\objects\obj_0x36.asm"
+		include "objects\obj_0x36.asm"
 Obj_Wave_Splash:											   ; Offset_0x014926
-		include "data\objects\wavespls.asm"
+		include "objects\wavespls.asm"
 ; Obj_0x40_Hz_Block:										   ; Offset_0x014AB6
-		include "data\objects\obj_0x40.asm"
+		include "objects\obj_0x40.asm"
 Obj_0x6A_Hz_Horizontal_Spikes:								   ; Offset_0x014B5A
-		include "data\objects\obj_0x6A.asm"
+		include "objects\obj_0x6A.asm"
 Obj_0x6B_Hz_Vertical_Spikes:								   ; Offset_0x014CE8
-		include "data\objects\obj_0x6B.asm"
+		include "objects\obj_0x6B.asm"
 Obj_0x03_AIz_Hollow_Tree:									   ; Offset_0x014E88
-		include "data\objects\obj_0x03.asm"
+		include "objects\obj_0x03.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 05 - Rocks from Angel Island and Endless Mine
@@ -19347,9 +19347,9 @@ Offset_0x016FC0:
 		dc.w	$2F04, $0048, $FFF0
 		dc.w	$2F04, $004A, $0000
 Obj_0x0D_Breakable_Wall:									   ; Offset_0x0170CA
-		include "data\objects\obj_0x0D.asm"
+		include "objects\obj_0x0D.asm"
 Obj_0x06_Ride_Vine:											   ; Offset_0x017A8E
-		include "data\objects\obj_0x06.asm"
+		include "objects\obj_0x06.asm"
 ;===============================================================================
 ; Objeto 0x0C - Raiz em que o Sonic segura temporariamente e é lançado para
 ; ->>>		esquerda ou para direita
@@ -19626,9 +19626,9 @@ Offset_0x018480:
 ; Offset_0x018482:
 Ride_Vine_Mappings:	include	"data/mappings/06 - Rideable Vine.asm"
 Obj_AIz_Intro_Surfboard:									   ; Offset_0x0185D6
-		include "data\objects\aizsurfb.asm"
+		include "objects\aizsurfb.asm"
 Obj_Knuckles:												   ; Offset_0x018EA0
-		include "data\objects\knuckles.asm"
+		include "objects\knuckles.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 07 - Springs
@@ -20441,9 +20441,9 @@ Offset_0x019E94:
 		dc.w	$FD08, $1006, $FFF4
 
 Obj_0x3D_Retracting_Spring:									   ; Offset_0x019EA2
-		include "data\objects\obj_0x3D.asm"
+		include "objects\obj_0x3D.asm"
 ; Obj_0x5F_Retracting_Spring:								   ; Offset_0x019FF6
-		include "data\objects\obj_0x5F.asm"
+		include "objects\obj_0x5F.asm"
 
 Spikes_Conf:							; Offset_0x01A432
 		dc.b	$10, $10	; Largura / Altura do espinho
@@ -20882,43 +20882,43 @@ Offset_0x01AA1A:
 		dc.w	$180A, $0013, $FFF4
 
 Obj_Art_Scaling:											   ; Offset_0x01AA34
-		include "data\objects\scaling.asm"
+		include "objects\scaling.asm"
 Obj_0x0B_Sphere_Test:										   ; Offset_0x01B338
-		include "data\objects\obj_0x0B.asm"
+		include "objects\obj_0x0B.asm"
 Obj_0x0E_Spiral_Ramp_Attributes:							   ; Offset_0x01BC3A
-		include "data\objects\obj_0x0E.asm"
+		include "objects\obj_0x0E.asm"
 ; Obj_0x11_LBz_Platform:									   ; Offset_0x01BCFC
-		include "data\objects\obj_0x11.asm"
+		include "objects\obj_0x11.asm"
 Obj_0x1D_LBz_Platform:										   ; Offset_0x01C228
-		include "data\objects\obj_0x1D.asm"
+		include "objects\obj_0x1D.asm"
 ; Obj_0x51_Floating_Platform:								   ; Offset_0x01C3C2
-		include "data\objects\obj_0x51.asm"
+		include "objects\obj_0x51.asm"
 Obj_0x67_Hz_Snake_Platform:									   ; Offset_0x01C532
-		include "data\objects\obj_0x67.asm"
+		include "objects\obj_0x67.asm"
 ; Obj_0x12_LBz_Elevator:									   ; Offset_0x01C6A0
-		include "data\objects\obj_0x12.asm"
+		include "objects\obj_0x12.asm"
 Obj_0x13_LBz_Exploding_Trigger:								   ; Offset_0x01C890
-		include "data\objects\obj_0x13.asm"
+		include "objects\obj_0x13.asm"
 Obj_0x59_MGz_Dash_Trigger:									   ; Offset_0x01C930
-		include "data\objects\obj_0x59.asm"
+		include "objects\obj_0x59.asm"
 ; Obj_0x14_LBz_Trigger_Bridge:								   ; Offset_0x01CBA2
-		include "data\objects\obj_0x14.asm"
+		include "objects\obj_0x14.asm"
 ; Obj_0x15_LBz_Player_Launcher:								   ; Offset_0x01D050
-		include "data\objects\obj_0x15.asm"
+		include "objects\obj_0x15.asm"
 ; Obj_0x16_LBz_Flame_Thrower:								   ; Offset_0x01D312
-		include "data\objects\obj_0x16.asm"
+		include "objects\obj_0x16.asm"
 ; Obj_0x17_LBz_Hooked_Ride:									   ; Offset_0x01D4FC
-		include "data\objects\obj_0x17.asm"
+		include "objects\obj_0x17.asm"
 Obj_0x18_LBz_Cup_Elevator:									   ; Offset_0x01D916
-		include "data\objects\obj_0x18.asm"
+		include "objects\obj_0x18.asm"
 Obj_0x19_LBz_Cup_Elevator_Pole:								   ; Offset_0x01DF10
-		include "data\objects\obj_0x19.asm"
+		include "objects\obj_0x19.asm"
 Obj_0x1A_Unknow_Controled_By_P2:							   ; Offset_0x01DFCE
-		include "data\objects\obj_0x1A.asm"
+		include "objects\obj_0x1A.asm"
 Obj_0x1B_LBz_Pipe_Plug:										   ; Offset_0x01E2C6
-		include "data\objects\obj_0x1B.asm"
+		include "objects\obj_0x1B.asm"
 Obj_0x1C_LBz_Unknow:										   ; Offset_0x01E6C6
-		include "data\objects\obj_0x1C.asm"
+		include "objects\obj_0x1C.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to dynamically reload animated stage tiles in VRAM
@@ -22221,27 +22221,27 @@ Offset_0x01F5FA:
 ; <<<-
 ;===============================================================================
 Obj_0x1E_LBz_Spin_Launcher:									   ; Offset_0x01F5FC
-		include "data\objects\obj_0x1E.asm"
+		include "objects\obj_0x1E.asm"
 Obj_0x1F_LBz_Hook:											   ; Offset_0x01F892
-		include "data\objects\obj_0x1F.asm"
+		include "objects\obj_0x1F.asm"
 Obj_0x20_Smashing_Pillar_Spikes:							   ; Offset_0x01FDB6
-		include "data\objects\obj_0x20.asm"
+		include "objects\obj_0x20.asm"
 Obj_0x21_LBz_Gate_Laser:									   ; Offset_0x01FF28
-		include "data\objects\obj_0x21.asm"
+		include "objects\obj_0x21.asm"
 Obj_0x22_LBz_Buzzer:										   ; Offset_0x02005A
-		include "data\objects\obj_0x22.asm"
+		include "objects\obj_0x22.asm"
 Obj_0x23:													   ; Offset_0x02010E
-		include "data\objects\obj_0x23.asm"
+		include "objects\obj_0x23.asm"
 ; Obj_0x24_Automatic_Tunnel:								   ; Offset_0x0201C6
-		include "data\objects\obj_0x24.asm"
+		include "objects\obj_0x24.asm"
 Obj_0x10_LBz_Tube_Elevator:									   ; Offset_0x020856
-		include "data\objects\obj_0x10.asm"
+		include "objects\obj_0x10.asm"
 ; Obj_0x29_AIz_Disappearing_Platform:						   ; Offset_0x020EE0
-		include "data\objects\obj_0x29.asm"
+		include "objects\obj_0x29.asm"
 Obj_0x2A_Breakable_Floor:									   ; Offset_0x0211D6
-		include "data\objects\obj_0x2A.asm"
+		include "objects\obj_0x2A.asm"
 Obj_0x2B_AIz_Flipping_Bridge:								   ; Offset_0x021B1C
-		include "data\objects\obj_0x2B.asm"
+		include "objects\obj_0x2B.asm"
 ;===============================================================================
 ; Objeto 0x2C - Ponte que desmorona na Angel Island
 ; ->>>
@@ -22499,7 +22499,7 @@ Collapsing_Bridge_Mappings:	include	"data/mappings/2C - AIZ Collapsing Bridge.as
 Collapsing_Bridge_Mappings_2:	include	"data/mappings/2C - AIZ Collapsing Bridge 2.asm"
 
 Obj_0x32_AIz_Draw_Bridge:									   ; Offset_0x02235C
-		include "data\objects\obj_0x32.asm"
+		include "objects\obj_0x32.asm"
 ;===============================================================================
 ; Objeto 0x2D - Troncos que descem nas cachoeiras da Angel Island
 ; ->>>
@@ -22648,7 +22648,7 @@ AIz_2_Falling_Log_Mappings_2:	include	"data/mappings/2D - AIZ2 Falling Log Splas
 AIz_Falling_Log_Mappings_2:	include	"data/mappings/2D - AIZ1 Falling Log Splash.asm"
 
 Obj_0x2E_AIz_Spiked_Rotating_Log:							   ; Offset_0x022A7E
-		include "data\objects\obj_0x2E.asm"
+		include "objects\obj_0x2E.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 2F - Static decorations
@@ -22918,15 +22918,15 @@ Offset_0x02340E:
 Plants_Mappings:	include	"data/mappings/35 - AIZ Plants.asm"
 
 Obj_AIz_Tree:												   ; Offset_0x0234AA
-		include "data\objects\aiz_tree.asm"
+		include "objects\aiz_tree.asm"
 Obj_0x31_LBz_Rotating_Cylinders:							   ; Offset_0x02350C
-		include "data\objects\obj_0x31.asm"
+		include "objects\obj_0x31.asm"
 Obj_0x33_Switch:											   ; Offset_0x023662
-		include "data\objects\obj_0x33.asm"
+		include "objects\obj_0x33.asm"
 Obj_Flickies:												   ; Offset_0x0238DA
-		include "data\objects\flickies.asm"
+		include "objects\flickies.asm"
 Obj_Enemy_Points:											   ; Offset_0x023E42
-		include "data\objects\enemypts.asm"
+		include "objects\enemypts.asm"
 ;===============================================================================
 Flickies_Mappings:											   ; Offset_0x023E88
 		dc.w	Offset_0x023E96-Flickies_Mappings
@@ -23370,7 +23370,7 @@ Offset_0x024446:
 		jmp	(DeleteObject).l
 
 Obj_Time_Over_Game_Over:									   ; Offset_0x02444C
-		include "data\objects\tmgmover.asm"
+		include "objects\tmgmover.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object - Title Card
@@ -24549,7 +24549,7 @@ PLCE_0C:
 PLCE_0C_End:
 ; ---------------------------------------------------------------------------
 Obj_0x54_Oxygen_Bubbles:									   ; Offset_0x025500
-		include "data\objects\obj_0x54.asm"
+		include "objects\obj_0x54.asm"
 ; ---------------------------------------------------------------------------
 Sonic_Underwater_Mappings:									   ; Offset_0x025872
 		dc.w	Offset_0x0258CE-Sonic_Underwater_Mappings
@@ -24651,99 +24651,99 @@ Offset_0x02595C:
 		dc.w	$F406, $0394, $FFF8
 ; ---------------------------------------------------------------------------
 Obj_0x37_Hz_Vertical_Water_Stream:							   ; Offset_0x025964
-		include "data\objects\obj_0x37.asm"
+		include "objects\obj_0x37.asm"
 Obj_0x3B_Hz_Water_Wall:										   ; Offset_0x025C30
-		include "data\objects\obj_0x3B.asm"
+		include "objects\obj_0x3B.asm"
 Obj_0x38_Hz_Fan:											   ; Offset_0x026408
-		include "data\objects\obj_0x38.asm"
+		include "objects\obj_0x38.asm"
 Obj_0x39_Hz_Large_Fan:										   ; Offset_0x026736
-		include "data\objects\obj_0x39.asm"
+		include "objects\obj_0x39.asm"
 Obj_0x38_CGz_Fan_2P:										   ; Offset_0x026960
-		include "data\objects\obj2px38.asm"
+		include "objects\obj2px38.asm"
 Obj_0x3A_Hz_Hand_Launcher:									   ; Offset_0x026A80
-		include "data\objects\obj_0x3A.asm"
+		include "objects\obj_0x3A.asm"
 ; Obj_0x3C_Automatic_Door:									   ; Offset_0x026ED0
-		include "data\objects\obj_0x3C.asm"
+		include "objects\obj_0x3C.asm"
 ; Obj_0x3E_Conveyor_Belt_Attributes:						   ; Offset_0x0271C4
-		include "data\objects\obj_0x3E.asm"
+		include "objects\obj_0x3E.asm"
 Obj_0x3F_Hz_Spikes_On_Conveyor_Belt:						   ; Offset_0x027346
-		include "data\objects\obj_0x3F.asm"
+		include "objects\obj_0x3F.asm"
 Obj_0x41_CNz_Balloon:										   ; Offset_0x027552
-		include "data\objects\obj_0x41.asm"
+		include "objects\obj_0x41.asm"
 Obj_0x42_CNz_Cannon:										   ; Offset_0x02794E
-		include "data\objects\obj_0x42.asm"
+		include "objects\obj_0x42.asm"
 Obj_0x43_CNz_Platform:										   ; Offset_0x027DBA
-		include "data\objects\obj_0x43.asm"
+		include "objects\obj_0x43.asm"
 Obj_0x44_CNz_Trapdoor:										   ; Offset_0x027F0E
-		include "data\objects\obj_0x44.asm"
+		include "objects\obj_0x44.asm"
 Obj_0x45_CNz_Light_Bulb:									   ; Offset_0x027FDA
-		include "data\objects\obj_0x45.asm"
+		include "objects\obj_0x45.asm"
 Obj_0x46_CNz_Fan:											   ; Offset_0x02805C
-		include "data\objects\obj_0x46.asm"
+		include "objects\obj_0x46.asm"
 Obj_0x48_CNz_Vacuum_Tubes:									   ; Offset_0x028278
-		include "data\objects\obj_0x48.asm"
+		include "objects\obj_0x48.asm"
 ; Obj_0x47_CNz_Barrel:										   ; Offset_0x028430
-		include "data\objects\obj_0x47.asm"
+		include "objects\obj_0x47.asm"
 Obj_0x68_Hz_Spinning_Column:								   ; Offset_0x0289B8
-		include "data\objects\obj_0x68.asm"
+		include "objects\obj_0x68.asm"
 Obj_0x49_CNz_Wheel:											   ; Offset_0x028C62
-		include "data\objects\obj_0x49.asm"
+		include "objects\obj_0x49.asm"
 Obj_0x4B_Triangular_Springs:								   ; Offset_0x028D2E
-		include "data\objects\obj_0x4B.asm"
+		include "objects\obj_0x4B.asm"
 Obj_0x4F_Mud_Quicksand_Attributes:							   ; Offset_0x028E12
-		include "data\objects\obj_0x4F.asm"
+		include "objects\obj_0x4F.asm"
 Obj_0x5D_CGz_Triangular_Springs:							   ; Offset_0x029004
-		include "data\objects\obj_0x5D.asm"
+		include "objects\obj_0x5D.asm"
 Obj_0x4A_Bumper:											   ; Offset_0x029188
-		include "data\objects\obj_0x4A.asm"
+		include "objects\obj_0x4A.asm"
 Obj_0x4C_Corkscrew:											   ; Offset_0x029408
-		include "data\objects\obj_0x4C.asm"
+		include "objects\obj_0x4C.asm"
 Obj_0x4D_CNz_Barber_Pole:									   ; Offset_0x0296A0
-		include "data\objects\obj_0x4D.asm"
+		include "objects\obj_0x4D.asm"
 Obj_0x4E_CNz_Rotating_Mesh:									   ; Offset_0x029B5E
-		include "data\objects\obj_0x4E.asm"
+		include "objects\obj_0x4E.asm"
 Obj_0x50_MGz_Vertical_Pole:									   ; Offset_0x029F86
-		include "data\objects\obj_0x50.asm"
+		include "objects\obj_0x50.asm"
 Obj_0x53_MGz_Swinging_Platform:								   ; Offset_0x02A224
-		include "data\objects\obj_0x53.asm"
+		include "objects\obj_0x53.asm"
 Obj_0x58_MGz_Swinging_Spiked_Ball:							   ; Offset_0x02A390
-		include "data\objects\obj_0x58.asm"
+		include "objects\obj_0x58.asm"
 Obj_0x55_MGz_Head_Trigger:									   ; Offset_0x02A5BC
-		include "data\objects\obj_0x55.asm"
+		include "objects\obj_0x55.asm"
 ; Obj_0x57_MGz_Trigger_Platform:							   ; Offset_0x02A884
-		include "data\objects\obj_0x57.asm"
+		include "objects\obj_0x57.asm"
 Obj_0x56_MGz_Moving_Spike_Platform:							   ; Offset_0x02AA8A
-		include "data\objects\obj_0x56.asm"
+		include "objects\obj_0x56.asm"
 Obj_0x5A_MGz_Pulley:										   ; Offset_0x02ACD8
-		include "data\objects\obj_0x5A.asm"
+		include "objects\obj_0x5A.asm"
 Obj_0x5B_MGz_Blue_Spinning_Platform:						   ; Offset_0x02B19A
-		include "data\objects\obj_0x5B.asm"
+		include "objects\obj_0x5B.asm"
 Obj_0x5C_MGz_Blue_Platform_Launcher:						   ; Offset_0x02BED2
-		include "data\objects\obj_0x5C.asm"
+		include "objects\obj_0x5C.asm"
 Obj_0x5E_CGz_Blade_Platform:								   ; Offset_0x02BFBE
-		include "data\objects\obj_0x5E.asm"
+		include "objects\obj_0x5E.asm"
 Obj_0x60_BPz_Elephant_Block:								   ; Offset_0x02C13C
-		include "data\objects\obj_0x60.asm"
+		include "objects\obj_0x60.asm"
 Obj_0x61_BPz_Balloon:										   ; Offset_0x02C2C4
-		include "data\objects\obj_0x61.asm"
+		include "objects\obj_0x61.asm"
 Obj_0x62_DPz_Dissolving_Sand_Bar:							   ; Offset_0x02C47E
-		include "data\objects\obj_0x62.asm"
+		include "objects\obj_0x62.asm"
 Obj_0x63_DPz_Button:										   ; Offset_0x02C7E6
-		include "data\objects\obj_0x63.asm"
+		include "objects\obj_0x63.asm"
 Obj_0x64_Bubble_Container:									   ; Offset_0x02C8A8
-		include "data\objects\obj_0x64.asm"
+		include "objects\obj_0x64.asm"
 Obj_0x65_Goal_Marker:										   ; Offset_0x02D124
-		include "data\objects\obj_0x65.asm"
+		include "objects\obj_0x65.asm"
 Obj_0x66_EMz_Dripper:										   ; Offset_0x02DF26
-		include "data\objects\obj_0x66.asm"
+		include "objects\obj_0x66.asm"
 Obj_0x6E_Hz_Waterfall:										   ; Offset_0x02E0A8
-		include	"data\objects\obj_0x6E.asm"
+		include	"objects\obj_0x6E.asm"
 Obj_0x6D_Hz_Water_Splash:									   ; Offset_0x02E22E
-		include "data\objects\obj_0x6D.asm"
+		include "objects\obj_0x6D.asm"
 Obj_0x6C_Bridge:											   ; Offset_0x02E504
-		include "data\objects\obj_0x6C.asm"
+		include "objects\obj_0x6C.asm"
 ; Obj_0x69_Hz_Curved_Twisting_Pipe:							   ; Offset_0x02EEEA
-		include "data\objects\obj_0x69.asm"
+		include "objects\obj_0x69.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to setup level tile drawing routines
@@ -27443,7 +27443,7 @@ Offset_0x0311BA:
 		rts
 ; ---------------------------------------------------------------------------
 Obj_AIz_Battle_Ship:										   ; Offset_0x0311BC
-		include "data\objects\aiz_bshp.asm"
+		include "objects\aiz_bshp.asm"
 ; ---------------------------------------------------------------------------
 AIz_2_Background_Deform_Array:								   ; Offset_0x0315CC
 		dc.b	$00, $10, $00, $20, $00, $38, $00, $58
@@ -28575,7 +28575,7 @@ Offset_0x0325BA:
 		rts
 ; ---------------------------------------------------------------------------
 Obj_Earthquake_Tiles_Attributes:							   ; Offset_0x0325CE
-		include "data\objects\earthqka.asm"
+		include "objects\earthqka.asm"
 ; ---------------------------------------------------------------------------
 MGz_Quake_Array:											   ; Offset_0x032606
 		dc.w	$0780, $07C0, $0580, $0600, $05A0, $07E0, $31C0, $3200
@@ -28914,7 +28914,7 @@ Offset_0x032A66:
 ; ---------------------------------------------------------------------------
 ; Obj_MGz_2_Move_Bg_Knuckles_Path:							   ; Offset_0x032A6A
 ; Obj_MGz_2_Move_Bg_Sonic_Path:								   ; Offset_0x032A7E
-		include "data\objects\mgz_mvbg.asm"
+		include "objects\mgz_mvbg.asm"
 ; ---------------------------------------------------------------------------
 MGz_2_Draw_Array:											   ; Offset_0x032B2E
 		dc.w	$0200, $7FFF
@@ -29942,7 +29942,7 @@ Offset_0x033698:
 		rts
 ; ---------------------------------------------------------------------------
 Obj_LBz_1_Invisible_Block:									   ; Offset_0x0336A6
-		include "data\objects\invblock.asm"
+		include "objects\invblock.asm"
 ; ---------------------------------------------------------------------------
 LBz_1_Vertical_Scroll_Array:								   ; Offset_0x0336DE
 		dc.w	$3B60, $0010, $0010, $0010, $0010, $0010, $0010, $0010
@@ -31467,9 +31467,9 @@ Offset_0x034B84:
 		rts
 ; ---------------------------------------------------------------------------
 ; Offset_0x034BAA: Obj_0xC7_Knuckles: ObjC7_CutsceneKnuckles:
-		include	"data/objects/C7 - Knuckles in Cutscenes.asm"
+		include	"objects\C7 - Knuckles in Cutscenes.asm"
 Obj_0xC9_Knuckles_Switch:									   ; Offset_0x035484
-		include "data\objects\obj_0xC9.asm"
+		include "objects\obj_0xC9.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object CA - Final AIZ Intro with Super Sonic (unused)
@@ -32455,13 +32455,13 @@ LBz_Robotnik_Ship_Data_2: ; Egg Mobile						   ; Offset_0x03659E
 RobotnikHead_AnimateData:	dc.b	5, 0, 1, $FC
 ;===============================================================================
 Obj_0x80_AIz_Fire_Breath:									   ; Offset_0x0365AA
-		include "data\objects\obj_0x80.asm"
+		include "objects\obj_0x80.asm"
 Obj_0xAC_AIz_Fire_Breath:									   ; Offset_0x036AB4
-		include "data\objects\obj_0xAC.asm"
+		include "objects\obj_0xAC.asm"
 Obj_0xA9_AIz_Flame_Mobile:									   ; Offset_0x0371FA
-		include "data\objects\obj_0xA9.asm"
+		include "objects\obj_0xA9.asm"
 Obj_0xAD_Hz_Big_Shaker:										   ; Offset_0x037E2C
-		include "data\objects\obj_0xAD.asm"
+		include "objects\obj_0xAD.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object B5 - Screw Mobile (Egg Vortex)
@@ -33617,31 +33617,31 @@ Pal_Hz_Boss:							; Offset_0x039900
 		dc.w	$0000, $0EEE, $0000, $0000, $0000, $00EE, $0088, $0000
 		dc.w	$008E, $004E, $0006, $0020, $0E84, $0A24, $0624, $0044
 Obj_0xAF_MGz_Drill_Mobile:									   ; Offset_0x039920
-		include "data\objects\obj_0xAF.asm"
+		include "objects\obj_0xAF.asm"
 Obj_0xB0_MGz_Drill_Mobile:									   ; Offset_0x039C7E
-		include "data\objects\obj_0xB0.asm"
+		include "objects\obj_0xB0.asm"
 Obj_0xB1_MGz_Drill_Mobile:									   ; Offset_0x039F9E
-		include "data\objects\obj_0xB1.asm"
+		include "objects\obj_0xB1.asm"
 Obj_0x8E_CNz_Bowling_Spin:									   ; Offset_0x03B01A
-		include "data\objects\obj_0x8E.asm"
+		include "objects\obj_0x8E.asm"
 Obj_0x8D_CNz_Graviton_Mobile:								   ; Offset_0x03B9A0
-		include "data\objects\obj_0x8D.asm"
+		include "objects\obj_0x8D.asm"
 Obj_0x8F_FBz_Gapsule:										   ; Offset_0x03C27C
-		include "data\objects\obj_0x8F.asm"
+		include "objects\obj_0x8F.asm"
 Obj_0xB6_Barrier_Eggman:									   ; Offset_0x03CE96
-		include "data\objects\obj_0xB6.asm"
+		include "objects\obj_0xB6.asm"
 Obj_0xB4_FBz_Hang_Mobile:									   ; Offset_0x03D4DE
-		include "data\objects\obj_0xB4.asm"
+		include "objects\obj_0xB4.asm"
 Obj_0xB3_Iz_Big_Icedus:										   ; Offset_0x03DCB0
-		include "data\objects\obj_0xB3.asm"
+		include "objects\obj_0xB3.asm"
 Obj_0xB2_Iz_Freezer_Mobile:									   ; Offset_0x03E48C
-		include "data\objects\obj_0xB2.asm"
+		include "objects\obj_0xB2.asm"
 Obj_0x85_LBz_Twin_Hammer:									   ; Offset_0x03EC12
-		include "data\objects\obj_0x85.asm"
+		include "objects\obj_0x85.asm"
 Obj_0x86_LBz_Beam_Rocket:									   ; Offset_0x03F11A
-		include "data\objects\obj_0x86.asm"
+		include "objects\obj_0x86.asm"
 Obj_0x8C_LBz_Ball_Shooter:									   ; Offset_0x03FE88
-		include "data\objects\obj_0x8C.asm"
+		include "objects\obj_0x8C.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 84 - Hey Ho (Mushroom Valley Miniboss)
@@ -34154,7 +34154,7 @@ Offset_0x041070:
 		dc.w	$FC09, $00A7, $FFF4
 
 Obj_0x98_Sz_Guardian:										   ; Offset_0x04107E
-		include "data\objects\obj_0x98.asm"
+		include "objects\obj_0x98.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object C5 - Hidden Moniters
@@ -34203,7 +34203,7 @@ HiddenMonitor_ObjData:
 		objdata	$180, $E, $10, 0, 0, $4C4, Monitors_Mappings
 
 Obj_End_Panel:												   ; Offset_0x041812
-		include "data\objects\endpanel.asm"
+		include "objects\endpanel.asm"
 ;===============================================================================
 After_Boss_Clean_Up:										   ; Offset_0x041ACA
 		moveq	#0,d0
@@ -34323,7 +34323,7 @@ PLC_AB_05:
 PLC_AB_05_End:
 ;===============================================================================
 Obj_Explosions:												   ; Offset_0x041BCA
-		include "data\objects\explosns.asm"
+		include "objects\explosns.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to setup an object's graphics, size,and collision using
@@ -36742,7 +36742,7 @@ Offset_0x043482:
 		dc.w	$0000
 ;===============================================================================
 Obj_0xC6_Egg_Prison:										   ; Offset_0x043490
-		include "data\objects\obj_0xC6.asm"
+		include "objects\obj_0xC6.asm"
 ;===============================================================================
 Object_Settings_Check_X_Y:									   ; Offset_0x043B1E
 		movea.l	Obj_Control_Var_0E(A0),a1						; $003E
@@ -36756,49 +36756,49 @@ Offset_0x043B32:
 		jmp	(Delete_Sprite_Clear_Respaw_Flag_Check_X_Y).l ; Offset_0x042B96
 ;===============================================================================
 Obj_0x81_AIz_Bloominator:									   ; Offset_0x043B3E
-		include "data\objects\obj_0x81.asm"
+		include "objects\obj_0x81.asm"
 Obj_0x82_AIz_Rhinobot:										   ; Offset_0x043C2A
-		include "data\objects\obj_0x82.asm"
+		include "objects\obj_0x82.asm"
 Obj_0x83_AIz_Monkey_Dude:									   ; Offset_0x043F1C
-		include "data\objects\obj_0x83.asm"
+		include "objects\obj_0x83.asm"
 Obj_0x9F_AIz_Catakiller_Jr:									   ; Offset_0x044490
-		include "data\objects\obj_0x9F.asm"
+		include "objects\obj_0x9F.asm"
 Obj_0x99_Hz_Jawz:											   ; Offset_0x04465C
-		include "data\objects\obj_0x99.asm"
+		include "objects\obj_0x99.asm"
 Obj_0x9A_Hz_Blastoid:										   ; Offset_0x0446D0
-		include "data\objects\obj_0x9A.asm"
+		include "objects\obj_0x9A.asm"
 Obj_0x9B_Hz_Buggernaut:										   ; Offset_0x0447A6
-		include "data\objects\obj_0x9B.asm"
+		include "objects\obj_0x9B.asm"
 Obj_0x9C_Hz_Turbo_Spiker:									   ; Offset_0x044946
-		include "data\objects\obj_0x9C.asm"
+		include "objects\obj_0x9C.asm"
 Obj_0x9D_Hz_Mega_Chopper:									   ; Offset_0x044CC8
-		include "data\objects\obj_0x9D.asm"
+		include "objects\obj_0x9D.asm"
 Obj_0x9E_Hz_Pointdexter:									   ; Offset_0x044F90
-		include "data\objects\obj_0x9E.asm"
+		include "objects\obj_0x9E.asm"
 Obj_0xA3_MGz_Bubbles:										   ; Offset_0x04504A
-		include "data\objects\obj_0xA3.asm"
+		include "objects\obj_0xA3.asm"
 Obj_0xA4_MGz_Tunnelbot:										   ; Offset_0x04515C
-		include "data\objects\obj_0xA4.asm"
+		include "objects\obj_0xA4.asm"
 Obj_0xC4_MGz_Tunnelbot:										   ; Offset_0x045262
-		include "data\objects\obj_0xC4.asm"
+		include "objects\obj_0xC4.asm"
 Obj_0xA5_MGz_Spiker:										   ; Offset_0x045864
-		include "data\objects\obj_0xA5.asm"
+		include "objects\obj_0xA5.asm"
 Obj_0xA6_MGz_Mantis:										   ; Offset_0x045B26
-		include "data\objects\obj_0xA6.asm"
+		include "objects\obj_0xA6.asm"
 Obj_0xA0_CNz_Clamer:										   ; Offset_0x045C7A
-		include "data\objects\obj_0xA0.asm"
+		include "objects\obj_0xA0.asm"
 Obj_0xA1_CNz_Sparkle:										   ; Offset_0x045E4A
-		include "data\objects\obj_0xA1.asm"
+		include "objects\obj_0xA1.asm"
 Obj_0xA2_CNz_Batbot:										   ; Offset_0x046004
-		include "data\objects\obj_0xA2.asm"
+		include "objects\obj_0xA2.asm"
 Obj_0xA7_FBz_Blaster:										   ; Offset_0x04611C
-		include "data\objects\obj_0xA7.asm"
+		include "objects\obj_0xA7.asm"
 Obj_0xA8_FBz_Techno_Squeek:									   ; Offset_0x046392
-		include "data\objects\obj_0xA8.asm"
+		include "objects\obj_0xA8.asm"
 Obj_0xB9_Iz_Platform:										   ; Offset_0x04663E
-		include "data\objects\obj_0xB9.asm"
+		include "objects\obj_0xB9.asm"
 ; Obj_0xBA_Iz_Breakable_Wall:								   ; Offset_0x04694C
-		include "data\objects\obj_0xBA.asm"
+		include "objects\obj_0xBA.asm"
 ; ---------------------------------------------------------------------------
 ; Rotinas usada pelo objeto 0xB9
 ; ->>>
@@ -36821,7 +36821,7 @@ Offset_0x0469FA:
 ; <<<-
 ; ---------------------------------------------------------------------------
 Obj_0xC8_Iz_Trampoline_Support:								   ; Offset_0x046A00
-		include "data\objects\obj_0xC8.asm"
+		include "objects\obj_0xC8.asm"
 ; ---------------------------------------------------------------------------
 ; Rotinas usada pelo objeto 0xB9
 ; ->>>
@@ -36947,53 +36947,53 @@ Offset_0x046B08: ; Usado pelo objeto 0xBA
 ; <<<-
 ; ---------------------------------------------------------------------------
 Obj_0xB8_Iz_Crushing_Column:								   ; Offset_0x046B0E
-		include "data\objects\obj_0xB8.asm"
+		include "objects\obj_0xB8.asm"
 Obj_0xBB_Iz_Freezer:										   ; Offset_0x046CF2
-		include "data\objects\obj_0xBB.asm"
+		include "objects\obj_0xBB.asm"
 Obj_0xBC_Iz_Segmented_Column:								   ; Offset_0x04719E
-		include "data\objects\obj_0xBC.asm"
+		include "objects\obj_0xBC.asm"
 Obj_0xBD_Iz_Swinging_Platform:								   ; Offset_0x047336
-		include "data\objects\obj_0xBD.asm"
+		include "objects\obj_0xBD.asm"
 Obj_0xBE_Iz_Stalactite:										   ; Offset_0x0477C6
-		include "data\objects\obj_0xBE.asm"
+		include "objects\obj_0xBE.asm"
 Obj_0xC0_Iz_Ice_Spikes:										   ; Offset_0x0478D2
-		include "data\objects\obj_0xC0.asm"
+		include "objects\obj_0xC0.asm"
 Obj_0xBF_Iz_Ice_Cube:										   ; Offset_0x04798A
-		include "data\objects\obj_0xBF.asm"
+		include "objects\obj_0xBF.asm"
 Obj_0xC1_Iz_Ice_Spiked_Ball:								   ; Offset_0x047AD0
-		include "data\objects\obj_0xC1.asm"
+		include "objects\obj_0xC1.asm"
 Obj_0xC2_Iz_Snow_Pile:										   ; Offset_0x047B4E
-		include "data\objects\obj_0xC2.asm"
+		include "objects\obj_0xC2.asm"
 Obj_0xC3_Iz_Trampoline:										   ; Offset_0x047D46
-		include "data\objects\obj_0xC3.asm"
+		include "objects\obj_0xC3.asm"
 Obj_0xAA_Iz_Penguinator:									   ; Offset_0x047F8A
-		include "data\objects\obj_0xAA.asm"
+		include "objects\obj_0xAA.asm"
 Obj_0xAB_Iz_Star_Pointer:									   ; Offset_0x0482D2
-		include "data\objects\obj_0xAB.asm"
+		include "objects\obj_0xAB.asm"
 Obj_0x87_LBz_Snale_Blaster:									   ; Offset_0x048436
-		include "data\objects\obj_0x87.asm"
+		include "objects\obj_0x87.asm"
 Obj_0x88_LBz_Ribot:											   ; Offset_0x048756
-		include "data\objects\obj_0x88.asm"
+		include "objects\obj_0x88.asm"
 Obj_0x89_LBz_Orbinaut:										   ; Offset_0x048A94
-		include "data\objects\obj_0x89.asm"
+		include "objects\obj_0x89.asm"
 Obj_0x8A_LBz_Corkey:										   ; Offset_0x048BCE
-		include "data\objects\obj_0x8A.asm"
+		include "objects\obj_0x8A.asm"
 Obj_0x8B_LBz_Flybot_767:									   ; Offset_0x048DF8
-		include "data\objects\obj_0x8B.asm"
+		include "objects\obj_0x8B.asm"
 Obj_0xAE_LBz_Robotnik:										   ; Offset_0x048FAC
-		include "data\objects\obj_0xAE.asm"
+		include "objects\obj_0xAE.asm"
 Obj_0xB7_LBz_Egg_Mobile:									   ; Offset_0x0493CC
-		include "data\objects\obj_0xB7.asm"
+		include "objects\obj_0xB7.asm"
 Obj_0x93_MVz_Madmole:										   ; Offset_0x0495CC
-		include "data\objects\obj_0x93.asm"
+		include "objects\obj_0x93.asm"
 Obj_0x94_MVz_Mushmeanie:									   ; Offset_0x0499BC
-		include "data\objects\obj_0x94.asm"
+		include "objects\obj_0x94.asm"
 Obj_0x95_MVz_Dragonfly:										   ; Offset_0x049B24
-		include "data\objects\obj_0x95.asm"
+		include "objects\obj_0x95.asm"
 Obj_0x96_MVz_Butterdroid:									   ; Offset_0x049DCA
-		include "data\objects\obj_0x96.asm"
+		include "objects\obj_0x96.asm"
 Obj_0x97_MVz_Cluckoid:										   ; Offset_0x049E50
-		include "data\objects\obj_0x97.asm"
+		include "objects\obj_0x97.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 90 - Fireworm (from LRZ)
@@ -37294,10 +37294,9 @@ Offset_0x04A296:
 		dc.b	$03, $04, $04, $05, $06, $F4
 
 Obj_0x91_LRz_Iwamodock:										   ; Offset_0x04A29C
-		include "data\objects\obj_0x91.asm"
+		include "objects\obj_0x91.asm"
 Obj_0x92_LRz_Toxomister:									   ; Offset_0x04A400
-		include "data\objects\obj_0x92.asm"
-
+		include "objects\obj_0x92.asm"
 ;===============================================================================
 ; Carga dos gr�ficos das fases
 ; Cada fase usa seis grupos de LongWord sendo que o primeiro byte dos dois
