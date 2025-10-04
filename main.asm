@@ -672,7 +672,7 @@ Offset_0x00071E:
 		move.w	#bytesToWcnt($40),d1
 Offset_0x00073E:
 		move.w	D0,(A6)
-		dbf	D1, Offset_0x00073E
+		dbf	D1,Offset_0x00073E
 		move.l	#$C0420000,(VDP_Control_Port).l				; $00C00004
 	if FixBugs
 		move.w	#bytesToWcnt($3E),d1
@@ -681,7 +681,7 @@ Offset_0x00073E:
 	endif
 Offset_0x000752:
 		move.w	D0,(A6)
-		dbf	D1, Offset_0x000752
+		dbf	D1,Offset_0x000752
 		bra.s	Offset_0x0007AA
 Offset_0x00075A:
 		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
@@ -1647,7 +1647,7 @@ NemesisDec_3:												   ; Offset_0x00141C
 		moveq	#0,d4
 		moveq	#8,d3
 Offset_0x001420:
-		dbf	D0, NemesisDec_Loop_SubType			   ; Offset_0x001412
+		dbf	D0,NemesisDec_Loop_SubType			   ; Offset_0x001412
 		bra.s	NemesisDec_2
 ; ---------------------------------------------------------------------------
 Offset_0x001426:
@@ -1738,7 +1738,7 @@ Offset_0x0014B8:
 Offset_0x0014C4:
 		move.w	D7,(A1,d0.w)
 		addq.w	#2,d0
-		dbf	D5, Offset_0x0014C4
+		dbf	D5,Offset_0x0014C4
 		bra.s	Offset_0x00148A
 ;===============================================================================
 ; Rotina de descompress�o no formato Nemesis
@@ -2235,7 +2235,7 @@ KosinskiDec:												   ; Offset_0x001808
 Offset_0x001814:
 		lsr.w	#1,D5
 		move	SR,D6
-		dbf	D4, Offset_0x001826
+		dbf	D4,Offset_0x001826
 		move.b	(A0)+,1(sp)
 		move.b	(A0)+,(sp)
 		move.w	(sp),D5
@@ -3658,7 +3658,7 @@ Pal_FadeOut:												   ; Offset_0x002E08
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002E18:
 		bsr.s	Pal_DecColor						   ; Offset_0x002E36
-		dbf	D0, Offset_0x002E18
+		dbf	D0,Offset_0x002E18
 		moveq	#0,d0
 		lea	(Palette_Underwater_Buffer).w,a0			; $FFFFF080
 		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
@@ -3666,7 +3666,7 @@ Offset_0x002E18:
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002E2E:
 		bsr.s	Pal_DecColor						   ; Offset_0x002E36
-		dbf	D0, Offset_0x002E2E
+		dbf	D0,Offset_0x002E2E
 		rts
 Pal_DecColor:												   ; Offset_0x002E36
 		move.w	(A0),d2
@@ -3703,14 +3703,14 @@ Pal_MakeWhite: ; Usado pelo Special Stage					   ; Offset_0x002E66
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002E80:
 		move.w	D1,(A0)+
-		dbf	D0, Offset_0x002E80
+		dbf	D0,Offset_0x002E80
 		move.w	#$15,d4
 Offset_0x002E8A:
 		move.b	#$12,(VBlank_Index).w						; $FFFFF62A
 		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
 		bsr.s	Pal_WhiteToBlack					   ; Offset_0x002EA0
 		bsr.w	RunPLC_RAM								   ; Offset_0x001556
-		dbf	D4, Offset_0x002E8A
+		dbf	D4,Offset_0x002E8A
 		rts
 ; ---------------------------------------------------------------------------
 Pal_WhiteToBlack:											   ; Offset_0x002EA0
@@ -3723,7 +3723,7 @@ Pal_WhiteToBlack:											   ; Offset_0x002EA0
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002EB6:
 		bsr.s	Pal_DecColor_2						   ; Offset_0x002EE0
-		dbf	D0, Offset_0x002EB6
+		dbf	D0,Offset_0x002EB6
 		tst.b	(Water_Level_Flag).w						 ; $FFFFF730
 		beq.s	Offset_0x002EDE
 		moveq	#0,d0
@@ -3735,7 +3735,7 @@ Offset_0x002EB6:
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002ED8:
 		bsr.s	Pal_DecColor_2						   ; Offset_0x002EE0
-		dbf	D0, Offset_0x002ED8
+		dbf	D0,Offset_0x002ED8
 Offset_0x002EDE:
 		rts
 ; ---------------------------------------------------------------------------
@@ -3775,7 +3775,7 @@ Offset_0x002F1A:
 		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
 		bsr.s	Pal_ToWhite							   ; Offset_0x002F30
 		bsr.w	RunPLC_RAM								   ; Offset_0x001556
-		dbf	D4, Offset_0x002F1A
+		dbf	D4,Offset_0x002F1A
 		rts
 Pal_ToWhite:												   ; Offset_0x002F30
 		moveq	#0,d0
@@ -3785,7 +3785,7 @@ Pal_ToWhite:												   ; Offset_0x002F30
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002F40:
 		bsr.s	Pal_AddColor_2						   ; Offset_0x002F5E
-		dbf	D0, Offset_0x002F40
+		dbf	D0,Offset_0x002F40
 		moveq	#0,d0
 		lea	(Palette_Underwater_Buffer).w,a0			; $FFFFF080
 		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
@@ -3793,7 +3793,7 @@ Offset_0x002F40:
 		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
 Offset_0x002F56:
 		bsr.s	Pal_AddColor_2						   ; Offset_0x002F5E
-		dbf	D0, Offset_0x002F56
+		dbf	D0,Offset_0x002F56
 		rts
 Pal_AddColor_2:												   ; Offset_0x002F5E
 		move.w	(A0),d2
@@ -4089,7 +4089,7 @@ TitleScreen:
 
 Offset_0x0032EE:
 		move.l	(a0)+,(a1)+
-		dbf	D0, Offset_0x0032EE
+		dbf	D0,Offset_0x0032EE
 		lea	(RAM_Start+$4000).l,a1
 		moveq	#0,d0
 		move.w	#bytesToLcnt($1400),d1
@@ -4339,7 +4339,7 @@ Offset_0x0035B4:
 		moveq	#bytesToLcnt($20),d0
 Offset_0x0035BE:
 		move.l	(A0)+,(A1)+
-		dbf	D0, Offset_0x0035BE
+		dbf	D0,Offset_0x0035BE
 		eori.b	#-1,(Title_Screen_Animate_Buffer).w		   ; $FFFFFFBC
 		tst.b	(Title_Screen_Animate_Buffer).w				 ; $FFFFFFBC
 		beq.s	Offset_0x0035DA
@@ -5440,7 +5440,7 @@ Offset_0x00432E:
 		move.b	#0,$4D(A1)
 		move.b	#0,$4E(A1)
 		addq.w	#4,a3
-		dbf	D1, Offset_0x00432E
+		dbf	D1,Offset_0x00432E
 		move.w	#$618,(Target_Water_Level).w			   ; $FFFFF64A
 Offset_0x004348:
 		rts
@@ -5591,7 +5591,7 @@ Offset_0x004490:
 		rts
 Offset_0x004492:
 		adda.w	#$E,a2
-		dbf	D2, Offset_0x0043F6
+		dbf	D2,Offset_0x0043F6
 		tst.b	(A3)
 		beq.s	Offset_0x0044A6
 		move.b	#$1A,Obj_Ani_Number(A1)							; $0020
@@ -6514,7 +6514,7 @@ Offset_0x0053F2:
 Offset_0x005466:
 		move.l	(A1),(A2)+
 		clr.l	(A1)+
-		dbf	D1, Offset_0x005466
+		dbf	D1,Offset_0x005466
 		move.w	#(30*60)-1,(Demo_Timer).w						; $FFFFF614
 		clr.w	(Two_Player_Flag).w							 ; $FFFFFFD8
 		clr.l	(Camera_X).w								 ; $FFFFEE78
@@ -6631,7 +6631,7 @@ Offset_0x0055C6:
 		moveq	#bytesToLcnt(Palette_Row_3_Offset-Palette_Row_2_Offset),d1
 Offset_0x0055F8:
 		move.l	(A1)+,(A2)+
-		dbf	D1, Offset_0x0055F8
+		dbf	D1,Offset_0x0055F8
 		rts
 Offset_0x005600:
 		moveq	#0,d0
@@ -7790,7 +7790,7 @@ SS_AllocateObject:
 Offset_0x0067E0:
 		lea	Obj_Size(A1),a1									; $004A
 		tst.l	(A1)
-		dbeq	D0, Offset_0x0067E0
+		dbeq	D0,Offset_0x0067E0
 Offset_0x0067EA:
 		rts
 ; ---------------------------------------------------------------------------
@@ -7844,7 +7844,7 @@ Special_Stage_Test_2:										   ; Offset_0x0070DC
 		move.w	#bytesToWcnt(Palette_Data_Target_End-Palette_Data_Target),d0
 Offset_0x00716C:
 		move.w	(A1)+,(A2)+
-		dbf	D0, Offset_0x00716C
+		dbf	D0,Offset_0x00716C
 		move.l	#$40000002,(VDP_Control_Port)				; $00C00004
 		lea	(Art_Scaled_Spheres).l,a0				; Offset_0x10B68E
 		bsr.w	NemesisDec							   ; Offset_0x001390
@@ -8265,13 +8265,13 @@ Offset_0x007DFA:
 		lea	(A1,d0.w),a3
 Offset_0x007E0A:
 		move.l	(A3)+,(A6)
-		dbf	D1, Offset_0x007E0A
+		dbf	D1,Offset_0x007E0A
 Offset_0x007E10:
-		dbf	D2, Offset_0x007DFA
+		dbf	D2,Offset_0x007DFA
 		rts
 Offset_0x007E16:
 		move.l	#0,(A6)
-		dbf	D1, Offset_0x007E16
+		dbf	D1,Offset_0x007E16
 		bra.s	Offset_0x007E10
 Offset_0x007E22:
 		bsr.w	HUD_Lives_P2						   ; Offset_0x008040
@@ -8316,7 +8316,7 @@ Offset_0x007E84:
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
 		swap	D1
-		dbf	D6, Offset_0x007E72
+		dbf	D6,Offset_0x007E72
 		rts
 ; ---------------------------------------------------------------------------
 HUD_Draw_Three_Digit_Number:								   ; Offset_0x007EA2
@@ -8367,7 +8367,7 @@ Offset_0x007ED0:
 		move.l	(A3)+,(A6)
 Offset_0x007EFE:
 		addi.l	#$400000,d0
-		dbf	D6, Offset_0x007EBA
+		dbf	D6,Offset_0x007EBA
 		rts
 ; ---------------------------------------------------------------------------
 Timer_Count_Down:											   ; Offset_0x007F0A
@@ -8405,7 +8405,7 @@ Offset_0x007F34:
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
-		dbf	D6, Offset_0x007F28
+		dbf	D6,Offset_0x007F28
 		rts
 ; ---------------------------------------------------------------------------
 HUD_Val_100000:												   ; Offset_0x007F62
@@ -8466,7 +8466,7 @@ Offset_0x007FA8:
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
 		addi.l	#$400000,d0
-		dbf	D6, Offset_0x007F92
+		dbf	D6,Offset_0x007F92
 		rts
 ; ---------------------------------------------------------------------------
 S2_HUD_Level_Results:
@@ -8510,13 +8510,13 @@ Offset_0x008002:
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
 Offset_0x00802C:
-		dbf	D6, Offset_0x007FEC
+		dbf	D6,Offset_0x007FEC
 		rts
 Offset_0x008032:
 		moveq	#$F,d5
 Offset_0x008034:
 		move.l	#0,(A6)
-		dbf	D5, Offset_0x008034
+		dbf	D5,Offset_0x008034
 		bra.s	Offset_0x00802C
 ; ---------------------------------------------------------------------------
 HUD_Lives_P2:												   ; Offset_0x008040
@@ -8564,7 +8564,7 @@ Offset_0x008086:
 		move.l	(A3)+,(A6)
 Offset_0x00809C:
 		addi.l	#$400000,d0
-		dbf	D6, Offset_0x008068
+		dbf	D6,Offset_0x008068
 		rts
 Offset_0x0080A8:
 		tst.w	D6
@@ -8572,7 +8572,7 @@ Offset_0x0080A8:
 		moveq	#7,d5
 Offset_0x0080AE:
 		move.l	#0,(A6)
-		dbf	D5, Offset_0x0080AE
+		dbf	D5,Offset_0x0080AE
 		bra.s	Offset_0x00809C
 ; ---------------------------------------------------------------------------
 HUD_Art_Numbers:											   ; Offset_0x0080BA
@@ -8647,7 +8647,7 @@ Offset_0x008834:
 		clr.w	-2(A2)
 		subq.w	#1,(Ring_Consumption_Table).w			  ; $FFFFEF80
 Offset_0x00885A:
-		dbf	D1, Offset_0x008834
+		dbf	D1,Offset_0x008834
 Offset_0x00885E:
 		movea.l	(Ring_Start_Offset_Ptr).w,a1				; $FFFFEE44
 		movea.w	(Ring_Offset_Ptr).w,a2						; $FFFFEE4C
@@ -8782,7 +8782,7 @@ Load_Rings_Layout:											   ; Offset_0x008966
 		moveq	#bytesToLcnt(Ring_Consumption_Table_End-Ring_Consumption_Table),d1
 Offset_0x00897C:
 		move.l	D0,(A1)+
-		dbf	D1, Offset_0x00897C
+		dbf	D1,Offset_0x00897C
 		move.w	(Current_ZoneAndAct).w,d0							  ; $FFFFFE10
 		ror.b	#1,d0
 		lsr.w	#5,d0
@@ -15662,7 +15662,7 @@ Offset_0x01107C:
 		move.b	D1,3(A0)
 		addq.w	#1,d1
 		addq.w	#8,a0
-		dbf	D7, Offset_0x01107C
+		dbf	D7,Offset_0x01107C
 		move.b	D0,-5(A0)
 		rts
 Offset_0x011090:
@@ -23758,7 +23758,7 @@ Offset_0x01E9BE:
 		lea	$200(A4),a4
 		move.l	(A0),(A4)
 		lea	-$1FC(A4),a4
-		dbf	D1, Offset_0x01E9BE
+		dbf	D1,Offset_0x01E9BE
 		move.l	#RAM_Start+$7C00,d1					   ; $FFFF7C00
 		move.w	#$5100,d2
 		move.w	#$200,d3
@@ -23800,7 +23800,7 @@ Offset_0x01EA46:
 		lea	$200(A4),a4
 		move.l	(A0),(A4)
 		lea	-$1FC(A4),a4
-		dbf	D1, Offset_0x01EA46
+		dbf	D1,Offset_0x01EA46
 		move.l	#RAM_Start+$7C00,d1				   ; $FFFF7C00
 		move.w	#$4D00,d2
 		move.w	#$200,d3
@@ -24275,7 +24275,7 @@ Offset_0x01F002:
 		lea	$100(A4),a4
 		move.l	(A0),(A4)
 		lea	-$FC(A4),a4
-		dbf	D1, Offset_0x01F002
+		dbf	D1,Offset_0x01F002
 		move.l	#RAM_Start+$7E00,d1				   ; $FFFF7E00
 		move.w	#$5900,d2
 		move.w	#$100,d3
@@ -24307,7 +24307,7 @@ Offset_0x01F068:
 		lea	$100(A4),a4
 		move.l	(A0),(A4)
 		lea	-$FC(A4),a4
-		dbf	D1, Offset_0x01F068
+		dbf	D1,Offset_0x01F068
 		move.l	#RAM_Start+$7E00,d1				   ; $FFFF7E00
 		move.w	#$5B00,d2
 		move.w	#$100,d3
@@ -24556,7 +24556,7 @@ Offset_0x01F334:
 		andi.w	#$FE,d0
 		lea	8(A2,d0.w),a2
 		addq.w	#2,a3
-		dbf	D6, Offset_0x01F2E4
+		dbf	D6,Offset_0x01F2E4
 		rts
 ; ---------------------------------------------------------------------------
 ; Script de anima��o das sprites para a Angel Island
@@ -25107,7 +25107,7 @@ Offset_0x02224E:
 		move.b	D0,Obj_Map_Id(A1)					; $0022
 		move.b	D2,Obj_Control_Var_04(A1)				; $0034
 		add.b	D3,d2
-		dbra	D6, Offset_0x022246
+		dbf	D6,Offset_0x022246
 Offset_0x02228C:
 		move.w	#0,Obj_Speed_X(A3)				; $0018
 		move.w	#0,Obj_Speed_Y(A3)				; $001A
@@ -25906,7 +25906,7 @@ Offset_0x024306:
 		move.w	#0,Obj_Speed_Y(A1)				; $001A
 		move.w	D2,Obj_Control_Var_04(A1)				; $0034
 		addi.w	#$40,d2
-		dbra	D1, Offset_0x024306
+		dbf	D1,Offset_0x024306
 Offset_0x024370:
 		rts
 ; ---------------------------------------------------------------------------
@@ -25947,7 +25947,7 @@ Offset_0x0243D0:
 		add.w	D1,d4
 Offset_0x0243D6:
 		asl.w	#1,d1
-		dbra	D5, Offset_0x0243D0
+		dbf	D5,Offset_0x0243D0
 		asr.w	#4,d4
 		add.w	D4,d0
 		addq.w	#1,Obj_Control_Var_06(A0)			; $0036
@@ -26693,7 +26693,7 @@ Offset_0x024F5A:
 		move.l	(A6)+,a1
 		move.w	(A6)+,d2
 		jsr	(Queue_Kos_Module).l				 ; Offset_0x0018A8
-		dbf	D6, Offset_0x024F5A
+		dbf	D6,Offset_0x024F5A
 Offset_0x024F68:
 		rts
 ; ---------------------------------------------------------------------------
@@ -27803,7 +27803,7 @@ Special_Vint_VScroll_Copy:									   ; Offset_0x02F6E6
 		moveq	#$13,d0
 Special_Vint_VScroll_Copy_Loop:								   ; Offset_0x02F6F4
 		move.l	(A0)+,(A6)
-		dbf	D0, Special_Vint_VScroll_Copy_Loop	   ; Offset_0x02F6F4
+		dbf	D0,Special_Vint_VScroll_Copy_Loop	   ; Offset_0x02F6F4
 		rts
 ;===============================================================================
 
@@ -27958,7 +27958,7 @@ Offset_0x02F86A:
 		and.w	(Level_Layout_Wrap_Row).w,d1				; $FFFFEEAE
 		bsr.s	Get_Level_Chunk_Column				   ; Offset_0x02F88A
 Offset_0x02F880:
-		dbf	D6, Offset_0x02F81E
+		dbf	D6,Offset_0x02F81E
 		swap	D7
 		clr.w	(A0)
 Offset_0x02F888:
@@ -28709,7 +28709,7 @@ Offset_0x02FED4:
 Offset_0x02FED6:
 		move.w	D3,(A1)+
 		move.w	D1,(A1)+
-		dbf	D0, Offset_0x02FED6
+		dbf	D0,Offset_0x02FED6
 		tst.w	D2
 		bmi.s	Offset_0x02FEF0
 		move.w	(A4)+,d0
@@ -28844,7 +28844,7 @@ Offset_0x02FFEA:
 		sub.w	D1,Obj_Y(A1)									; $0014
 Offset_0x02FFFE:
 		lea	Obj_Size(A1),a1									; $004A
-		dbf	D2, Offset_0x02FFEA
+		dbf	D2,Offset_0x02FFEA
 		rts
 ; ---------------------------------------------------------------------------
 Earthquake_Data:											   ; Offset_0x030008
@@ -29143,7 +29143,7 @@ Offset_0x030634:
 		addq.w	#1,d1
 		jsr	Offset_0x02FA26(PC)
 Offset_0x030644:
-		dbf	D6, Offset_0x0305E6
+		dbf	D6,Offset_0x0305E6
 		clr.w	(A0)
 		rts
 ; ---------------------------------------------------------------------------
@@ -29191,7 +29191,7 @@ AIz_1_Events_Init_2:										   ; Offset_0x0306F2
 		moveq	#9,d0
 Offset_0x030700:
 		clr.l	(A1)+
-		dbf	D0, Offset_0x030700
+		dbf	D0,Offset_0x030700
 		jsr	AIz_Intro_Deform(PC)				   ; Offset_0x0309F8
 		jsr	Reset_Tile_Offset_Position_Actual_2(PC) ; Offset_0x02FF0E
 		jsr	Refresh_Plane_Full(PC)				   ; Offset_0x02FA7C
@@ -29413,7 +29413,7 @@ Offset_0x030A08:
 		moveq	#$24,d1
 Offset_0x030A16:
 		move.w	D0,(A1)+
-		dbf	D1, Offset_0x030A16
+		dbf	D1,Offset_0x030A16
 		bra.s	Offset_0x030A3E
 Offset_0x030A1E:
 		move.w	D0,(A1)+
@@ -29429,7 +29429,7 @@ Offset_0x030A2E:
 		swap	D3
 		addi.w	#$580,d3
 		move.w	D3,(A1)+
-		dbf	D2, Offset_0x030A2E
+		dbf	D2,Offset_0x030A2E
 Offset_0x030A3E:
 		lea	(Horizontal_Scroll_Table+$28).w,a1		; $FFFFA828
 		lea	(Horizontal_Scroll_Table).w,a5				; $FFFFA800
@@ -29448,7 +29448,7 @@ Offset_0x030A58:
 		move.w	D1,(A5)
 		addq.w	#8,a1
 		addq.w	#4,a5
-		dbf	D0, Offset_0x030A52
+		dbf	D0,Offset_0x030A52
 		rts
 ; ---------------------------------------------------------------------------
 AIz_1_Deform:												   ; Offset_0x030A64
@@ -29498,7 +29498,7 @@ Offset_0x030AD4:
 		move.w	D0,-(A1)
 		swap	D0
 		add.l	D2,d0
-		dbf	D1, Offset_0x030AD4
+		dbf	D1,Offset_0x030AD4
 		lea	(Horizontal_Scroll_Table+$16).w,a1		; $FFFFA816
 		move.l	D2,d0
 		asr.l	#3,d2
@@ -29508,7 +29508,7 @@ Offset_0x030AEC:
 		swap	D0
 		move.w	D0,(A1)+
 		swap	D0
-		dbf	D1, Offset_0x030AEC
+		dbf	D1,Offset_0x030AEC
 		rts
 ; ---------------------------------------------------------------------------
 AIz_Apply_Deform_Water:										   ; Offset_0x030AFA
@@ -29586,7 +29586,7 @@ Offset_0x030BC6:
 		ext.w	D0
 		add.w	D1,d0
 		move.l	D0,(A1)+
-		dbf	D3, Offset_0x030BC6
+		dbf	D3,Offset_0x030BC6
 		rts
 ; ---------------------------------------------------------------------------
 AIz_Intro_Draw_Array:										   ; Offset_0x030BDC
@@ -29834,7 +29834,7 @@ Offset_0x030F46:
 		addq.w	#4,a1
 		move.w	D0,(A1)
 		addq.w	#4,a1
-		dbf	D1, Offset_0x030F46
+		dbf	D1,Offset_0x030F46
 		rts
 ; ---------------------------------------------------------------------------
 AIz_2_Background_Redraw:									   ; Offset_0x030F5C
@@ -29928,7 +29928,7 @@ Offset_0x031044:
 Offset_0x03104C:
 		move.b	(A5)+,d2
 		move.w	D0,(A1,d2.w)
-		dbf	D3, Offset_0x03104C
+		dbf	D3,Offset_0x03104C
 		swap	D0
 		add.l	D1,d0
 		bra.s	Offset_0x031044
@@ -30024,7 +30024,7 @@ Offset_0x03113C:
 		addq.w	#4,a1
 		move.w	D0,(A1)
 		addq.w	#4,a1
-		dbf	D1, Offset_0x03113C
+		dbf	D1,Offset_0x03113C
 Offset_0x031150:
 		rts
 ; ---------------------------------------------------------------------------
@@ -30583,7 +30583,7 @@ Offset_0x031E48:
 Offset_0x031E52:
 		move.b	(A5)+,d2
 		move.w	D0,(A1,d2.w)
-		dbf	D3, Offset_0x031E52
+		dbf	D3,Offset_0x031E52
 		swap	D0
 Offset_0x031E5E:
 		sub.l	D1,d0
@@ -30741,7 +30741,7 @@ Offset_0x032082:
 		move.w	D0,-(A1)
 		swap	D0
 		sub.l	D1,d0
-		dbf	D2, Offset_0x032082
+		dbf	D2,Offset_0x032082
 		lea	(Horizontal_Scroll_Table).w,a1				; $FFFFA800
 		move.l	(Horizontal_Scroll_Table+$1C).w,d2		; $FFFFA81C
 		addi.l	#$500,(Horizontal_Scroll_Table+$1C).w  ; $FFFFA81C
@@ -30754,7 +30754,7 @@ Offset_0x0320A2:
 		move.w	D0,(A1)+
 		swap	D0
 		add.l	D1,d0
-		dbf	D3, Offset_0x0320A2
+		dbf	D3,Offset_0x0320A2
 		move.w	-2(A1),d0
 		move.w	-4(A1),-2(A1)
 		move.w	D0,-4(A1)
@@ -30831,7 +30831,7 @@ Offset_0x032192:
 		clr.b	(A1)+
 		clr.b	(A1)+
 		adda.w	D0,a1
-		dbf	D1, Offset_0x032192
+		dbf	D1,Offset_0x032192
 		lea	(Horizontal_Scroll_Table+$102).w,a1		; $FFFFA902
 		lea	(Horizontal_Scroll_Table+$13C).w,a5		; $FFFFA93C
 		lea	$28(A5),a6
@@ -30843,7 +30843,7 @@ Offset_0x0321B4:
 		addq.w	#4,a1
 		clr.l	(A5)+
 		clr.l	(A6)+
-		dbf	D1, Offset_0x0321B4
+		dbf	D1,Offset_0x0321B4
 		jsr	(AllocateObject).l					 ; Offset_0x011DD8
 		bne.s	Offset_0x03221A
 		move.w	#$3C90,d1
@@ -30898,7 +30898,7 @@ Offset_0x032266:
 		move.w	D4,(A4)+
 		move.w	D4,(A1)
 		addq.w	#4,a1
-		dbf	D2, Offset_0x032244
+		dbf	D2,Offset_0x032244
 		tst.w	D1
 		bne.s	Offset_0x0322AE
 		movea.w	$2C(A3),a1
@@ -30911,7 +30911,7 @@ Offset_0x03228A:
 		clr.b	(A1)+
 		clr.b	(A1)+
 		adda.w	D0,a1
-		dbf	D1, Offset_0x03228A
+		dbf	D1,Offset_0x03228A
 		clr.w	(Earthquake_Flag).w							 ; $FFFFEECC
 		clr.l	(Background_Events+8).w					 ; $FFFFEEDA
 		move.w	(Screen_Pos_Buffer_X).w,(Background_Events+$C).w ; $FFFFEE80, $FFFFEEDE
@@ -30969,7 +30969,7 @@ Offset_0x032330:
 		lea	Obj_Map(A1),a1									; $000C
 		addq.w	#1,a5
 		addq.w	#4,d2
-		dbf	D3, Offset_0x0322E8
+		dbf	D3,Offset_0x0322E8
 		rts
 ; ---------------------------------------------------------------------------
 MGz_Quake_1:												   ; Offset_0x03233E
@@ -31163,7 +31163,7 @@ Offset_0x03255E:
 		swap	D2
 Offset_0x032580:
 		addi.w	#$10,d0
-		dbf	D2, Offset_0x03255E
+		dbf	D2,Offset_0x03255E
 Offset_0x032588:
 		rts
 ; ---------------------------------------------------------------------------
@@ -31190,7 +31190,7 @@ Offset_0x0325BA:
 		move.l	(A4)+,(A5)+
 		move.l	(A4)+,(A5)+
 		move.l	(A4)+,(A5)+
-		dbf	D1, Offset_0x0325BA
+		dbf	D1,Offset_0x0325BA
 		addq.w	#2,d0
 		move.w	D0,(Background_Events+6).w				; $FFFFEED8
 		rts
@@ -31408,7 +31408,7 @@ Offset_0x03291A:
 		move.w	D0,-(A1)
 		swap	D0
 		sub.l	D1,d0
-		dbf	D3, Offset_0x03291A
+		dbf	D3,Offset_0x03291A
 		tst.w	(Background_Events+$E).w					 ; $FFFFEEE0
 		bne.s	Offset_0x032934
 		addi.l	#$800,(Horizontal_Scroll_Table+$38).w ; $FFFFA838
@@ -31640,10 +31640,10 @@ Offset_0x032C5A:
 		bne.s	Offset_0x032C88
 		tst.l	(A6)
 		bne.s	Offset_0x032C88
-		dbf	D2, Offset_0x032C5A
+		dbf	D2,Offset_0x032C5A
 		addi.w	#$20,d1
 		addi.w	#$20,(Background_Events+4).w			; $FFFFEED6
-		dbf	D3, Offset_0x032C56
+		dbf	D3,Offset_0x032C56
 Offset_0x032C88:
 		rts
 ; ---------------------------------------------------------------------------
@@ -31960,7 +31960,7 @@ Offset_0x033038:
 		move.w	D0,(A1)+
 		swap	D0
 		add.l	D1,d0
-		dbf	D2, Offset_0x033038
+		dbf	D2,Offset_0x033038
 		rts
 ; ---------------------------------------------------------------------------
 Iz_1_Big_Snow_Fall:											   ; Offset_0x033046
@@ -32187,7 +32187,7 @@ Offset_0x0332EE:
 		move.w	D0,-(A1)
 		swap	D0
 		sub.l	D1,d0
-		dbf	D2, Offset_0x0332EE
+		dbf	D2,Offset_0x0332EE
 		lea	(Horizontal_Scroll_Table).w,a1				; $FFFFA800
 		move.w	(Screen_Pos_Buffer_X).w,d0					; $FFFFEE80
 		swap	D0
@@ -32215,7 +32215,7 @@ Offset_0x033334:
 		move.w	(A5)+,d2
 		add.w	D0,d2
 		move.w	D2,(A1)+
-		dbf	D1, Offset_0x033334
+		dbf	D1,Offset_0x033334
 		rts
 ; ---------------------------------------------------------------------------
 Iz_2_Set_In_Deform:											   ; Offset_0x033340
@@ -32302,7 +32302,7 @@ LBz_1_Events_Init:											   ; Offset_0x033422
 		moveq	#$D,d0
 Offset_0x03343C:
 		clr.l	(A1)+
-		dbf	D0, Offset_0x03343C
+		dbf	D0,Offset_0x03343C
 		jsr	LBz_1_Vertical_Scroll(PC)			   ; Offset_0x033512
 		lea	(Horizontal_Scroll_Table+$100).w,a1		; $FFFFA900
 		moveq	#$B,d0
@@ -32310,7 +32310,7 @@ Offset_0x03344C:
 		move.w	(A1)+,d1
 		and.w	(Level_Layout_Wrap_Y).w,d1					; $FFFFEEAC
 		move.w	D1,(A1)+
-		dbf	D0, Offset_0x03344C
+		dbf	D0,Offset_0x03344C
 		cmpi.w	#$3B60,(Screen_Pos_Buffer_X).w				; $FFFFEE80
 		bcs.s	Offset_0x033474
 		jsr	(AllocateObject).l					 ; Offset_0x011DD8
@@ -32422,7 +32422,7 @@ Offset_0x033558:
 Offset_0x03357A:
 		swap	D5
 		move.l	D5,(A1)+
-		dbf	D3, Offset_0x033558
+		dbf	D3,Offset_0x033558
 		tst.w	D2
 		bne.s	Offset_0x0335A6
 		clr.w	(Earthquake_Flag).w							 ; $FFFFEECC
@@ -32434,7 +32434,7 @@ Offset_0x03357A:
 		moveq	#$D,d0
 Offset_0x0335A0:
 		clr.l	(A1)+
-		dbf	D0, Offset_0x0335A0
+		dbf	D0,Offset_0x0335A0
 Offset_0x0335A6:
 		lea	(Horizontal_Scroll_Table+$100).w,a1		; $FFFFA900
 		lea	(Horizontal_Scroll_Table+$130).w,a4		; $FFFFA930
@@ -32448,7 +32448,7 @@ Offset_0x0335B8:
 		move.w	D2,(A4)+
 		addq.w	#4,a1
 		addq.w	#4,a5
-		dbf	D1, Offset_0x0335B8
+		dbf	D1,Offset_0x0335B8
 		rts
 ; ---------------------------------------------------------------------------
 LBz_1_Check_Layout_Mod:										   ; Offset_0x0335CA
@@ -32473,7 +32473,7 @@ Offset_0x0335D0:
 Offset_0x0335F2:
 		addq.w	#8,a1
 		addq.w	#4,d2
-		dbf	D3, Offset_0x0335D0
+		dbf	D3,Offset_0x0335D0
 		rts
 Offset_0x0335FC:
 		addq.w	#4,d2
@@ -32517,7 +32517,7 @@ Offset_0x033640:
 		move.w	(A5)+,(A1)+
 		adda.w	D0,a5
 		adda.w	D0,a1
-		dbf	D1, Offset_0x033640
+		dbf	D1,Offset_0x033640
 		rts
 ; ---------------------------------------------------------------------------
 LBz_1_Do_Mod_3:												   ; Offset_0x03364E
@@ -32530,7 +32530,7 @@ Offset_0x03365C:
 		move.l	(A5)+,(A1)+
 		adda.w	D0,a5
 		adda.w	D0,a1
-		dbf	D1, Offset_0x03365C
+		dbf	D1,Offset_0x03365C
 		rts
 ; ---------------------------------------------------------------------------
 LBz_1_Do_Mod_2:												   ; Offset_0x033668
@@ -32545,7 +32545,7 @@ Offset_0x033678:
 		move.w	(A5)+,(A1)+
 		adda.w	D0,a5
 		adda.w	D0,a1
-		dbf	D1, Offset_0x033678
+		dbf	D1,Offset_0x033678
 		rts
 ; ---------------------------------------------------------------------------
 LBz_1_Do_Mod_1:												   ; Offset_0x033688
@@ -32559,7 +32559,7 @@ Offset_0x033698:
 		move.l	(A5)+,(A1)+
 		adda.w	D0,a5
 		adda.w	D0,a1
-		dbf	D1, Offset_0x033698
+		dbf	D1,Offset_0x033698
 		rts
 ; ---------------------------------------------------------------------------
 Obj_LBz_1_Invisible_Block:									   ; Offset_0x0336A6
@@ -32782,7 +32782,7 @@ Offset_0x033948:
 		move.w	(A5)+,(A1)+
 		adda.w	D0,a5
 		adda.w	D0,a1
-		dbf	D1, Offset_0x033948
+		dbf	D1,Offset_0x033948
 		rts
 ; ---------------------------------------------------------------------------
 LBz_2_Normal:												   ; Offset_0x033956
@@ -32881,7 +32881,7 @@ Offset_0x033A36:
 		move.w	D1,(A1)+
 		swap	D1
 		sub.l	D3,d1
-		dbf	D4, Offset_0x033A36
+		dbf	D4,Offset_0x033A36
 		bra.w	Offset_0x033ACE
 Offset_0x033A4E:
 		lea	(Horizontal_Scroll_Table+$11E).w,a1		; $FFFFA91E
@@ -32894,7 +32894,7 @@ Offset_0x033A52:
 		move.w	D1,-(A1)
 		swap	D1
 		sub.l	D3,d1
-		dbf	D4, Offset_0x033A52
+		dbf	D4,Offset_0x033A52
 		cmpi.w	#$0040,d2
 		bge.s	Offset_0x033ACE
 		lea	(Horizontal_Scroll_Table+$9E).w,a1		; $FFFFA89E
@@ -32919,7 +32919,7 @@ Offset_0x033A98:
 		move.b	(A6)+,d3
 		add.w	D3,d3
 		move.w	(A5,d3.w),(A1)+
-		dbf	D1, Offset_0x033A90
+		dbf	D1,Offset_0x033A90
 		bra.s	Offset_0x033ACE
 Offset_0x033AA6:
 		move.w	D1,d3
@@ -32939,7 +32939,7 @@ Offset_0x033AC2:
 		move.b	(A6)+,d3
 		add.w	D3,d3
 		move.w	(A5,d3.w),-(A1)
-		dbf	D1, Offset_0x033ABA
+		dbf	D1,Offset_0x033ABA
 Offset_0x033ACE:
 		lea	(Horizontal_Scroll_Table+$1E2).w,a1		; $FFFFA9E2
 		move.l	D0,d1
@@ -32967,9 +32967,9 @@ Offset_0x033AFE:
 		move.w	D1,-(A1)
 		move.w	D1,-(A1)
 		move.w	D1,-(A1)
-		dbf	D5, Offset_0x033AFE
+		dbf	D5,Offset_0x033AFE
 		swap	D1
-		dbf	D4, Offset_0x033AF8
+		dbf	D4,Offset_0x033AF8
 		moveq	#$3F,d3
 		tst.w	D2
 		bmi.s	Offset_0x033B1A
@@ -32983,7 +32983,7 @@ Offset_0x033B20:
 		move.w	D1,-(A1)
 Offset_0x033B22:
 		move.w	D1,-(A1)
-		dbf	D3, Offset_0x033B20
+		dbf	D3,Offset_0x033B20
 Offset_0x033B28:
 		lea	(Horizontal_Scroll_Table).w,a1				; $FFFFA800
 		lea	LBz_2_Cloud_Deform_Array(PC),a5		  ; Offset_0x033C00
@@ -33000,7 +33000,7 @@ Offset_0x033B44:
 		move.w	D1,(A1,d6.w)
 		swap	D1
 		add.l	D3,d1
-		dbf	D5, Offset_0x033B44
+		dbf	D5,Offset_0x033B44
 		move.l	D0,d1
 		asr.l	#4,d1
 		move.l	D1,d3
@@ -33028,7 +33028,7 @@ Offset_0x033B86:
 Offset_0x033B88:
 		move.w	D1,(A1)+
 		move.w	D1,(A1)+
-		dbf	D5, Offset_0x033B88
+		dbf	D5,Offset_0x033B88
 		swap	D1
 		add.l	D3,d1
 		swap	D1
@@ -33039,7 +33039,7 @@ Offset_0x033B9A:
 		move.w	D1,(A1)+
 Offset_0x033B9C:
 		move.w	D1,(A1)+
-		dbf	D4, Offset_0x033B9A
+		dbf	D4,Offset_0x033B9A
 Offset_0x033BA2:
 		moveq	#$3F,d0
 		sub.w	D2,d0
@@ -33063,7 +33063,7 @@ Offset_0x033BCE:
 Offset_0x033BD2:
 		move.w	-(A5),d3
 		add.w	D3,-(A1)
-		dbf	D0, Offset_0x033BCE
+		dbf	D0,Offset_0x033BCE
 Offset_0x033BDA:
 		rts
 ; ---------------------------------------------------------------------------
@@ -33186,7 +33186,7 @@ Offset_0x033D1C:
 		move.w	D1,-(A1)
 		swap	D1
 		add.l	D0,d1
-		dbf	D3, Offset_0x033D1C
+		dbf	D3,Offset_0x033D1C
 		lea	(Horizontal_Scroll_Table+$1C).w,a1		; $FFFFA81C
 		add.l	D0,d2
 		add.l	D0,d0
@@ -33196,7 +33196,7 @@ Offset_0x033D32:
 		move.w	D2,(A1)+
 		swap	D2
 		add.l	D0,d2
-		dbf	D3, Offset_0x033D32
+		dbf	D3,Offset_0x033D32
 		rts
 ; ---------------------------------------------------------------------------
 LRz_Deform_Array:											   ; Offset_0x033D40
@@ -33367,7 +33367,7 @@ Offset_0x033EEA:
 		move.l	D0,(A1)+
 		move.l	D0,(A1)+
 		move.l	D0,(A1)+
-		dbf	D2, Offset_0x033EEA
+		dbf	D2,Offset_0x033EEA
 		rts
 ; ---------------------------------------------------------------------------
 ALz_Deform:													   ; Offset_0x033EF8
@@ -33414,7 +33414,7 @@ Offset_0x033F62:
 		move.w	D1,-(A5)
 		swap	D1
 		add.l	D2,d1
-		dbf	D4, Offset_0x033F62
+		dbf	D4,Offset_0x033F62
 		movem.w	(A5),d1-D6
 		move.w	D2,(A5)+
 		move.w	D6,(A5)+
@@ -33432,7 +33432,7 @@ Offset_0x033F8C:
 		move.w	D1,(A5)+
 		swap	D1
 		add.l	D2,d1
-		dbf	D3, Offset_0x033F8C
+		dbf	D3,Offset_0x033F8C
 		move.w	(Background_Events).w,d1					; $FFFFEED2
 		lsr.w	#3,d1
 		andi.w	#$3E,d1
@@ -33443,7 +33443,7 @@ Offset_0x033FAA:
 		move.w	(A6)+,d2
 		add.w	D0,d2
 		move.w	D2,(A5)+
-		dbf	D1, Offset_0x033FAA
+		dbf	D1,Offset_0x033FAA
 		rts
 ; ---------------------------------------------------------------------------
 BPz_Deform:													   ; Offset_0x033FB6
@@ -33476,7 +33476,7 @@ Offset_0x033FF6:
 		move.w	D0,-(A1)
 		swap	D0
 		sub.l	D1,d0
-		dbf	D2, Offset_0x033FF6
+		dbf	D2,Offset_0x033FF6
 		rts
 ; ---------------------------------------------------------------------------
 DPz_Deform:													   ; Offset_0x034004
@@ -33541,7 +33541,7 @@ Offset_0x034090:
 		move.w	D0,-(A1)
 		swap	D0
 		sub.l	D1,d0
-		dbf	D2, Offset_0x034090
+		dbf	D2,Offset_0x034090
 		asr.l	#2,d1
 		swap	D1
 		addi.w	#$100,d1
@@ -33900,15 +33900,15 @@ Offset_0x0349C4:
 		bsr.w	Offset_0x0349DE
 Offset_0x0349D0:
 		move.w	D4,(A6)
-		dbf	D3, Offset_0x0349C4
+		dbf	D3,Offset_0x0349C4
 		add.l	D6,d0
-		dbf	D2, Offset_0x0349BC
+		dbf	D2,Offset_0x0349BC
 		rts
 Offset_0x0349DE:
 		moveq	#$28,d5
 Offset_0x0349E0:
 		move.w	D4,(A6)
-		dbf	D5, Offset_0x0349E0
+		dbf	D5,Offset_0x0349E0
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x0349E8:
@@ -34001,8 +34001,8 @@ Offset_0x034AD4:
 		addq.w	#4,a2
 		bsr.w	Offset_0x034B2C
 		addq.w	#4,a3
-		dbf	D6, Offset_0x034AD4
-		dbf	D5, Offset_0x034AD2
+		dbf	D6,Offset_0x034AD4
+		dbf	D5,Offset_0x034AD2
 		rts
 Offset_0x034AEA:
 		moveq	#7,d6
@@ -34011,8 +34011,8 @@ Offset_0x034AEC:
 		addq.w	#4,a4
 		bsr.w	Offset_0x034B80
 		addq.w	#4,a5
-		dbf	D6, Offset_0x034AEC
-		dbf	D5, Offset_0x034AEA
+		dbf	D6,Offset_0x034AEC
+		dbf	D5,Offset_0x034AEA
 		rts
 Offset_0x034B02:
 		bsr.w	Offset_0x034B06
@@ -37128,7 +37128,7 @@ Offset_0x041EA6:
 		move.w	Obj_X(A0),Obj_X(A1)						 ; $0010, $0010
 		move.w	Obj_Y(A0),Obj_Y(A1)						 ; $0014, $0014
 		addq.w	#2,d2
-		dbf	D6, Offset_0x041EA6
+		dbf	D6,Offset_0x041EA6
 		moveq	#0,d0
 Offset_0x041EDE:
 		rts
@@ -37171,7 +37171,7 @@ Offset_0x041F48:
 		move.w	D1,Obj_Speed_X(A1)								; $0018
 		move.w	(A2)+,Obj_Speed_Y(A1)							; $001A
 		addq.w	#2,d2
-		dbf	D6, Offset_0x041EE4
+		dbf	D6,Offset_0x041EE4
 		moveq	#0,d0
 Offset_0x041F58:
 		rts
@@ -37188,7 +37188,7 @@ Offset_0x041F5E:
 		move.w	Obj_X(A0),Obj_X(A1)						 ; $0010, $0010
 		move.w	Obj_Y(A0),Obj_Y(A1)						 ; $0014, $0014
 		addq.w	#2,d2
-		dbf	D6, Offset_0x041F5E
+		dbf	D6,Offset_0x041F5E
 		moveq	#0,d0
 Offset_0x041F84:
 		rts
@@ -37217,7 +37217,7 @@ Offset_0x041F8A:
 		add.w	D1,d0
 		move.w	D0,Obj_Y(A1)									; $0014
 		addq.w	#2,d2
-		dbf	D6, Offset_0x041F8A
+		dbf	D6,Offset_0x041F8A
 		moveq	#0,d0
 Offset_0x041FD4:
 		rts
@@ -37239,7 +37239,7 @@ Offset_0x041FDC:
 		move.w	Obj_X(A0),Obj_X(A1)						 ; $0010, $0010
 		move.w	Obj_Y(A0),Obj_Y(A1)						 ; $0014, $0014
 		addq.w	#2,d2
-		dbf	D6, Offset_0x041FDC
+		dbf	D6,Offset_0x041FDC
 		moveq	#0,d0
 Offset_0x042014
 		rts
@@ -38782,7 +38782,7 @@ Offset_0x042F02:
 		moveq	#$1F,d6
 Offset_0x042F1E:
 		bsr.w	Inc_Color_Obj						   ; Offset_0x042F28
-		dbf	D6, Offset_0x042F1E
+		dbf	D6,Offset_0x042F1E
 		rts
 Inc_Color_Obj:												   ; Offset_0x042F28
 		move.b	(A1),d0
@@ -39021,7 +39021,7 @@ Pal_Load_Line_1:											   ; Offset_0x04314C
 		moveq	#7,d0
 Offset_0x043152:
 		move.l	(A1)+,(A2)+
-		dbf	D0, Offset_0x043152
+		dbf	D0,Offset_0x043152
 		rts
 ;===============================================================================
 Displace_Player_Offset:										   ; Offset_0x04315A
@@ -39060,7 +39060,7 @@ Offset_0x0431B6:
 		move.b	2(A2),d2
 Offset_0x0431BC:
 		move.w	(A4)+,(A3)+
-		dbf	D2, Offset_0x0431BC
+		dbf	D2,Offset_0x0431BC
 		move.w	(A4)+,d0
 		move.b	D0,2(A1)
 		move.l	A4,d0
