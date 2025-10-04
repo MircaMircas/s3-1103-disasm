@@ -643,6 +643,8 @@ Z80_Reset	= $A11200
 ; VDP
 VDP_Data_Port		= $C00000
 VDP_Control_Port	= $C00004
+VDP_data_port		= VDP_Data_Port
+VDP_control_port	= VDP_Control_Port
 
 ; sign-extends a 32-bit integer to 64-bit
 ; all RAM addresses are run through this function to allow them to work in both 16-bit and 32-bit addressing modes
