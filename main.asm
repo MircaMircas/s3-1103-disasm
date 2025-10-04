@@ -863,7 +863,6 @@ Offset_0x000BE6:
 ; Offset_0x000C40:
 HBlank:
 		jmp	(H_int_jump).w
-
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; HBlank routine 1
@@ -896,23 +895,11 @@ Offset_0x000C56:
 		; upload the front buffer
 		tst.w	(Use_Normal_Sprite_Table).w
 		beq.s	Offset_0x000CC0
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94019340,(a5)
-		move.l	#$96BD9580,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7800,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Sprite_Table_Buffer_P2,$F800,$280,VRAM
 		bra.s	Offset_0x000CE4
 
 Offset_0x000CC0:
-		lea	(VDP_Control_Port).l,a5
-		move.l	#$94019340,(a5)
-		move.l	#$96BE95C0,(a5)
-		move.w	#$977F,(a5)
-		move.w	#$7800,(a5)
-		move.w	#$83,(DMA_Trigger).w
-		move.w	(DMA_Trigger).w,(a5)
+		dma68kToVDP Sprite_Table_Buffer_P2_2,$F800,$280,VRAM
 
 Offset_0x000CE4:
 		startZ80
