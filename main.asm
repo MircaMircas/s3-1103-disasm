@@ -31385,7 +31385,7 @@ Offset_0x034B06:
 		move.b	D2,d3
 		andi.b	#$F0,d2
 		move.b	D2,d4
-		lsr.b	#$04,d4
+		lsr.b	#4,d4
 		or.b	D2,d4
 		move.b	D4,(A2)+
 		move.b	D4,3(A2)
