@@ -1175,17 +1175,7 @@ Offset_0x000F9A:
 		clr.l	(Vertical_Scroll_Value).w					 ; $FFFFF616
 		clr.l	(Vertical_Scroll_Value_3).w					 ; $FFFFF61A
 		move.l	d1,-(sp)
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		move.w	#$8F01,(A5)
-		move.l	#$94FF93FF,(A5)
-		move.w	#$9780,(A5)
-		move.l	#$40000080,(A5)
-		move.w	#0,(VDP_Data_Port).l					  ; $00C00000
-Offset_0x000FCC:
-		move.w	(A5),d1
-		btst	#1,d1
-		bne.s	Offset_0x000FCC
-		move.w	#$8F02,(A5)
+		dmaFillVRAM 0,$0000,$10000	; clear entire VRAM
 		move.l	(sp)+,d1
 		rts
 ; ---------------------------------------------------------------------------
@@ -1225,59 +1215,15 @@ VDPRegSetup_Array_End:
 ; Offset_0x001002:
 ClearScreen:
 		stopZ80
-		lea	(VDP_Control_Port).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$9400933F,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$40000080,(a5)
-		move.w	#0,(VDP_Data_Port).l
-; Offset_0x001036:
-ClearScreen_DMAWait:
-		move.w	(a5),d1
-		btst	#1,d1
-		bne.s	ClearScreen_DMAWait
-		move.w	#$8F02,(a5)
+		dmaFillVRAM 0,$0000,$40
 		tst.w	(Two_Player_Flag).w
 		beq.s	Offset_0x001078
-		lea	(VDP_Control_Port).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$943F93FF,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$40000082,(a5)
-		move.w	#0,(VDP_Data_Port).l
-; Offset_0x00106A:
-ClearScreen_DMAWait_2:
-		move.w	(a5),d1
-		btst	#1,d1
-		bne.s	ClearScreen_DMAWait_2
-		move.w	#$8F02,(a5)
+		dmaFillVRAM 0,$8000,$4000
 		bra.s	Offset_0x0010D4
 
 Offset_0x001078:
-		lea	(VDP_Control_Port).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$940F93FF,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$40000083,(a5)
-		move.w	#0,(VDP_Data_Port).l
-; Offset_0x00109A:
-ClearScreen_DMAWait_3:
-		move.w	(a5),d1
-		btst	#1,d1
-		bne.s	ClearScreen_DMAWait_3
-		move.w	#$8F02,(a5)
-		lea	(VDP_Control_Port).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$940F93FF,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$60000083,(a5)
-		move.w	#0,(VDP_Data_Port).l
-; Offset_0x0010C8:
-ClearScreen_DMAWait_4:
-		move.w	(a5),d1
-		btst	#1,d1
-		bne.s	ClearScreen_DMAWait_4
-		move.w	#$8F02,(a5)
+		dmaFillVRAM 0,$C000,$1000	; clear plane A PNT
+		dmaFillVRAM 0,$E000,$1000	; clear plane B PNT
 
 Offset_0x0010D4:
 		clr.l	(Vertical_Scroll_Value).w
