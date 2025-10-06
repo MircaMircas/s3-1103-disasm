@@ -8785,7 +8785,12 @@ TouchRings:													   ; Offset_0x0088AE
 		move.b	Obj_Height_2(A0),d5								; $001E
 		subq.b	#3,d5
 		sub.w	D5,d3
-		cmpi.b	#$4D,Obj_Map_Id(A0)								; $0022
+	if FixBugs
+		cmpi.b	#8,Obj_Ani_Number(A0)	; check ducking animation
+	else
+		; Bug: This check only works for Sonic, ignoring Tails completely.
+		cmpi.b	#$4D,Obj_Map_Id(A0)
+	endif
 		bne.s	Offset_0x0088EE
 		addi.w	#$C,d3
 		moveq	#$A,d5
@@ -8855,24 +8860,24 @@ Load_Rings_Layout:											   ; Offset_0x008966
 		lea	(Ring_Consumption_Table).w,a1				; $FFFFEF80
 		moveq	#bytesToLcnt(Ring_Consumption_Table_End-Ring_Consumption_Table),d1
 Offset_0x00897C:
-		move.l	D0,(A1)+
-		dbf	D1,Offset_0x00897C
+		move.l	d0,(a1)+
+		dbf	d1,Offset_0x00897C
 		move.w	(Current_ZoneAndAct).w,d0							  ; $FFFFFE10
 		ror.b	#1,d0
 		lsr.w	#5,d0
 		lea	(Rings_Layout).l,a1					  ; Offset_0x1F7198
-		move.l	(A1,d0.w),a1
-		move.l	A1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
+		move.l	(a1,d0.w),a1
+		move.l	a1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
 		addq.w	#4,a1
 		moveq	#0,d5
 		move.w	#511-1,d0
 Offset_0x0089A0:
-		tst.l	(A1)+
+		tst.l	(a1)+
 		bmi.s	Offset_0x0089AA
 		addq.w	#1,d5
-		dbf	D0,Offset_0x0089A0
+		dbf	d0,Offset_0x0089A0
 Offset_0x0089AA:
-		move.w	D5,(Remainning_Rings_Count).w				; $FFFFFF04
+		move.w	d5,(Remainning_Rings_Count).w				; $FFFFFF04
 		move.w	#0,(Perfect_Bonus_Rings_Flag).w			; $FFFFFF06
 		rts
 ;===============================================================================
@@ -9095,7 +9100,12 @@ Offset_0x008B80:
 		move.b	Obj_Height_2(A0),d5								; $001E
 		subq.b	#3,d5
 		sub.w	D5,d3
-		cmpi.b	#$4D,Obj_Map_Id(A0)								; $0022
+	if FixBugs
+		cmpi.b	#8,Obj_Ani_Number(A0)	; check ducking animation
+	else
+		; Bug: This check only works for Sonic, ignoring Tails completely.
+		cmpi.b	#$4D,Obj_Map_Id(A0)
+	endif
 		bne.s	Offset_0x008BAA
 		addi.w	#$C,d3
 		moveq	#$A,d5
@@ -10889,7 +10899,12 @@ Touch_Response:												   ; Offset_0x00A188
 		move.b	Obj_Height_2(A0),d5								; $001E
 		subq.b	#3,d5
 		sub.w	D5,d3
-		cmpi.b	#$4D,Obj_Map_Id(A0)								; $0022
+	if FixBugs
+		cmpi.b	#8,Obj_Ani_Number(A0)	; check ducking animation
+	else
+		; Bug: This check only works for Sonic, ignoring Tails completely.
+		cmpi.b	#$4D,Obj_Map_Id(A0)
+	endif
 		bne.s	Offset_0x00A1B4
 		addi.w	#$C,d3
 		moveq	#$A,d5
@@ -11264,42 +11279,42 @@ Obj_Sonic:
 		include	"objects\sonic.asm"
 ; ---------------------------------------------------------------------------
 Sonic_Animate_Data:							; Offset_0x00C5A4
-		dc.w	Offset_0x00C5EC-Sonic_Animate_Data
-		dc.w	Offset_0x00C5F6-Sonic_Animate_Data
-		dc.w	Offset_0x00C600-Sonic_Animate_Data
-		dc.w	Offset_0x00C60A-Sonic_Animate_Data
-		dc.w	Offset_0x00C614-Sonic_Animate_Data
-		dc.w	Offset_0x00C61E-Sonic_Animate_Data
-		dc.w	Offset_0x00C6D4-Sonic_Animate_Data
-		dc.w	Offset_0x00C6DA-Sonic_Animate_Data
-		dc.w	Offset_0x00C6DF-Sonic_Animate_Data
-		dc.w	Offset_0x00C6E4-Sonic_Animate_Data
-		dc.w	Offset_0x00C6F0-Sonic_Animate_Data
-		dc.w	Offset_0x00C6F4-Sonic_Animate_Data
-		dc.w	Offset_0x00C6F8-Sonic_Animate_Data
-		dc.w	Offset_0x00C6FE-Sonic_Animate_Data
-		dc.w	Offset_0x00C705-Sonic_Animate_Data
-		dc.w	Offset_0x00C709-Sonic_Animate_Data
-		dc.w	Offset_0x00C710-Sonic_Animate_Data
-		dc.w	Offset_0x00C714-Sonic_Animate_Data
-		dc.w	Offset_0x00C718-Sonic_Animate_Data
-		dc.w	Offset_0x00C71E-Sonic_Animate_Data
-		dc.w	Offset_0x00C723-Sonic_Animate_Data
-		dc.w	Offset_0x00C727-Sonic_Animate_Data
-		dc.w	Offset_0x00C72E-Sonic_Animate_Data
-		dc.w	Offset_0x00C731-Sonic_Animate_Data
-		dc.w	Offset_0x00C734-Sonic_Animate_Data
-		dc.w	Offset_0x00C737-Sonic_Animate_Data
-		dc.w	Offset_0x00C737-Sonic_Animate_Data
-		dc.w	Offset_0x00C73A-Sonic_Animate_Data
-		dc.w	Offset_0x00C73E-Sonic_Animate_Data
-		dc.w	Offset_0x00C741-Sonic_Animate_Data
-		dc.w	Offset_0x00C745-Sonic_Animate_Data
-		dc.w	Offset_0x00C7D9-Sonic_Animate_Data
-		dc.w	Offset_0x00C74D-Sonic_Animate_Data
-		dc.w	Offset_0x00C751-Sonic_Animate_Data
-		dc.w	Offset_0x00C755-Sonic_Animate_Data
-		dc.w	Offset_0x00C75F-Sonic_Animate_Data
+		dc.w	Offset_0x00C5EC-Sonic_Animate_Data	; $00
+		dc.w	Offset_0x00C5F6-Sonic_Animate_Data	; $01
+		dc.w	Offset_0x00C600-Sonic_Animate_Data	; $02
+		dc.w	Offset_0x00C60A-Sonic_Animate_Data	; $03
+		dc.w	Offset_0x00C614-Sonic_Animate_Data	; $04
+		dc.w	Offset_0x00C61E-Sonic_Animate_Data	; $05
+		dc.w	Offset_0x00C6D4-Sonic_Animate_Data	; $06
+		dc.w	Offset_0x00C6DA-Sonic_Animate_Data	; $07
+		dc.w	Offset_0x00C6DF-Sonic_Animate_Data	; $08
+		dc.w	Offset_0x00C6E4-Sonic_Animate_Data	; $09
+		dc.w	Offset_0x00C6F0-Sonic_Animate_Data	; $0A
+		dc.w	Offset_0x00C6F4-Sonic_Animate_Data	; $0B
+		dc.w	Offset_0x00C6F8-Sonic_Animate_Data	; $0C
+		dc.w	Offset_0x00C6FE-Sonic_Animate_Data	; $0D
+		dc.w	Offset_0x00C705-Sonic_Animate_Data	; $0E
+		dc.w	Offset_0x00C709-Sonic_Animate_Data	; $0F
+		dc.w	Offset_0x00C710-Sonic_Animate_Data	; $10
+		dc.w	Offset_0x00C714-Sonic_Animate_Data	; $11
+		dc.w	Offset_0x00C718-Sonic_Animate_Data	; $12
+		dc.w	Offset_0x00C71E-Sonic_Animate_Data	; $13
+		dc.w	Offset_0x00C723-Sonic_Animate_Data	; $14
+		dc.w	Offset_0x00C727-Sonic_Animate_Data	; $15
+		dc.w	Offset_0x00C72E-Sonic_Animate_Data	; $16
+		dc.w	Offset_0x00C731-Sonic_Animate_Data	; $17
+		dc.w	Offset_0x00C734-Sonic_Animate_Data	; $18
+		dc.w	Offset_0x00C737-Sonic_Animate_Data	; $19
+		dc.w	Offset_0x00C737-Sonic_Animate_Data	; $1A
+		dc.w	Offset_0x00C73A-Sonic_Animate_Data	; $1B
+		dc.w	Offset_0x00C73E-Sonic_Animate_Data	; $1C
+		dc.w	Offset_0x00C741-Sonic_Animate_Data	; $1D
+		dc.w	Offset_0x00C745-Sonic_Animate_Data	; $1E
+		dc.w	Offset_0x00C7D9-Sonic_Animate_Data	; $1F
+		dc.w	Offset_0x00C74D-Sonic_Animate_Data	; $20
+		dc.w	Offset_0x00C751-Sonic_Animate_Data	; $21
+		dc.w	Offset_0x00C755-Sonic_Animate_Data	; $22
+		dc.w	Offset_0x00C75F-Sonic_Animate_Data	; $23
 Offset_0x00C5EC:
 		dc.b	$FF, $0F, $10, $11, $12, $13, $14, $0D
 		dc.b	$0E, $FF
