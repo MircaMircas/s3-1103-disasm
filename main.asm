@@ -4047,47 +4047,47 @@ Offset_0x00309A:
 
 Offset_0x00310C:
 		moveq	#0,d0
-		bsr.w	PalLoad_Now								  ; Offset_0x002FBA
-		move.w	#-$A,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		move.w	#0,(Palette_Cycle_Count_1).w			; $FFFFF634
-		move.w	#0,(VBlank_Subroutine).w				; $FFFFF662
-		move.w	#0,(PalCycle_Done_Flag).w				; $FFFFF660
-		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		move.l	#Obj_SegaSonic,(A1)		; Offset_0x034488
-		move.b	#$4C,subtype(A1)							; $002C
-		move.w	#240,(Demo_Timer).w						  ; $FFFFF614
-		jsr	(Init_Sprite_Table).l					 ; Offset_0x011042
-		move.w	(VDP_Register_1_Command).w,d0				; $FFFFF60E
+		bsr.w	PalLoad_Now
+		move.w	#-$A,(Palette_Cycle_Count_0).w
+		move.w	#0,(Palette_Cycle_Count_1).w
+		move.w	#0,(VBlank_Subroutine).w
+		move.w	#0,(PalCycle_Done_Flag).w
+		lea	(Obj_Player_Two).w,a1
+		move.l	#Obj_SegaSonic,(A1)
+		move.b	#$4C,subtype(A1)
+		move.w	#240,(Demo_Timer).w
+		jsr	(Init_Sprite_Table).l
+		move.w	(VDP_Register_1_Command).w,d0
 		ori.b	#$40,d0
-		move.w	D0,(VDP_Control_Port)						; $00C00004
+		move.w	d0,(VDP_Control_Port).l
 Offset_0x003154:
-		move.b	#2,(VBlank_Index).w						  ; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		jsr	(RunObjects).l						   ; Offset_0x0110AE
-		jsr	(Build_Sprites).l						 ; Offset_0x011296
-		tst.b	(PalCycle_Done_Flag).w						 ; $FFFFF660
+		move.b	#2,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		jsr	(RunObjects).l
+		jsr	(Build_Sprites).l
+		tst.b	(PalCycle_Done_Flag).w
 		beq.s	Offset_0x003154
 		moveq	#signextendB(cmd_SEGA),d0
-		bsr.w	PlaySound							  ; Offset_0x001176
-		move.b	#2,(VBlank_Index).w						  ; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		move.w	#180,(Demo_Timer).w						  ; $FFFFF614
+		bsr.w	PlaySound
+		move.b	#2,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		move.w	#180,(Demo_Timer).w
 Offset_0x003186:
-		move.b	#$14,(VBlank_Index).w						; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		tst.w	(Demo_Timer).w								 ; $FFFFF614
+		move.b	#$14,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		tst.w	(Demo_Timer).w
 		beq.s	Offset_0x0031A4
-		move.b	(Control_Ports_Buffer_Data+1).w,d0		; $FFFFF605
-		or.b	(Control_Ports_Buffer_Data+3).w,d0		; $FFFFF607
+		move.b	(Control_Ports_Buffer_Data+1).w,d0
+		or.b	(Control_Ports_Buffer_Data+3).w,d0
 		andi.b	#button_start_mask,d0
 		beq.s	Offset_0x003186
 Offset_0x0031A4:
-		clr.w	(PalCycle_Done_Flag).w						 ; $FFFFF660
-		clr.w	(VBlank_Subroutine).w						 ; $FFFFF662
-		move.b	#gm_TitleScreen,(Game_Mode).w		   ; $04, $FFFFF600
+		clr.w	(PalCycle_Done_Flag).w
+		clr.w	(VBlank_Subroutine).w
+		move.b	#gm_TitleScreen,(Game_Mode).w
 		rts
 Offset_0x0031B4:
-		lea	(VDP_Data_Port).l,a6							; $00C00000
+		lea	(VDP_Data_Port).l,a6
 		move.l	#$1000000,d4
 Offset_0x0031C0:
 		move.l	d0,4(a6)
@@ -4157,22 +4157,16 @@ TitleScreen:
 		move.w	#$8000,d2
 		andi.l	#$FFFFFF,d1
 		jsr	(QueueDMATransfer).l
-		move.l	(a2)+,a0
+		movea.l	(a2)+,a0
 		lea	(Palette_Row_3_Offset).w,a1
 		moveq	#bytesToLcnt($20),d0
 
 Offset_0x0032EE:
 		move.l	(a0)+,(a1)+
 		dbf	D0,Offset_0x0032EE
+		clearRAM	(RAM_Start+$4000),(RAM_Start+$5400)
 		lea	(RAM_Start+$4000).l,a1
-		moveq	#0,d0
-		move.w	#bytesToLcnt($1400),d1
-
-Offset_0x003300:
-		move.l	d0,(a1)+
-		dbf	d1,Offset_0x003300
-		lea	(RAM_Start+$4000).l,a1
-		move.l	(a2)+,a0
+		movea.l	(a2)+,a0
 		move.w	#$6400,d0
 		bsr.w	Eni_Decomp
 		lea	(RAM_Start+$4000).l,a1
@@ -4346,13 +4340,15 @@ TitleScreen_Demo:
 		move.l	#5000,(Next_Extra_Life_Score_P2).w
 		rts
 ; ---------------------------------------------------------------------------
-Demo_Mode_Level_Array:										   ; Offset_0x003544
+; Offset_0x003544
+Demo_Mode_Level_Array:
 		dc.w	AIz_Act_1										 ; $0000
 		dc.w	AIz_Act_1										 ; $0000
 		dc.w	AIz_Act_1										 ; $0000
 		dc.w	AIz_Act_1										 ; $0000
 ; ---------------------------------------------------------------------------
-S2_Demo_Mode_Level_Array:									   ; Offset_0x00354C
+; Offset_0x00354C
+S2_Demo_Mode_Level_Array:
 		dc.w	S2_EHz_Act_1  ; Emerald Hill S2 Left over		 ; $0000
 		dc.w	S2_CPz_Act_1  ; Chemical Plant S2 Left over		 ; $0D00
 		dc.w	S2_ARz_Act_1  ; Aquatic Ruin Left over			 ; $0F00
@@ -4399,31 +4395,31 @@ LevelSelect_Inputs:
 		dc.b	0
 		even
 ; ===========================================================================
-
-VInt_Title_Screen:											   ; Offset_0x00359A
-		tst.b	(Title_Screen_Animate_Delay).w				 ; $FFFFFFBD
+; Offset_0x00359A
+VInt_Title_Screen:
+		tst.b	(Title_Screen_Animate_Delay).w
 		bne.s	Offset_0x0035E4
-		move.b	#2,(Title_Screen_Animate_Delay).w		  ; $FFFFFFBD
-		cmpi.w	#$10,(Title_Screen_Animate_Frame).w		  ; $FFFFFFBE
+		move.b	#2,(Title_Screen_Animate_Delay).w
+		cmpi.w	#$10,(Title_Screen_Animate_Frame).w
 		bcs.s	Offset_0x0035B4
-		move.b	#2,(Title_Screen_Animate_Delay).w		  ; $FFFFFFBD
+		move.b	#2,(Title_Screen_Animate_Delay).w
 Offset_0x0035B4:
-		lea	(Palette_Row_2_Data_Target).w,a0			  ; $FFFFEDC0
-		lea	(Palette_Row_2_Offset).w,a1					; $FFFFED40
+		lea	(Palette_Row_2_Data_Target).w,a0
+		lea	(Palette_Row_2_Offset).w,a1
 		moveq	#bytesToLcnt($20),d0
 Offset_0x0035BE:
-		move.l	(A0)+,(A1)+
-		dbf	D0,Offset_0x0035BE
-		eori.b	#-1,(Title_Screen_Animate_Buffer).w		   ; $FFFFFFBC
-		tst.b	(Title_Screen_Animate_Buffer).w				 ; $FFFFFFBC
+		move.l	(a0)+,(a1)+
+		dbf	d0,Offset_0x0035BE
+		eori.b	#-1,(Title_Screen_Animate_Buffer).w
+		tst.b	(Title_Screen_Animate_Buffer).w
 		beq.s	Offset_0x0035DA
-		move.w	#$8407,(VDP_Control_Port)					; $00C00004
+		move.w	#$8407,(VDP_Control_Port).l
 		rts
 Offset_0x0035DA:
-		move.w	#$8405,(VDP_Control_Port)					; $00C00004
+		move.w	#$8405,(VDP_Control_Port).l
 		rts
 Offset_0x0035E4:
-		subq.b	#1,(Title_Screen_Animate_Delay).w		  ; $FFFFFFBD
+		subq.b	#1,(Title_Screen_Animate_Delay).w
 		rts
 ; ==============================================================================
 ; Offset_0x0035EA:
@@ -4524,7 +4520,7 @@ TitleSonic_LoadFrame:
 Offset_0x0036DE:
 		andi.l	#$FFFFFF,d1
 		jsr	(QueueDMATransfer).l
-		move.l	(a2)+,a0
+		movea.l	(a2)+,a0
 		lea	(Palette_Row_2_Data_Target).w,a1
 		moveq	#bytesToLcnt($20),d0
 
@@ -4534,7 +4530,7 @@ Offset_0x0036F2:
 		tst.b	(Title_Screen_Animate_Buffer).w
 		bne.s	Offset_0x00372E
 		lea	(RAM_Start+$4000).l,a1
-		move.l	(a2)+,a0
+		movea.l	(a2)+,a0
 		move.w	#$4000,d0
 		bsr.w	Eni_Decomp
 		move	#$2700,sr
@@ -4549,7 +4545,7 @@ Offset_0x0036F2:
 
 Offset_0x00372E:
 		lea	(RAM_Start+$4000).l,a1
-		move.l	(a2)+,a0
+		movea.l	(a2)+,a0
 		move.w	#$4200,d0
 		bsr.w	Eni_Decomp
 		move	#$2700,sr
@@ -5083,129 +5079,129 @@ Offset_0x003E5A:
 ; ---------------------------------------------------------------------------
 
 Offset_0x003E78:
-		cmpi.b	#gm_DemoMode,(Game_Mode).w			   ; $08, $FFFFF600
+		cmpi.b	#gm_DemoMode,(Game_Mode).w
 		bne.s	Offset_0x003E88
-		move.b	#gm_SEGALogo,(Game_Mode).w			   ; $00, $FFFFF600
+		move.b	#gm_SEGALogo,(Game_Mode).w
 		rts
 Offset_0x003E88:
-		move.w	#60,(Demo_Timer).w						 ; $FFFFF614
-		move.w	#$3F,(Palette_Fade_Info).w				  ; $FFFFF626
-		clr.w	(Demo_Pal_FadeOut_Counter).w				 ; $FFFFF794
+		move.w	#60,(Demo_Timer).w
+		move.w	#$3F,(Palette_Fade_Info).w
+		clr.w	(Demo_Pal_FadeOut_Counter).w
 Offset_0x003E98:
-		move.b	#8,(VBlank_Index).w						  ; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		bsr.w	Init_Demo_Control					   ; Offset_0x0047F6
-		jsr	(RunObjects).l						   ; Offset_0x0110AE
-		jsr	(DeformBgLayer).l			   ; Offset_0x0120D4
-		jsr	(Run_TileDrawing).l				 ; Offset_0x02F2EA
-		jsr	(Build_Sprites).l						 ; Offset_0x011296
-		jsr	(ObjectsManager).l						; Offset_0x011BF8
-		jsr	(Process_Kos_Module_Queue).l			   ; Offset_0x0018FE
-		subq.w	#1,(Demo_Pal_FadeOut_Counter).w			  ; $FFFFF794
+		move.b	#8,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		bsr.w	Init_Demo_Control
+		jsr	(RunObjects).l
+		jsr	(DeformBgLayer).l
+		jsr	(Run_TileDrawing).l
+		jsr	(Build_Sprites).l
+		jsr	(ObjectsManager).l
+		jsr	(Process_Kos_Module_Queue).l
+		subq.w	#1,(Demo_Pal_FadeOut_Counter).w
 		bpl.s	Offset_0x003EDA
-		move.w	#2,(Demo_Pal_FadeOut_Counter).w			; $FFFFF794
-		bsr.w	Pal_FadeOut							   ; Offset_0x002E08
+		move.w	#2,(Demo_Pal_FadeOut_Counter).w
+		bsr.w	Pal_FadeOut
 Offset_0x003EDA:
-		tst.w	(Demo_Timer).w								 ; $FFFFF614
+		tst.w	(Demo_Timer).w
 		bne.s	Offset_0x003E98
 		rts
 Offset_0x003EE2:
-		move.w	#0,(Tmp_FF7E).w							; $FFFFFF7E
-		move.b	(Tmp_FF7C).w,d0								; $FFFFFF7C
+		move.w	#0,(Tmp_FF7E).w
+		move.b	(Tmp_FF7C).w,d0
 		cmpi.b	#$A0,d0
 		bne.s	Offset_0x003EFC
-		move.w	(Sound_Test_Sound).w,d0						; $FFFFFF84
+		move.w	(Sound_Test_Sound).w,d0
 		lsl.w	#8,d0
-		move.w	D0,(Tmp_FF7E).w								; $FFFFFF7E
+		move.w	D0,(Tmp_FF7E).w
 Offset_0x003EFC:
-		move.w	#$3F,(Palette_Fade_Info).w				  ; $FFFFF626
-		jsr	(Pal_Clear).l							 ; Offset_0x002DB0
-		move.w	#$16,(Palette_Fade_Timer).w				  ; $FFFFEE56
-		move.w	#0,(Tmp_FF7C).w							; $FFFFFF7C
-		bclr	#7,(Game_Mode).w						  ; $FFFFF600
-Level_Main_Loop:											   ; Offset_0x003F1A
-		bsr.w	Pause								   ; Offset_0x0011E0
-		move.b	#8,(VBlank_Index).w						  ; $FFFFF62A
-		jsr	(Process_Kos_Queue).l		   ; Offset_0x0019F0
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		addq.w	#1,(Level_frame_counter).w					; $FFFFFE04
+		move.w	#$3F,(Palette_Fade_Info).w
+		jsr	(Pal_Clear).l
+		move.w	#$16,(Palette_Fade_Timer).w
+		move.w	#0,(Tmp_FF7C).w
+		bclr	#7,(Game_Mode).w
+; Offset_0x003F1A
+Level_Main_Loop:
+		bsr.w	Pause
+		move.b	#8,(VBlank_Index).w
+		jsr	(Process_Kos_Queue).l
+		bsr.w	Wait_For_VSync
+		addq.w	#1,(Level_frame_counter).w
 		move.w	#4,-(sp)
 		bra.s	Offset_0x003F7C
 ; ---------------------------------------------------------------------------
 Offset_0x003F38:
-		move.w	(Tmp_FF7E).w,d0								; $FFFFFF7E
-		add.w	D0,(Tmp_FF7C).w								; $FFFFFF7C
+		move.w	(Tmp_FF7E).w,d0
+		add.w	D0,(Tmp_FF7C).w
 		bcc.s	Offset_0x003F8C
-		bsr.w	Pause								   ; Offset_0x0011E0
-		move.w	#$100,(Z80_Bus_Request).l					   ; $00A11100
-		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
+		bsr.w	Pause
+		move.w	#$100,(Z80_Bus_Request).l
+		bsr.w	Control_Ports_Read
 		startZ80
-		move.w	#0,(DMA_Buffer_List).w					; $FFFFE700
-		move.l	#DMA_Buffer_List,(DMA_Buffer_List_End).w ; $FFFFE700, $FFFFE8F8
-		lea	(Sprite_Table_Input).w,a5					; $FFFFAC00
+		move.w	#0,(DMA_Buffer_List).w
+		move.l	#DMA_Buffer_List,(DMA_Buffer_List_End).w
+		lea	(Sprite_Table_Input).w,a5
 Offset_0x003F6C:
 		move.w	#0,(A5)
 		lea	$80(A5),a5
-		cmpa.l	#Obj_Player_One,a5							; $FFFFB000
+		cmpa.l	#Obj_Player_One,a5
 		bcs.s	Offset_0x003F6C
 Offset_0x003F7C:
-		bsr.w	Init_Demo_Control					   ; Offset_0x0047F6
-		jsr	(RunObjects).l						   ; Offset_0x0110AE
-		jsr	(DeformBgLayer).l			   ; Offset_0x0120D4
+		bsr.w	Init_Demo_Control
+		jsr	(RunObjects).l
+		jsr	(DeformBgLayer).l
 Offset_0x003F8C:
 		subq.w	#1,(sp)
 		bne.s	Offset_0x003F38
 		addq.w	#2,sp
-		tst.w	(Level_inactive_flag).w						  ; $FFFFFE02
-		bne.w	Level								   ; Offset_0x00399E
-		jsr	(Run_TileDrawing).l				 ; Offset_0x02F2EA
-		jsr	(AnimateStageTiles).l					  ; Offset_0x01E85A
-		jsr	(Build_Sprites).l						 ; Offset_0x011296
-		jsr	(AnimatePalette).l						; Offset_0x002DD4
-		bsr.w	RunPLC_RAM								   ; Offset_0x001556
-		jsr	(Process_Kos_Module_Queue).l			   ; Offset_0x0018FE
-		cmpi.b	#gm_DemoMode,(Game_Mode).w			   ; $08, $FFFFF600
+		tst.w	(Level_inactive_flag).w
+		bne.w	Level
+		jsr	(Run_TileDrawing).l
+		jsr	(AnimateStageTiles).l
+		jsr	(Build_Sprites).l
+		jsr	(AnimatePalette).l
+		bsr.w	RunPLC_RAM
+		jsr	(Process_Kos_Module_Queue).l
+		cmpi.b	#gm_DemoMode,(Game_Mode).w
 		beq.s	Offset_0x003FD0
-		cmpi.b	#gm_PlayMode,(Game_Mode).w			   ; $0C, $FFFFF600
-		beq.w	Level_Main_Loop						   ; Offset_0x003F1A
+		cmpi.b	#gm_PlayMode,(Game_Mode).w
+		beq.w	Level_Main_Loop
 		rts
 Offset_0x003FD0:
-		tst.w	(Level_inactive_flag).w						  ; $FFFFFE02
+		tst.w	(Level_inactive_flag).w
 		bne.s	Offset_0x003FEE
-		tst.w	(Demo_Timer).w								 ; $FFFFF614
+		tst.w	(Demo_Timer).w
 		beq.s	Offset_0x003FEE
-		cmpi.b	#gm_DemoMode,(Game_Mode).w			   ; $08, $FFFFF600
-		beq.w	Level_Main_Loop						   ; Offset_0x003F1A
-		move.b	#gm_SEGALogo,(Game_Mode).w			   ; $00, $FFFFF600
+		cmpi.b	#gm_DemoMode,(Game_Mode).w
+		beq.w	Level_Main_Loop
+		move.b	#gm_SEGALogo,(Game_Mode).w
 		rts
 Offset_0x003FEE:
-		cmpi.b	#gm_DemoMode,(Game_Mode).w			   ; $08, $FFFFF600
+		cmpi.b	#gm_DemoMode,(Game_Mode).w
 		bne.s	Offset_0x003FFE
-		move.b	#gm_SEGALogo,(Game_Mode).w			   ; $00, $FFFFF600
+		move.b	#gm_SEGALogo,(Game_Mode).w
 		rts
 Offset_0x003FFE:
-		move.w	#60,(Demo_Timer).w						 ; $FFFFF614
-		move.w	#$3F,(Palette_Fade_Info).w				  ; $FFFFF626
-		clr.w	(Demo_Pal_FadeOut_Counter).w				 ; $FFFFF794
+		move.w	#60,(Demo_Timer).w
+		move.w	#$3F,(Palette_Fade_Info).w
+		clr.w	(Demo_Pal_FadeOut_Counter).w
 Offset_0x00400E:
-		move.b	#8,(VBlank_Index).w						  ; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		bsr.w	Init_Demo_Control					   ; Offset_0x0047F6
-		jsr	(RunObjects).l						   ; Offset_0x0110AE
-		jsr	(DeformBgLayer).l			   ; Offset_0x0120D4
-		jsr	(Run_TileDrawing).l				 ; Offset_0x02F2EA
-		jsr	(Build_Sprites).l						 ; Offset_0x011296
-		jsr	(ObjectsManager).l						; Offset_0x011BF8
-		jsr	(Process_Kos_Module_Queue).l			   ; Offset_0x0018FE
-		subq.w	#1,(Demo_Pal_FadeOut_Counter).w			  ; $FFFFF794
+		move.b	#8,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		bsr.w	Init_Demo_Control
+		jsr	(RunObjects).l
+		jsr	(DeformBgLayer).l
+		jsr	(Run_TileDrawing).l
+		jsr	(Build_Sprites).l
+		jsr	(ObjectsManager).l
+		jsr	(Process_Kos_Module_Queue).l
+		subq.w	#1,(Demo_Pal_FadeOut_Counter).w
 		bpl.s	Offset_0x004050
-		move.w	#2,(Demo_Pal_FadeOut_Counter).w			; $FFFFF794
-		bsr.w	Pal_FadeOut							   ; Offset_0x002E08
+		move.w	#2,(Demo_Pal_FadeOut_Counter).w
+		bsr.w	Pal_FadeOut
 Offset_0x004050:
-		tst.w	(Demo_Timer).w								 ; $FFFFF614
+		tst.w	(Demo_Timer).w
 		bne.s	Offset_0x00400E
 		rts
-
 ; ---------------------------------------------------------------------------
 ; Subroutine to set the player mode, which is forced to Sonic and Tails in
 ; the demo mode and in 2P mode
@@ -5274,41 +5270,41 @@ InitPlayers_TailsAlone:
 
 
 Offset_0x0040F2:
-		move.b	(Menu_Player_One_Cursor).w,d0				; $FFFFFFDA
+		move.b	(Menu_Player_One_Cursor).w,d0
 		bsr.s	Offset_0x004130
-		move.l	D1,(Obj_Player_One).w						; $FFFFB000
-		move.b	(Menu_Player_Two_Cursor).w,d0				; $FFFFFFDB
+		move.l	D1,(Obj_Player_One).w
+		move.b	(Menu_Player_Two_Cursor).w,d0
 		bsr.s	Offset_0x004130
-		move.l	D1,(Obj_Player_Two).w						; $FFFFB04A
-		move.b	(Menu_Player_One_Cursor).w,(Obj_Player_One+Obj_Player_Selected).w ; $FFFFFFDA, $FFFFB038
-		move.b	(Menu_Player_Two_Cursor).w,(Obj_Player_Two+Obj_Player_Selected).w ; $FFFFFFDB, $FFFFB082
-		move.w	(Obj_Player_One+x_pos).w,(Obj_Player_Two+x_pos).w ; $FFFFB010, $FFFFB05A
-		move.w	(Obj_Player_One+y_pos).w,(Obj_Player_Two+y_pos).w ; $FFFFB014, $FFFFB05E
-		move.l	#Obj_Dust_Water_Splash_2P,(Obj_P1_Dust_Water_Splash).w ; Offset_0x0100DA, $FFFFCC54
-		move.l	#Obj_Dust_Water_Splash_2P,(Obj_P2_Dust_Water_Splash).w ; Offset_0x0100DA, $FFFFCC9E
+		move.l	d1,(Obj_Player_Two).w
+		move.b	(Menu_Player_One_Cursor).w,(Obj_Player_One+Obj_Player_Selected).w
+		move.b	(Menu_Player_Two_Cursor).w,(Obj_Player_Two+Obj_Player_Selected).w
+		move.w	(Obj_Player_One+x_pos).w,(Obj_Player_Two+x_pos).w
+		move.w	(Obj_Player_One+y_pos).w,(Obj_Player_Two+y_pos).w
+		move.l	#Obj_Dust_Water_Splash_2P,(Obj_P1_Dust_Water_Splash).w
+		move.l	#Obj_Dust_Water_Splash_2P,(Obj_P2_Dust_Water_Splash).w
 		bra.s	Offset_0x00414E
 Offset_0x004130:
-		tst.b	D0
+		tst.b	d0
 		bne.s	Offset_0x00413A
-		move.l	#Obj_Sonic_Knuckles_2P,d1			  ; Offset_0x00A552
+		move.l	#Obj_Sonic_Knuckles_2P,d1
 Offset_0x00413A:
 		subq.b	#1,d0
 		bne.s	Offset_0x004146
-		move.l	#Obj_Miles_2P,d1					  ; Offset_0x00CC0A
+		move.l	#Obj_Miles_2P,d1
 		rts
 Offset_0x004146:
-		move.l	#Obj_Sonic_Knuckles_2P,d1			  ; Offset_0x00A552
+		move.l	#Obj_Sonic_Knuckles_2P,d1
 		rts
 Offset_0x00414E:
-		lea	(Palette_Row_1_Data_Target).w,a2			; $FFFFEDA0
-		lea	(Pal_Level_2P).l,a1						; Offset_0x004164
+		lea	(Palette_Row_1_Data_Target).w,a2
+		lea	(Pal_Level_2P).l,a1
 		move.w	#bytesToWcnt($20),d0
 Offset_0x00415C:
-		move.w	(A1)+,(A2)+
-		dbf	D0,Offset_0x00415C
+		move.w	(a1)+,(a2)+
+		dbf	d0,Offset_0x00415C
 		rts
 ; ---------------------------------------------------------------------------
-Pal_Level_2P:												   ; Offset_0x004164
+Pal_Level_2P:
 		dc.w	$0A86, $0EEE, $084E, $040C, $0206, $0080, $000E, $0008
 		dc.w	$00AE, $008E, $08AE, $046A, $0ECC, $0CAA, $0866, $0222
 ; ---------------------------------------------------------------------------
@@ -5316,8 +5312,8 @@ Pal_Level_2P:												   ; Offset_0x004164
 ; <<<- Sonic And Miles / Sonic Alone / Miles Alone
 ; ---------------------------------------------------------------------------
 
-Obj_Clear_Collision_Response_List:							   ; Offset_0x004184
-		move.w	#0,(Collision_Response_List).w			; $FFFFE380
+Obj_Clear_Collision_Response_List:
+		move.w	#0,(Collision_Response_List).w
 		rts
 ; ---------------------------------------------------------------------------
 ; Subroutine to move the water or oil surface sprites to where the screen is at
@@ -7919,7 +7915,7 @@ Special_Stage_Test_2:										   ; Offset_0x0070DC
 Offset_0x00716C:
 		move.w	(A1)+,(A2)+
 		dbf	D0,Offset_0x00716C
-		move.l	#$40000002,(VDP_Control_Port)				; $00C00004
+		move.l	#$40000002,(VDP_Control_Port).l				; $00C00004
 		lea	(Art_Scaled_Spheres).l,a0				; Offset_0x10B68E
 		bsr.w	NemesisDec							   ; Offset_0x001390
 		move.l	#Obj_Spheres_2,(Obj_Player_One).w  ; Offset_0x007256, $FFFFB000
