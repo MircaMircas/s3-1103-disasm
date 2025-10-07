@@ -1,35 +1,8 @@
-; TODO: Obj05,Obj35,Obj07,Obj_0x08,Obj_0x04,Obj_0x0F,Obj02,Obj_0x0C
-; Obj_0x2F_Still_Sprite
-
 ; ---------------------------------------------------------------------------
 ; Sonic the Hedgehog 3 - November 3, 1993 GitHub disassembly
 ;
 ; Based on Esrael L.G. Neto's disassembly
-; Current editors: Alex Field
 ; ROM released by hiddenpalace.org on November 16, 2019, by drx
-; ---------------------------------------------------------------------------
-; Unused data (left over ???):
-; 0x00F972 - Obj_Classic_Shield
-; 0x010C60 - Obj_S1_0x4B_Big_Ring
-; 0x010D26 - Obj_S1_0x7C_Big_Ring_Flash
-; 0x010FC2 - Obj_S2_0xDC_Slot_Machine_Ring
-; 0x024BCC - Obj_S2_0x6F_Special_Stage_Results
-; 0x04C3A6 - Lava Reef's debug object list (unlinked)
-; 0x080DE0 - Art_Invincibility
-; 0x0EF1DD - Unlinked code
-; 0x10687E - Art_Horizontal_Spring
-; 0x106CB0 - Art_Head_Up_Display
-; 0x109B4A - Art_Result_Font_2P
-; 0x10ADA2 - Art_Seal
-; 0x10AEBE - Art_Pig
-; 0x10DCE6 - Unreferenced mappings
-; 0x10DFC4 - Unreferenced dynamic script ( Obj 0x97 - Cluckoid )
-; 0x10E18E - Unreferenced dynamic script ( Obj 0x96 - Butterdroid )
-; 0x10E2C4 - Unreferenced dynamic script ( Obj 0x90 - Fireworm )
-; 0x10E5B6 - Partially overwritten mappings pointer
-; 0x132802 - Art_Hz_Enemies
-; 0x1885CA - Launch Base's unused chunks
-; 0x1E9814 - Unused Sonic 2nd palette line
 ; ---------------------------------------------------------------------------
 		CPU 68000
 		include "s3.macrosetup.asm"
