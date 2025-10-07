@@ -2893,8 +2893,8 @@ PalCycle_AIZ1:
 		addq.w	#8,(Palette_Cycle_Count_0).w
 		andi.w	#$18,d0
 		lea	(Pal_AIz1_Cyc1).l,a0
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$16).w
-		move.l	4(A0,d0.w),(Palette_Row_2_Offset+$1A).w
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$16).w
+		move.l	4(a0,d0.w),(Palette_Row_2_Offset+$1A).w
 		; ocean cycle
 		move.w	(Palette_Cycle_Counters+2).w,d0
 		addq.w	#6,(Palette_Cycle_Counters+2).w
@@ -2912,54 +2912,54 @@ Offset_0x001FEA:
 ; ---------------------------------------------------------------------------
 
 Offset_0x001FEC:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x002048
-		move.w	#$A-1,(Palette_Cycle_Count_1).w			   ; $FFFFF634
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#8,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$50,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#$A-1,(Palette_Cycle_Count_1).w
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#8,(Palette_Cycle_Count_0).w
+		cmpi.w	#$50,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x00200E
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x00200E:
-		lea	(Pal_AIz1_Cyc2).l,a0					; Offset_0x002450
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+4).w	  ; $FFFFED64
-		move.l	4(A0,d0.w),(Palette_Row_3_Offset+8).w	   ; $FFFFED68
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#6,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$3C,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		lea	(Pal_AIz1_Cyc2).l,a0
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+4).w
+		move.l	4(a0,d0.w),(Palette_Row_3_Offset+8).w
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#6,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$3C,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x002036
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x002036:
-		lea	(Pal_AIz1_Cyc3).l,a0					; Offset_0x0024D0
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$1A).w	; $FFFFED7A
-		move.w	4(A0,d0.w),(Palette_Row_3_Offset+$1E).w	 ; $FFFFED7E
+		lea	(Pal_AIz1_Cyc3).l,a0
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+$1A).w
+		move.w	4(a0,d0.w),(Palette_Row_3_Offset+$1E).w
 Offset_0x002048:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_AIz_2:												   ; Offset_0x00204A
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_AIz_2:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x0020C4
-		move.w	#6-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#8,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#6-1,(Palette_Cycle_Count_1).w
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#8,(Palette_Cycle_Count_0).w
 		andi.w	#$18,d0
-		lea	(Pal_AIz2_Cyc1).l,a0					; Offset_0x002560
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$18).w	; $FFFFED78
-		move.l	4(A0,d0.w),(Palette_Row_3_Offset+$1C).w	 ; $FFFFED7C
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#6,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$30,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		lea	(Pal_AIz2_Cyc1).l,a0
+		move.l	(A0,d0.w),(Palette_Row_3_Offset+$18).w
+		move.l	4(A0,d0.w),(Palette_Row_3_Offset+$1C).w
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#6,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$30,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x00208A
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x00208A:
-		lea	(Pal_AIz2_Cyc2).l,a0					; Offset_0x002580
-		cmpi.w	#$3800,(Camera_X).w							; $FFFFEE78
+		lea	(Pal_AIz2_Cyc2).l,a0
+		cmpi.w	#$3800,(Camera_X).w
 		bcs.s	Offset_0x00209E
-		lea	(Pal_AIz2_Cyc3).l,a0					; Offset_0x0025B0
+		lea	(Pal_AIz2_Cyc3).l,a0
 Offset_0x00209E:
-		move.w	(A0,d0.w),(Palette_Row_2_Offset+8).w	  ; $FFFFED48
-		move.w	2(A0,d0.w),(Palette_Row_2_Offset+$10).w	 ; $FFFFED50
-		move.w	4(A0,d0.w),(Palette_Row_3_Offset+$16).w	 ; $FFFFED76
+		move.w	(A0,d0.w),(Palette_Row_2_Offset+8).w
+		move.w	2(A0,d0.w),(Palette_Row_2_Offset+$10).w
+		move.w	4(A0,d0.w),(Palette_Row_3_Offset+$16).w
 		move.w	#$A0E,(Palette_Row_2_Offset+$1C).w		   ; $FFFFED5C
 		cmpi.w	#$1C0,(Camera_X).w						   ; $FFFFEE78
 		bcc.s	Offset_0x0020C4
