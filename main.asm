@@ -5960,7 +5960,14 @@ Offset_0x00489E:
 		andi.b	#$7F,d0
 		lea	(Control_Ports_Buffer_Data).w,a0
 		move.b	d0,d1
+	if FixBugs
+		; Fixes held input issues with demos.
+		; Read more about it here: https://info.sonicretro.org/SCHG_How-to:Fix_demo_playback
+		move.b	-2(a0),d2
+	else
+		; Bug: Held inputs are instead read as presses.
 		moveq	#0,d2
+	endif
 		eor.b	d2,d0
 		move.b	d1,(a0)+
 		and.b	d1,d0
@@ -5981,7 +5988,14 @@ Offset_0x0048DC:
 		move.b	(a1),d0
 		lea	(Control_Ports_Buffer_Data+2).w,a0
 		move.b	d0,d1
+	if FixBugs
+		; Fixes held input issues with demos.
+		; Read more about it here: https://info.sonicretro.org/SCHG_How-to:Fix_demo_playback
+		move.b	-2(a0),d2
+	else
+		; Bug: Held inputs are instead read as presses.
 		moveq	#0,d2
+	endif
 		eor.b	d2,d0
 		move.b	d1,(a0)+
 		and.b	d1,d0
