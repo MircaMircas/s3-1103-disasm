@@ -627,26 +627,26 @@ VBlank_06:
 VBlank_08:
 VBlank_10:
 		stopZ80
-		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
-		tst.b	(S2_Teleport_Timer).w						 ; $FFFFF622
+		bsr.w	Control_Ports_Read
+		tst.b	(S2_Teleport_Timer).w
 		beq.s	Offset_0x00075A
-		lea	(VDP_Control_Port).l,a5						  ; $00C00004
-		tst.w	(Pause_Status).w							 ; $FFFFF63A
+		lea	(VDP_Control_Port).l,a5
+		tst.w	(Pause_Status).w
 		bne.w	Offset_0x0007AA
-		subq.b	#1,(S2_Teleport_Timer).w				  ; $FFFFF622
+		subq.b	#1,(S2_Teleport_Timer).w
 		bne.s	Offset_0x00071E
-		move.b	#0,(S2_Teleport_Flag).w					  ; $FFFFF623
+		move.b	#0,(S2_Teleport_Flag).w
 Offset_0x00071E:
-		cmpi.b	#$10,(S2_Teleport_Timer).w					; $FFFFF622
+		cmpi.b	#$10,(S2_Teleport_Timer).w
 		bcs.s	Offset_0x00075A
-		lea	(VDP_Data_Port).l,a6						  ; $00C00000
-		move.l	#$C0000000,(VDP_Control_Port).l				; $00C00004
+		lea	(VDP_Data_Port).l,a6
+		move.l	#$C0000000,(VDP_Control_Port).l
 		move.w	#$EEE,d0
 		move.w	#bytesToWcnt($40),d1
 Offset_0x00073E:
 		move.w	d0,(a6)
 		dbf	d1,Offset_0x00073E
-		move.l	#$C0420000,(VDP_Control_Port).l				; $00C00004
+		move.l	#$C0420000,(VDP_Control_Port).l
 	if FixBugs
 		move.w	#bytesToWcnt($3E),d1
 	else
@@ -657,7 +657,7 @@ Offset_0x000752:
 		dbf	d1,Offset_0x000752
 		bra.s	Offset_0x0007AA
 Offset_0x00075A:
-		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
+		tst.b	(Underwater_Flag).w
 		bne.s	Offset_0x000786
 		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x0007AA
@@ -726,41 +726,41 @@ Offset_0x000896:
 VBlank_0A:
 VBlank_0C:
 		stopZ80
-		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
-		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
+		bsr.w	Control_Ports_Read
+		tst.b	(Underwater_Flag).w
 		bne.s	Offset_0x0008DA
 		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x0008FE
 Offset_0x0008DA:
 		dma68kToVDP	Palette_Underwater_Buffer,$0000,$80,CRAM
 Offset_0x0008FE:
-		move.w	(Horizontal_Int_Count_Cmd).w,(a5)			; $FFFFF624
+		move.w	(Horizontal_Int_Count_Cmd).w,(a5)
 		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
 		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
-		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
-		move.l	(Vertical_Scroll_Value_P2).w,(Vertical_Scroll_Value_P2_2).w ; $FFFFF61E, $FFFFEE3A
+		bsr.w	ProcessDMAQueue
+		move.l	(Vertical_Scroll_Value_P2).w,(Vertical_Scroll_Value_P2_2).w
 		jsr	(sndDriverInput).l
 		startZ80
-		bsr.w	ProcessDPLC					 ; Offset_0x0015AE
-		jmp	(Set_Kos_Bookmark).l				; Offset_0x0019C6
+		bsr.w	ProcessDPLC
+		jmp	(Set_Kos_Bookmark).l
 ; ---------------------------------------------------------------------------
-VBlank_0E:													   ; Offset_0x00096C
+VBlank_0E:
 		bsr.w	Offset_0x000B80
-		move.b	#$E,(VBlank_Index).w					   ; $FFFFF62A
+		move.b	#$E,(VBlank_Index).w
 		rts
 ; ---------------------------------------------------------------------------
-VBlank_12:													   ; Offset_0x000978
+VBlank_12:
 		bsr.w	Offset_0x000B80
-		move.w	(Horizontal_Int_Count_Cmd).w,(a5)			; $FFFFF624
-		bra.w	ProcessDPLC					 ; Offset_0x0015AE
+		move.w	(Horizontal_Int_Count_Cmd).w,(a5)
+		bra.w	ProcessDPLC
 ; ---------------------------------------------------------------------------
-VBlank_18:													   ; Offset_0x000984
+VBlank_18:
 		stopZ80
-		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
+		bsr.w	Control_Ports_Read
 		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
 		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
-		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
+		bsr.w	ProcessDMAQueue
 		bsr.w	sndDriverInput
 		startZ80
 		rts
@@ -775,42 +775,42 @@ Offset_0x000A1C:
 Offset_0x000A4C:
 		dmaFillVRAM 0,VRAM_EndSeq_Plane_B_Name_Table2,VRAM_EndSeq_Plane_Table_Size
 		dmaFillVRAM 0,VRAM_EndSeq_Plane_A_Name_Table,VRAM_EndSeq_Plane_Table_Size
-		lea	(VDP_Control_Port).l,a6						; $00C00004
+		lea	(VDP_Control_Port).l,a6
 		move.w	#$8B00,(a6)
 		move.w	#$8402,(a6)
 		move.w	#$9011,(a6)
-		lea	(RAM_Start).l,a1						   ; $FFFF0000
+		lea	(RAM_Start).l,a1
 		move.l	#$50AC0003,d0
 		moveq	#23-1,d1
 		moveq	#15-1,d2
-		jsr	(PlaneMapToVRAM_H40).l						; Offset_0x0012BC
+		jsr	(PlaneMapToVRAM_H40).l
 		rts
 ; ---------------------------------------------------------------------------
-VBlank_16:													   ; Offset_0x000AD2
+VBlank_16:
 		stopZ80
-		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
+		bsr.w	Control_Ports_Read
 		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
 		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
-		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
+		bsr.w	ProcessDMAQueue
 		bsr.w	sndDriverInput
 		startZ80
-		bsr.w	ProcessDPLC					 ; Offset_0x0015AE
-		tst.w	(Demo_Timer).w								 ; $FFFFF614
+		bsr.w	ProcessDPLC
+		tst.w	(Demo_Timer).w
 		beq.w	Offset_0x000B74
-		subq.w	#1,(Demo_Timer).w							; $FFFFF614
+		subq.w	#1,(Demo_Timer).w
 Offset_0x000B74:
 		rts
 ; ---------------------------------------------------------------------------
-VBlank_1A:													   ; Offset_0x000B76
+VBlank_1A:
 		bsr.w	Offset_0x000B80
-		bsr.w	ProcessDPLC					 ; Offset_0x0015AE
+		bsr.w	ProcessDPLC
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x000B80:
 		stopZ80
-		bsr.w	Control_Ports_Read					   ; Offset_0x000F16
-		tst.b	(Underwater_Flag).w							 ; $FFFFF64E
+		bsr.w	Control_Ports_Read
+		tst.b	(Underwater_Flag).w
 		bne.s	Offset_0x000BC2
 		dma68kToVDP	Palette_Buffer,$0000,$80,CRAM
 		bra.s	Offset_0x000BE6
@@ -819,7 +819,7 @@ Offset_0x000BC2:
 Offset_0x000BE6:
 		dma68kToVDP Sprite_Table_Buffer,$F800,$280,VRAM
 		dma68kToVDP Horizontal_Scroll_Buffer,$F000,$380,VRAM
-		bsr.w	ProcessDMAQueue							   ; Offset_0x00135E
+		bsr.w	ProcessDMAQueue
 		bsr.w	sndDriverInput
 		startZ80
 		rts
@@ -1092,8 +1092,8 @@ JoypadInit:
 ; ->>>
 ;===============================================================================
 Control_Ports_Read:
-		lea	(Control_Ports_Buffer_Data).w,a0			; $FFFFF604
-		lea	(IO_Joypad_Port_0).l,a1						; $00A10003
+		lea	(Control_Ports_Buffer_Data).w,a0
+		lea	(IO_Joypad_Port_0).l,a1
 		bsr.s	Offset_0x000F24
 		addq.w	#2,a1
 Offset_0x000F24:
@@ -1126,27 +1126,27 @@ Offset_0x000F24:
 ; ->>>
 ;===============================================================================
 VDPRegSetup:
-		lea	(VDP_Control_Port).l,a0						; $00C00004
-		lea	(VDP_Data_Port).l,a1							; $00C00000
-		lea	(VDPRegSetup_Array).l,a2				; Offset_0x000FDC
+		lea	(VDP_Control_Port).l,a0
+		lea	(VDP_Data_Port).l,a1
+		lea	(VDPRegSetup_Array).l,a2
 		moveq	#bytesToWcnt(VDPRegSetup_Array_End-VDPRegSetup_Array),d7
 Offset_0x000F66:
 		move.w	(a2)+,(a0)
 		dbf	d7,Offset_0x000F66
-		move.w	(VDPRegSetup_Array+2).l,d0			  ; Offset_0x000FDE
-		move.w	d0,(VDP_Register_1_Command).w				; $FFFFF60E
-		move.w	#$8A00+224-1,(Horizontal_Int_Count_Cmd).w		  ; $FFFFF624
+		move.w	(VDPRegSetup_Array+2).l,d0
+		move.w	d0,(VDP_Register_1_Command).w
+		move.w	#$8A00+224-1,(Horizontal_Int_Count_Cmd).w
 		moveq	#0,d0
-		move.l	#$40000010,(VDP_Control_Port).l				  ; $00C00004
+		move.l	#$40000010,(VDP_Control_Port).l
 		move.w	d0,(a1)
 		move.w	d0,(a1)
-		move.l	#$C0000000,(VDP_Control_Port).l				  ; $00C00004
+		move.l	#$C0000000,(VDP_Control_Port).l
 		move.w	#bytesToWcnt($80),d7
 Offset_0x000F9A:
 		move.w	d0,(a1)
 		dbf	d7,Offset_0x000F9A
-		clr.l	(Vertical_Scroll_Value).w					 ; $FFFFF616
-		clr.l	(Vertical_Scroll_Value_3).w					 ; $FFFFF61A
+		clr.l	(Vertical_Scroll_Value).w
+		clr.l	(Vertical_Scroll_Value_3).w
 		move.l	d1,-(sp)
 		dmaFillVRAM 0,$0000,$10000	; clear entire VRAM
 		move.l	(sp)+,d1
@@ -1325,64 +1325,57 @@ PlaySound_Exit:
 ; End of function PlaySound
 
 ;===============================================================================
-; Rotina para tratar o Pause
-; ->>>
+; Routine to Pause
 ;===============================================================================
 Pause:
 		nop
-		tst.b	(Life_count).w								 ; $FFFFFE12
-		beq.w	Unpause								   ; Offset_0x00128A
-		tst.w	(Pause_Status).w							 ; $FFFFF63A
-		bne.s	Pause_AlreadyPaused					   ; Offset_0x001200
-		move.b	(Control_Ports_Buffer_Data+1).w,d0		; $FFFFF605
-		or.b	(Control_Ports_Buffer_Data+3).w,d0		; $FFFFF607
+		tst.b	(Life_count).w
+		beq.w	Unpause
+		tst.w	(Pause_Status).w
+		bne.s	Pause_AlreadyPaused
+		move.b	(Control_Ports_Buffer_Data+1).w,d0
+		or.b	(Control_Ports_Buffer_Data+3).w,d0
 		andi.b	#button_start_mask,d0
-		beq.w	Pause_DoNothing						   ; Offset_0x001290
+		beq.w	Pause_DoNothing
 Pause_AlreadyPaused:
-		move.w	#1,(Pause_Status).w						; $FFFFF63A
+		move.w	#1,(Pause_Status).w
 		stopZ80
 		move.b	#1,(Z80_RAM+zPauseFlag).l
 		startZ80
 Pause_Loop:
-		move.b	#$10,(VBlank_Index).w						; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		tst.b	(Slow_Motion_Flag).w						 ; $FFFFFFD1
-		beq.s	Pause_CheckStart					   ; Offset_0x00125A
-		btst	#button_A,(Control_Ports_Buffer_Data+1).w	 ; $FFFFF605
-		beq.s	Pause_CheckBC						   ; Offset_0x00124A
-		move.b	#gm_TitleScreen,(Game_Mode).w		   ; $04, $FFFFF600
+		move.b	#$10,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		tst.b	(Slow_Motion_Flag).w
+		beq.s	Pause_CheckStart
+		btst	#button_A,(Control_Ports_Buffer_Data+1).w
+		beq.s	Pause_CheckBC
+		move.b	#gm_TitleScreen,(Game_Mode).w
 		nop
 		bra.s	Offset_0x001268
 Pause_CheckBC:
-		btst	#button_B,(Control_Ports_Buffer_Data).w			 ; $FFFFF604
-		bne.s	Pause_SlowMotion					   ; Offset_0x001292
-		btst	#button_C,(Control_Ports_Buffer_Data+1).w	 ; $FFFFF605
-		bne.s	Pause_SlowMotion					   ; Offset_0x001292
+		btst	#button_B,(Control_Ports_Buffer_Data).w
+		bne.s	Pause_SlowMotion
+		btst	#button_C,(Control_Ports_Buffer_Data+1).w
+		bne.s	Pause_SlowMotion
 Pause_CheckStart:
-		move.b	(Control_Ports_Buffer_Data+1).w,d0		; $FFFFF605
-		or.b	(Control_Ports_Buffer_Data+3).w,d0		; $FFFFF607
+		move.b	(Control_Ports_Buffer_Data+1).w,d0
+		or.b	(Control_Ports_Buffer_Data+3).w,d0
 		andi.b	#button_start_mask,d0
-		beq.s	Pause_Loop							   ; Offset_0x001228
+		beq.s	Pause_Loop
 Offset_0x001268:
 		stopZ80
 		move.b	#$80,(Z80_RAM+zPauseFlag).l
 		startZ80
 Unpause:
-		move.w	#0,(Pause_Status).w						; $FFFFF63A
+		move.w	#0,(Pause_Status).w
 Pause_DoNothing:
 		rts
 Pause_SlowMotion:
-		move.w	#1,(Pause_Status).w						; $FFFFF63A
+		move.w	#1,(Pause_Status).w
 		stopZ80
 		move.b	#$80,(Z80_RAM+zPauseFlag).l
 		startZ80
 		rts
-;===============================================================================
-; Rotina para tratar o Pause
-; <<<-
-;===============================================================================
-
-
 ; ===========================================================================
 ; Begin graphics-related routines
 ; ---------------------------------------------------------------------------
@@ -1548,26 +1541,25 @@ ProcessDMAQueue_Done:
 
 
 ;===============================================================================
-; Rotina de descompress�o no formato Nemesis
-; ->>>
+; Decompression routine in Nemesis format
 ;===============================================================================
 NemesisDec:
-		movem.l	d0-d7/a0/a1/a3-a5,-(sp)
-		lea	(NemesisDec_Output).l,a3				; Offset_0x001452
-		lea	(VDP_Data_Port).l,a4							; $00C00000
-		bra.s	NemesisDec_Main						   ; Offset_0x0013AC
+		movem.l	d0-d7/a0-a1/a3-a5,-(sp)
+		lea	(NemesisDec_Output).l,a3
+		lea	(VDP_Data_Port).l,a4
+		bra.s	NemesisDec_Main
 ; ---------------------------------------------------------------------------
 NemesisDecToRAM:
 		movem.l	d0-d7/a0/a1/a3-a5,-(sp)
-		lea	(NemesisDec_OutputToRAM).l,a3			; Offset_0x001468
+		lea	(NemesisDec_OutputToRAM).l,a3
 NemesisDec_Main:
-		lea	(NemesisDec_Data_Buffer).w,a1				; $FFFFAA00
+		lea	(NemesisDec_Data_Buffer).w,a1
 		move.w	(a0)+,d2
 		lsl.w	#1,d2
 		bcc.s	Offset_0x0013BA
 		; Points A3 to NemesisDec_Output_XOR if A3 = NemesisDec_Output or
 		; Points A3 to NemesisDec_OutputRAM_XOR if A3 = NemesisDec_OutputRAM
-		adda.w	#NemesisDec_Output_XOR-NemesisDec_Output,a3	  ; $000A
+		adda.w	#NemesisDec_Output_XOR-NemesisDec_Output,a3
 Offset_0x0013BA:
 		lsl.w	#2,d2
 		move.w	d2,a5
@@ -1580,7 +1572,7 @@ Offset_0x0013BA:
 		move.b	(a0)+,d5
 		move.w	#$10,d6
 		bsr.s	NemesisDec_2
-		movem.l	(sp)+,d0-d7/a0/a1/a3-a5
+		movem.l	(sp)+,d0-d7/a0-a1/a3-a5
 		rts
 ; ---------------------------------------------------------------------------
 NemesisDec_2:
@@ -1620,7 +1612,7 @@ NemesisDec_3:
 		moveq	#0,d4
 		moveq	#8,d3
 Offset_0x001420:
-		dbf	d0,NemesisDec_Loop_SubType			   ; Offset_0x001412
+		dbf	d0,NemesisDec_Loop_SubType
 		bra.s	NemesisDec_2
 ; ---------------------------------------------------------------------------
 Offset_0x001426:
@@ -1663,7 +1655,7 @@ NemesisDec_OutputToRAM:
 		move.l	d4,(a4)+
 		subq.w	#1,a5
 		move.w	a5,d4
-		bne.s	NemesisDec_3						   ; Offset_0x00141C
+		bne.s	NemesisDec_3
 		rts
 ; ---------------------------------------------------------------------------
 NemesisDec_Output_XORToRAM:
@@ -1671,7 +1663,7 @@ NemesisDec_Output_XORToRAM:
 		move.l	d2,(a4)+
 		subq.w	#1,a5
 		move.w	a5,d4
-		bne.s	NemesisDec_3						   ; Offset_0x00141C
+		bne.s	NemesisDec_3
 		rts
 ; ---------------------------------------------------------------------------
 NemesisDec_4:
@@ -1713,11 +1705,6 @@ Offset_0x0014C4:
 		addq.w	#2,d0
 		dbf	d5,Offset_0x0014C4
 		bra.s	Offset_0x00148A
-;===============================================================================
-; Rotina de descompress�o no formato Nemesis
-; <<<-
-;===============================================================================
-
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to load pattern load cues in RAM
@@ -1736,7 +1723,7 @@ LoadPLC:
 ; Offset_0x0014E8:
 .findFreeSlot:
 		tst.l	(a2)					; is the current slot on the queue free?
-		beq.s	.getPieceCount				; if yes, branch
+		beq.s	.getPieceCount			; if yes, branch
 		addq.w	#6,a2					; otherwise skip past and check the next slot
 		bra.s	.findFreeSlot
 ; ---------------------------------------------------------------------------
@@ -1767,7 +1754,7 @@ LoadPLC_Direct:
 ; Offset_0x001506:
 .findFreeSlot:
 		tst.l	(a2)					; is the current slot on the queue free?
-		beq.s	.getPieceCount				; if yes, branch
+		beq.s	.getPieceCount			; if yes, branch
 		addq.w	#6,a2					; otherwise skip past and check the next slot
 		bra.s	.findFreeSlot
 ; ---------------------------------------------------------------------------
@@ -2265,96 +2252,85 @@ Eni_Decomp_FetchByte:
 		rts
 ; End of function Eni_Decomp_FetchByte
 ;===============================================================================
-; Rotina de descompress�o no formato Enigma
-; <<<-
+; Kosinski format decompression routine
 ;===============================================================================
-
-;===============================================================================
-; Rotina de descompress�o no formato Kosinski
-; ->>>
-;===============================================================================
-KosinskiDec:												   ; Offset_0x001808
+KosinskiDec:
 		subq.l	#2,sp
-		move.b	(A0)+,1(sp)
-		move.b	(A0)+,(sp)
-		move.w	(sp),D5
-		moveq	#$F,D4
+		move.b	(a0)+,1(sp)
+		move.b	(a0)+,(sp)
+		move.w	(sp),d5
+		moveq	#$F,d4
 Offset_0x001814:
-		lsr.w	#1,D5
-		move	SR,D6
-		dbf	D4,Offset_0x001826
-		move.b	(A0)+,1(sp)
-		move.b	(A0)+,(sp)
-		move.w	(sp),D5
-		moveq	#$F,D4
+		lsr.w	#1,d5
+		move	sr,d6
+		dbf	d4,Offset_0x001826
+		move.b	(a0)+,1(sp)
+		move.b	(a0)+,(sp)
+		move.w	(sp),d5
+		moveq	#$F,d4
 Offset_0x001826:
-		move	D6,CCR
+		move	d6,ccr
 		bcc.s	Offset_0x00182E
-		move.b	(A0)+,(A1)+
+		move.b	(a0)+,(a1)+
 		bra.s	Offset_0x001814
 Offset_0x00182E:
-		moveq	#0,D3
-		lsr.w	#1,D5
-		move	SR,D6
-		dbf	D4,Offset_0x001842
-		move.b	(A0)+,1(sp)
-		move.b	(A0)+,(sp)
-		move.w	(sp),D5
-		moveq	#$F,D4
+		moveq	#0,d3
+		lsr.w	#1,d5
+		move	sr,d6
+		dbf	d4,Offset_0x001842
+		move.b	(a0)+,1(sp)
+		move.b	(a0)+,(sp)
+		move.w	(sp),d5
+		moveq	#$F,d4
 Offset_0x001842:
-		move	D6,CCR
+		move	d6,ccr
 		bcs.s	Offset_0x001872
-		lsr.w	#1,D5
-		dbf	D4,Offset_0x001856
-		move.b	(A0)+,1(sp)
-		move.b	(A0)+,(sp)
-		move.w	(sp),D5
-		moveq	#$F,D4
+		lsr.w	#1,d5
+		dbf	d4,Offset_0x001856
+		move.b	(a0)+,1(sp)
+		move.b	(a0)+,(sp)
+		move.w	(sp),d5
+		moveq	#$F,d4
 Offset_0x001856:
-		roxl.w	#1,D3
-		lsr.w	#1,D5
-		dbf	D4,Offset_0x001868
-		move.b	(A0)+,1(sp)
-		move.b	(A0)+,(sp)
-		move.w	(sp),D5
-		moveq	#$F,D4
+		roxl.w	#1,d3
+		lsr.w	#1,d5
+		dbf	d4,Offset_0x001868
+		move.b	(a0)+,1(sp)
+		move.b	(a0)+,(sp)
+		move.w	(sp),d5
+		moveq	#$F,d4
 Offset_0x001868:
-		roxl.w	#1,D3
-		addq.w	#1,D3
-		moveq	#-1,D2
-		move.b	(A0)+,D2
+		roxl.w	#1,d3
+		addq.w	#1,d3
+		moveq	#-1,d2
+		move.b	(a0)+,d2
 		bra.s	Offset_0x001888
 Offset_0x001872:
-		move.b	(A0)+,D0
-		move.b	(A0)+,D1
-		moveq	#-1,D2
-		move.b	D1,D2
-		lsl.w	#5,D2
-		move.b	D0,D2
-		andi.w	#7,D1
+		move.b	(a0)+,d0
+		move.b	(a0)+,d1
+		moveq	#-1,d2
+		move.b	d1,d2
+		lsl.w	#5,d2
+		move.b	d0,d2
+		andi.w	#7,d1
 		beq.s	Offset_0x001894
-		move.b	D1,D3
-		addq.w	#1,D3
+		move.b	d1,d3
+		addq.w	#1,d3
 Offset_0x001888:
-		move.b	(A1,d2.w),D0
-		move.b	D0,(A1)+
-		dbf	D3,Offset_0x001888
+		move.b	(a1,d2.w),d0
+		move.b	d0,(a1)+
+		dbf	d3,Offset_0x001888
 		bra.s	Offset_0x001814
 Offset_0x001894:
-		move.b	(A0)+,D1
+		move.b	(a0)+,d1
 		beq.s	Offset_0x0018A4
-		cmpi.b	#1,D1
+		cmpi.b	#1,d1
 		beq.w	Offset_0x001814
-		move.b	D1,D3
+		move.b	d1,d3
 		bra.s	Offset_0x001888
 Offset_0x0018A4:
 		addq.l	#2,sp
 		rts
-;===============================================================================
-; Rotina de descompress�o no formato Kosinski
-; <<<-
-;===============================================================================
-
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Adds a Kosinski Moduled archive to the module queue
@@ -2667,26 +2643,19 @@ Backup_Kos_Registers:
 ; End of function Process_Kos_Queue
 
 ;===============================================================================
-; Aguarda pela conclus�o do procedimento de interrup��o vertical
-; ->>>
+; Wait for the vertical interruption procedure to complete
 ;===============================================================================
-Wait_For_VSync:												   ; Offset_0x001AEE
-		move	#$2300,SR
-Wait_For_VSync_Inf_Loop:									   ; Offset_0x001AF2
-		tst.b	(VBlank_Index).w							 ; $FFFFF62A
-		bne.s	Wait_For_VSync_Inf_Loop				   ; Offset_0x001AF2
+Wait_For_VSync:
+		move	#$2300,sr
+Wait_For_VSync_Inf_Loop:
+		tst.b	(VBlank_Index).w
+		bne.s	Wait_For_VSync_Inf_Loop
 		rts
 ;===============================================================================
-; Aguarda pela conclus�o do procedimento de interrup��o vertical
-; <<<-
-;===============================================================================
-
-;===============================================================================
-; Gera��o de n�meros pseudo aleat�rios
-; ->>>
+; Pseudo-random number generation
 ;===============================================================================
 PseudoRandomNumber:
-		move.l	(Random_Seed).w,d1							; $FFFFF636
+		move.l	(Random_Seed).w,d1
 		bne.s	Offset_0x001B06
 		move.l	#$2A6D365A,d1
 Offset_0x001B06:
@@ -2700,24 +2669,18 @@ Offset_0x001B06:
 		add.w	d1,d0
 		move.w	d0,d1
 		swap	d1
-		move.l	d1,(Random_Seed).w							; $FFFFF636
+		move.l	d1,(Random_Seed).w
 		rts
 ;===============================================================================
-; Gera��o de n�meros pseudo aleat�rios
-; <<<-
-;===============================================================================
-
-;===============================================================================
-; Rotina para calcular o Seno usando tabela pr�-calculada
-; ->>>
+; Routine to calculate Sine using pre-calculated table
 ;===============================================================================
 CalcSine:
 		andi.w	#$FF,d0
 		add.w	d0,d0
 		addi.w	#$80,d0
-		move.w	Sine_Table(pc,d0.w),d1				   ; Offset_0x001B38
+		move.w	Sine_Table(pc,d0.w),d1
 		subi.w	#$80,d0
-		move.w	Sine_Table(pc,d0.w),d0				   ; Offset_0x001B38
+		move.w	Sine_Table(pc,d0.w),d0
 		rts
 ; ---------------------------------------------------------------------------
 Sine_Table:
@@ -2762,13 +2725,7 @@ Sine_Table:
 		dc.w	$00EC, $00EE, $00F1, $00F3, $00F4, $00F6, $00F8, $00F9
 		dc.w	$00FB, $00FC, $00FD, $00FE, $00FE, $00FF, $00FF, $00FF
 ;===============================================================================
-; Rotina para calcular o Seno usando tabela pr�-calculada
-; <<<-
-;===============================================================================
-
-;===============================================================================
-; Rotina para calcular o �ngulo usando tabela pr�-calculada
-; ->>>
+; Routine to calculate the angle using a pre-calculated table
 ;===============================================================================
 CalcAngle:
 		movem.l	d3-d4,-(sp)
@@ -2792,13 +2749,13 @@ Offset_0x001DD6:
 		lsl.l	#8,d4
 		divu.w	d3,d4
 		moveq	#0,d0
-		move.b	Angle_Table(pc,d4.w),d0				   ; Offset_0x001E14
+		move.b	Angle_Table(pc,d4.w),d0
 		bra.s	Offset_0x001DF0
 Offset_0x001DE6:
 		lsl.l	#8,d3
 		divu.w	d4,d3
 		moveq	#$40,d0
-		sub.b	Angle_Table(pc,d3.w),d0				   ; Offset_0x001E14
+		sub.b	Angle_Table(pc,d3.w),d0
 Offset_0x001DF0:
 		tst.w	d1
 		bpl.s	Offset_0x001DFA
@@ -2810,14 +2767,14 @@ Offset_0x001DFA:
 		neg.w	d0
 		addi.w	#$100,d0
 Offset_0x001E04:
-		movem.l	(sp)+,d3-D4
+		movem.l	(sp)+,d3-d4
 		rts
 Offset_0x001E0A:
 		move.w	#$40,d0
 		movem.l	(sp)+,d3-d4
 		rts
 ; ---------------------------------------------------------------------------
-Angle_Table:												   ; Offset_0x001E14
+Angle_Table:
 		dc.b	$00, $00, $00, $00, $01, $01, $01, $01
 		dc.b	$01, $01, $02, $02, $02, $02, $02, $02
 		dc.b	$03, $03, $03, $03, $03, $03, $03, $04
@@ -2851,11 +2808,6 @@ Angle_Table:												   ; Offset_0x001E14
 		dc.b	$1F, $1F, $1F, $1F, $1F, $1F, $1F, $1F
 		dc.b	$1F, $1F, $20, $20, $20, $20, $20, $20
 		dc.b	$20, $00
-;===============================================================================
-; Rotina para calcular o �ngulo usando tabela pr�-calculada
-; <<<-
-;===============================================================================
-
 ; ---------------------------------------------------------------------------
 ; Subroutine to load palette cycles
 ; ---------------------------------------------------------------------------
