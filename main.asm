@@ -558,7 +558,7 @@ Offset_0x0005BE:
 
 		; update V-scroll
 		move.l	#$40000010,(VDP_Control_Port).l
-		move.l	(Vertical_Scroll_Value).w,(VDP_Data_Port)
+		move.l	(Vertical_Scroll_Value).w,(VDP_Data_Port).l
 
 		; Sonic 3 page-flips its sprite tables in competition mode, in order to
 		; resolve a bug that caused glitched sprites to appear in lag frames
