@@ -438,7 +438,7 @@ CheckVDPFrequency:
 
 VBlank:
 		nop
-		movem.l	d0-d7/a0-a6,-(sp)
+		movem.l	d0-a6,-(sp)
 		tst.b	(VBlank_Index).w
 		beq.w	VBlank_Lag
 
@@ -463,7 +463,7 @@ loc_486:
 		jsr	VBlank_List(pc,d0.w)
 VBlank_Finalize:
 		addq.l	#1,(Vint_runcount).w
-		movem.l	(sp)+,d0-d7/a0-a6
+		movem.l	(sp)+,d0-a6
 		rte
 ; End of function VBlank
 
@@ -948,9 +948,9 @@ Offset_0x000D8A:
 
 Offset_0x000D8C:
 		clr.b	(H_Int_Update_Flag).w
-		movem.l	d0-d7/a0-a6,-(sp)
+		movem.l	d0-a6,-(sp)
 		jsr	(Do_Updates).l
-		movem.l	(sp)+,d0-d7/a0-a6
+		movem.l	(sp)+,d0-a6
 		rte
 ; End of function HBlank_WaterPAL
 
@@ -1006,9 +1006,9 @@ HBlank_WaterNTSC:
 
 Offset_0x000E1E:
 		clr.b	(H_Int_Update_Flag).w
-		movem.l	d0-d7/a0-a6,-(sp)
+		movem.l	d0-a6,-(sp)
 		jsr	(Do_Updates).l
-		movem.l	(sp)+,d0-d7/a0-a6
+		movem.l	(sp)+,d0-a6
 		rte
 ; End of function HBlank_WaterNTSC
 
