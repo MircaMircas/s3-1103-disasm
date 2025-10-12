@@ -411,21 +411,21 @@ CheckVDPFrequency:
 		move.w	#$8174,(a5)			; VDP Command $8174 - display on, V-int on, DMA on, PAL off
 		moveq	#0,d0
 
-$$waitForVBlankStart:
+.waitForVBlankStart:
 		move.w	(a5),d1
 		andi.w	#8,d1
-		beq.s	$$waitForVBlankStart
+		beq.s	.waitForVBlankStart
 
-$$waitForVBlankEnd:
+.waitForVBlankEnd:
 		move.w	(a5),d1
 		andi.w	#8,d1
-		bne.s	$$waitForVBlankEnd	; Wait for VBlank to run once
+		bne.s	.waitForVBlankEnd	; Wait for VBlank to run once
 
-$$waitForNextVBlank:
+.waitForNextVBlank:
 		addq.w	#1,d0
 		move.w	(a5),d1
 		andi.w	#8,d1
-		beq.s	$$waitForNextVBlank
+		beq.s	.waitForNextVBlank
 		move.w	d0,(Vertical_Frequency).w	; count cycles between VBlanks to determine console
 		; (3420 cycles on NTSC, 4096 cycles on PAL)
 		rts
@@ -885,7 +885,7 @@ Offset_0x000CEC:
 		ori.b	#$40,d0
 		move.w	d0,(VDP_Control_Port).l
 		move.l	(sp)+,d0
-		move.l	(sp)+,a5
+		movea.l	(sp)+,a5
 
 Offset_0x000D0A:
 		rte
@@ -904,7 +904,7 @@ HBlank_WaterPAL:
 		tst.w	(Horizontal_Interrupt_Flag).w
 		beq.s	Offset_0x000D8A
 		move.w	#0,(Horizontal_Interrupt_Flag).w
-		movem.l	d0/d1/a0-a2,-(sp)
+		movem.l	d0-d1/a0-a2,-(sp)
 
 		lea	(VDP_Data_Port).l,a1
 		move.w	#$8AFF,VDP_Control_Port-VDP_Data_Port(a1)	; reset HBlank timing
@@ -938,7 +938,7 @@ HBlank_WaterPAL:
 ; Offset_0x000D78:
 .skipTransfer:
 		startZ80
-		movem.l	(sp)+,d0/d1/a0-a2
+		movem.l	(sp)+,d0-d1/a0-a2
 		tst.b	(H_Int_Update_Flag).w
 		bne.s	Offset_0x000D8C
 
@@ -966,7 +966,7 @@ HBlank_WaterNTSC:
 		tst.w	(Horizontal_Interrupt_Flag).w
 		beq.s	Offset_0x000D8A
 		move.w	#0,(Horizontal_Interrupt_Flag).w
-		movem.l	d0/d1/a0-a2,-(sp)
+		movem.l	d0-d1/a0-a2,-(sp)
 		lea	(VDP_Data_Port).l,a1
 		move.w	#$8AFF,VDP_Control_Port-VDP_Data_Port(a1)	; reset HBlank timing
 		stopZ80
@@ -998,7 +998,7 @@ HBlank_WaterNTSC:
 ; Offset_0x000E0A:
 .skipTransfer:
 		startZ80
-		movem.l	(sp)+,d0/d1/a0-a2
+		movem.l	(sp)+,d0-d1/a0-a2
 		tst.b	(H_Int_Update_Flag).w
 		bne.s	Offset_0x000E1E
 		rte
@@ -1088,8 +1088,7 @@ JoypadInit:
 ; End of function JoypadInit
 
 ;===============================================================================
-; Leitura das portas 0, 1 e expans�o
-; ->>>
+; Reading ports 0, 1 and expansion
 ;===============================================================================
 Control_Ports_Read:
 		lea	(Control_Ports_Buffer_Data).w,a0
@@ -1116,14 +1115,9 @@ Offset_0x000F24:
 		and.b	d0,d1
 		move.b	d1,(a0)+
 		rts
-;===============================================================================
-; Leitura das portas 0, 1 e expans�o
-; <<<-
-;===============================================================================
 
 ;===============================================================================
 ; VDPRegSetup
-; ->>>
 ;===============================================================================
 VDPRegSetup:
 		lea	(VDP_Control_Port).l,a0
@@ -1173,10 +1167,6 @@ VDPRegSetup_Array:
 		dc.w	$9100
 		dc.w	$9200  ; Window Mode
 VDPRegSetup_Array_End:
-;===============================================================================
-; VDPRegSetup
-; <<<-
-;===============================================================================
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1872,7 +1862,7 @@ Offset_0x0015AC:
 ; Offset_0x0015AE: Process_Nemesis_Queue:
 ProcessDPLC:
 		tst.w	(PLC_Data_Count).w
-		beq.W	Offset_0x001646
+		beq.w	Offset_0x001646
 		move.w	#6,(Nemesis_Frame_Pattern_Left).w
 		moveq	#0,d0
 		move.w	(Nemesis_Decomp_Destination).w,d0
@@ -1906,7 +1896,7 @@ ProcessDPLC_Main:
 		lea	(NemesisDec_Data_Buffer).w,a1
 
 Offset_0x001616:
-		move.w	#8,a5
+		movea.w	#8,a5
 		bsr.w	NemesisDec_3
 		subq.w	#1,(PLC_Data_Count).w
 		beq.s	ProcessDPLC_Pop
@@ -1972,7 +1962,7 @@ RunPLC_ROM:
 		move.w	(a1)+,d1
 ; Offset_0x00166A:
 RunPLC_ROM_Loop:
-		move.l	(a1)+,a0
+		movea.l	(a1)+,a0
 		moveq	#0,d0
 		move.w	(a1)+,d0
 		lsl.l	#2,d0
@@ -2051,29 +2041,29 @@ Eni_Decomp_01:
 Eni_Decomp_100:
 		bsr.w	Eni_Decomp_FetchInlineValue
 
-$$loop:
+.loop:
 		move.w	d1,(a1)+	; copy inline value
-		dbf	d2,$$loop	; repeat
+		dbf	d2,.loop	; repeat
 		bra.s	Eni_Decomp_Loop
 ; ---------------------------------------------------------------------------
 
 Eni_Decomp_101:
 		bsr.w	Eni_Decomp_FetchInlineValue
 
-$$loop:
+.loop:
 		move.w	d1,(a1)+	; copy inline value
 		addq.w	#1,d1	; increment
-		dbf	d2,$$loop	; repeat
+		dbf	d2,.loop	; repeat
 		bra.s	Eni_Decomp_Loop
 ; ---------------------------------------------------------------------------
 
 Eni_Decomp_110:
 		bsr.w	Eni_Decomp_FetchInlineValue
 
-$$loop:
+.loop:
 		move.w	d1,(a1)+	; copy inline value
 		subq.w	#1,d1	; decrement
-		dbf	d2,$$loop	; repeat
+		dbf	d2,.loop	; repeat
 		bra.s	Eni_Decomp_Loop
 ; ---------------------------------------------------------------------------
 
@@ -2081,10 +2071,10 @@ Eni_Decomp_111:
 		cmpi.w	#$F,d2
 		beq.s	Eni_Decomp_Done
 
-$$loop:
+.loop:
 		bsr.w	Eni_Decomp_FetchInlineValue	; fetch new inline value
 		move.w	d1,(a1)+	; copy it
-		dbf	d2,$$loop	; and repeat
+		dbf	d2,.loop	; and repeat
 		bra.s	Eni_Decomp_Loop
 ; ---------------------------------------------------------------------------
 
@@ -2177,7 +2167,7 @@ Eni_Decomp_FetchInlineValue:
 		move.w	d5,d1
 		move.w	d6,d7
 		sub.w	a5,d7	; subtract length in bits of inline copy value
-		bcc.s	$$enoughBits	; branch if a new word doesn't need to be read
+		bcc.s	.enoughBits	; branch if a new word doesn't need to be read
 		move.w	d7,d6
 		addi.w	#$10,d6
 		neg.w	d7	; calculate bit deficit
@@ -2188,7 +2178,7 @@ Eni_Decomp_FetchInlineValue:
 		and.w	Eni_Decomp_Masks-2(pc,d7.w),d5
 		add.w	d5,d1	; combine upper bits with lower bits
 
-$$maskValue:
+.maskValue:
 		move.w	a5,d0	; get length in bits of inline copy value
 		add.w	d0,d0
 		and.w	Eni_Decomp_Masks-2(pc,d0.w),d1	; mask value appropriately
@@ -2199,8 +2189,8 @@ $$maskValue:
 		rts
 ; ---------------------------------------------------------------------------
 
-$$enoughBits:
-		beq.s	$$justEnough	; if the word has been exactly exhausted, branch
+.enoughBits:
+		beq.s	.justEnough	; if the word has been exactly exhausted, branch
 		lsr.w	d7,d1	; get inline copy value
 		move.w	a5,d0
 		add.w	d0,d0
@@ -2210,9 +2200,9 @@ $$enoughBits:
 		bra.s	Eni_Decomp_FetchByte
 ; ---------------------------------------------------------------------------
 
-$$justEnough:
+.justEnough:
 		moveq	#$10,d6	; reset shift value
-		bra.s	$$maskValue
+		bra.s	.maskValue
 ; End of function Eni_Decomp_FetchInlineValue
 
 ; ---------------------------------------------------------------------------
