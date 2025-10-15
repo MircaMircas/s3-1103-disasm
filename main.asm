@@ -40551,6 +40551,7 @@ Art_Water_Shield:											   ; Offset_0x084E80
 		binclude	"data\art\w_shield.dat"
 Art_Dust_2P:												   ; Offset_0x0858E0
 		binclude	"data\art\dust_2p.nem"
+		even
 		align0 4
 Art_CNz_Cannon:												   ; Offset_0x0859A0
 		binclude	"data\cnz\cannon.dat"
