@@ -40799,8 +40799,6 @@ Panic_Snd_Data:
 ; Offset_0xE0000:
 Z80_Driver:	include	"s3.sounddriver.asm"
 Z80_Driver_End
-; ---------------------------------------------------------------------------
-Offset_0x0E1852:
 		binclude	"data\star trek\part11.bin"
 ; ---------------------------------------------------------------------------
 	cnop -Size_of_SndBank, $8000	; aligned to end of bank
