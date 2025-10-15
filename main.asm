@@ -40727,29 +40727,29 @@ Death_Egg_1_Snd_Data:
 ; ---------------------------------------------------------------------------
 ; Z80 Bank $19
 Snd_Bank4_Start:	startBank
-Death_Egg_2_Snd_Data:										   ; Offset_0x0C8000
+Death_Egg_2_Snd_Data:
 		include	"Sound\Music\DEZ2.asm"
-Mini_Boss_Snd_Data:											   ; Offset_0x0C8412
+Mini_Boss_Snd_Data:
 		include	"Sound\Music\Miniboss.asm"
-Boss_Snd_Data:												   ; Offset_0x0C8742
+Boss_Snd_Data:
 		include	"Sound\Music\Zone Boss.asm"
-The_Doomsday_Snd_Data:										   ; Offset_0x0C8C3E
+The_Doomsday_Snd_Data:
 		include	"Sound\Music\DDZ.asm"
-Glowing_Spheres_Bonus_Stage_Snd_Data:						   ; Offset_0x0C9521
+Glowing_Spheres_Bonus_Stage_Snd_Data:
 		include	"Sound\Music\Pachinko.asm"
-Special_Stage_Snd_Data:										   ; Offset_0x0C9A84
+Special_Stage_Snd_Data:
 		include	"Sound\Music\Special Stage.asm"
-Slot_Machine_Bonus_Stage_Snd_Data:							   ; Offset_0x0CA31C
+Slot_Machine_Bonus_Stage_Snd_Data:
 		include	"Sound\Music\Slots.asm"
-Gumball_Machine_Bonus_Stage_Snd_Data:						   ; Offset_0x0CAE04
+Gumball_Machine_Bonus_Stage_Snd_Data:
 		include	"Sound\Music\Gum Ball Machine.asm"
-Knuckles_Theme_Snd_Data:									   ; Offset_0x0CBB19
+Knuckles_Theme_Snd_Data:
 		include	"Sound\Music\Knuckles.asm"
-Azure_Lake_Snd_Data:										   ; Offset_0x0CBE82
+Azure_Lake_Snd_Data:
 		include	"Sound\Music\Azure Lake.asm"
-Balloon_Park_Snd_Data:										   ; Offset_0x0CC988
+Balloon_Park_Snd_Data:
 		include	"Sound\Music\Balloon Park.asm"
-Desert_Palace_Snd_Data:										   ; Offset_0x0CD620
+Desert_Palace_Snd_Data:
 		include	"Sound\Music\Desert Palace.asm"
 		binclude "data\star trek\part6.bin"
 		include	"data\star trek\source code 3.asm"
@@ -40757,40 +40757,40 @@ Desert_Palace_Snd_Data:										   ; Offset_0x0CD620
 ; ---------------------------------------------------------------------------
 ; Z80 Bank $1A
 Snd_Bank5_Start:	startBank
-Chrome_Gadget_Snd_Data:										   ; Offset_0x0D0000
+Chrome_Gadget_Snd_Data:
 		include	"Sound\Music\Chrome Gadget.asm"
-Endless_Mine_Snd_Data:										   ; Offset_0x0D224B
+Endless_Mine_Snd_Data:
 		include	"Sound\Music\Endless Mine.asm"
-Title_Screen_Snd_Data:										   ; Offset_0x0D2993
+Title_Screen_Snd_Data:
 		include	"Sound\Music\Title.asm"
-Credits_Snd_Data:											   ; Offset_0x0D2DCC
+Credits_Snd_Data:
 		include	"Sound\Music\Credits.asm"
-Time_Game_Over_Snd_Data:									   ; Offset_0x0D383C
+Time_Game_Over_Snd_Data:
 		include	"Sound\Music\Game Over.asm"
-Continue_Snd_Data:											   ; Offset_0x0D3A99
+Continue_Snd_Data:
 		include	"Sound\Music\Continue.asm"
-Level_Results_Snd_Data:										   ; Offset_0x0D427A
+Level_Results_Snd_Data:
 		include	"Sound\Music\Level Outro.asm"
-Extra_Life_Snd_Data:										   ; Offset_0x0D476A
+Extra_Life_Snd_Data:
 		include	"Sound\Music\1UP.asm"
-Got_Emerald_Snd_Data:										   ; Offset_0x0D496A
+Got_Emerald_Snd_Data:
 		include	"Sound\Music\Chaos Emerald.asm"
-Invincibility_Snd_Data:										   ; Offset_0x0D4A38
+Invincibility_Snd_Data:
 		include	"Sound\Music\Invincible.asm"
-Competition_Menu_Snd_Data:									   ; Offset_0x0D4CB8
+Competition_Menu_Snd_Data:
 		include	"Sound\Music\Competition Menu.asm"
-Super_Sonic_Theme_Snd_Data:									   ; Offset_0x0D5EAA
+Super_Sonic_Theme_Snd_Data:
 		include	"Sound\Music\Unused.asm"
-Data_Select_Menu_Snd_Data:									   ; Offset_0x0D695E
+Data_Select_Menu_Snd_Data:
 		include	"Sound\Music\Menu.asm"
 		binclude "data\star trek\part7.bin"
 	finishBank
 ; ---------------------------------------------------------------------------
 ; Z80 Bank $1B
 Snd_Bank6_Start:	startBank
-Final_Boss_Snd_Data:										   ; Offset_0x0D8000
+Final_Boss_Snd_Data:
 		include	"Sound\Music\Final Boss.asm"
-Panic_Snd_Data:												   ; Offset_0x0D8592
+Panic_Snd_Data:
 		include	"Sound\Music\Countdown.asm"
 		binclude	"data\star trek\part8.bin"
 		include	"data\star trek\source code 4.asm"
@@ -40806,47 +40806,47 @@ Offset_0x0E1852:
 	cnop -Size_of_SndBank, $8000	; aligned to end of bank
 
 SndBank:
-Ring_Sfx_Data:											 ; $32 ; Offset_0x0EC000
+Ring_Sfx_Data:
 		include	"Sound\SFX\32 - Ring (Right).asm"
-Ring_Left_Speaker_Sfx_Data:									   ; Offset_0x0EC02E
+Ring_Left_Speaker_Sfx_Data:
 		include	"Sound\SFX\33 - Ring (Left).asm"
-Ring_Lost_Sfx_Data:											   ; Offset_0x0EC05C
+Ring_Lost_Sfx_Data:
 		include	"Sound\SFX\34 - Ring Loss.asm"
-Hurt_Sfx_Data:												   ; Offset_0x0EC084
+Hurt_Sfx_Data:
 		include	"Sound\SFX\35 - Death.asm"
-Skidding_Sfx_Data:											   ; Offset_0x0EC0B6
+Skidding_Sfx_Data:
 		include	"Sound\SFX\36 - Skid.asm"
-Spike_Hurt_Sfx_Data:										   ; Offset_0x0EC0EB
+Spike_Hurt_Sfx_Data:
 		include	"Sound\SFX\37 - Spike Hit.asm"
-Collect_Oxygen_Sfx_Data:									   ; Offset_0x0EC11A
+Collect_Oxygen_Sfx_Data:
 		include	"Sound\SFX\38 - Bubble.asm"
-Water_Splash_Sfx_Data:										   ; Offset_0x0EC150
+Water_Splash_Sfx_Data:
 		include	"Sound\SFX\39 - Splash.asm"
-Got_Classic_Shield_Sfx_Data:								   ; Offset_0x0EC191
+Got_Classic_Shield_Sfx_Data:
 		include	"Sound\SFX\3A - Shield.asm"
-Drowning_Sfx_Data:											   ; Offset_0x0EC1BC
+Drowning_Sfx_Data:
 		include	"Sound\SFX\3B - Drown.asm"
-Rolling_Sfx_Data:											   ; Offset_0x0EC20B
+Rolling_Sfx_Data:
 		include	"Sound\SFX\3C - Roll.asm"
-Object_Hit_Sfx_Data:										   ; Offset_0x0EC249
+Object_Hit_Sfx_Data:
 		include	"Sound\SFX\3D - Break.asm"
-Got_Fire_Shield_Sfx_Data:									   ; Offset_0x0EC283
+Got_Fire_Shield_Sfx_Data:
 		include	"Sound\SFX\3E - Fire Shield.asm"
-Got_Water_Shield_Sfx_Data:									   ; Offset_0x0EC2AE
+Got_Water_Shield_Sfx_Data:
 		include	"Sound\SFX\3F - Bubble Shield.asm"
 Offset_0x0EC2D1:
 		include	"Sound\SFX\40 - Unknown Shield.asm"
-Got_Lightning_Shield_Sfx_Data:								   ; Offset_0x0EC2F4
+Got_Lightning_Shield_Sfx_Data:
 		include	"Sound\SFX\41 - Lightning Shield.asm"
 Offset_0x0EC317:
 		include	"Sound\SFX\42 - Insta Shield Attack.asm"
-Fire_Shield_Sfx_Data:										   ; Offset_0x0EC32F
+Fire_Shield_Sfx_Data:
 		include	"Sound\SFX\43 - Fire Shield Attack.asm"
 Offset_0x0EC34A:
 		include	"Sound\SFX\44 - Bubble Shield Attack.asm"
 Offset_0x0EC377:
 		include	"Sound\SFX\45 - Lightning Shield Attack.asm"
-Hyper_Form_Change_Sfx_Data:									   ; Offset_0x0EC39F
+Hyper_Form_Change_Sfx_Data:
 		include	"Sound\SFX\46 - Whistle.asm"
 Offset_0x0EC3CC:
 		include	"Sound\SFX\47 - Sand Wall Rise.asm"
@@ -40854,7 +40854,7 @@ Offset_0x0EC3EC:
 		include	"Sound\SFX\48 - Flying.asm"
 Offset_0x0EC414:
 		include	"Sound\SFX\49 - Flying (Tired).asm"
-Grab_Sfx_Data:												   ; Offset_0x0EC41E
+Grab_Sfx_Data:
 		include	"Sound\SFX\4A - Blast.asm"
 Offset_0x0EC438:
 		include	"Sound\SFX\4B - Thump.asm"
@@ -40864,25 +40864,25 @@ Offset_0x0EC483:
 		include	"Sound\SFX\4D - Waterfall.asm"
 Offset_0x0EC498:
 		include	"Sound\SFX\4E - Slide Skid (Loud).asm"
-Waterfall_Splash_Sfx_Data:									   ; Offset_0x0EC4C0
+Waterfall_Splash_Sfx_Data:
 		include	"Sound\SFX\4F - Waterfall Splash.asm"
 Offset_0x0EC4F1:
 		include	"Sound\SFX\50 - Glide Land.asm"
-Projectile_Sfx_Data:										   ; Offset_0x0EC51B
+Projectile_Sfx_Data:
 		include	"Sound\SFX\51 - Projectile.asm"
-Missile_Explosion_Sfx_Data:									   ; Offset_0x0EC548
+Missile_Explosion_Sfx_Data:
 		include	"Sound\SFX\52 - Missile Explode.asm"
-Flame_Sfx_Data:												   ; Offset_0x0EC58C
+Flame_Sfx_Data:
 		include	"Sound\SFX\53 - Flamethrower (Quiet).asm"
-Flying_Battery_Move_Sfx_Data:								   ; Offset_0x0EC59D
+Flying_Battery_Move_Sfx_Data:
 		include	"Sound\SFX\54 - Large Ship.asm"
 Offset_0x0EC5D1:
 		include	"Sound\SFX\55 - Boss Activate.asm"
-Missile_Throw_Sfx_Data:										   ; Offset_0x0EC609
+Missile_Throw_Sfx_Data:
 		include	"Sound\SFX\56 - Missile Throw.asm"
-Robotnik_Buzzer_Sfx_Data:									   ; Offset_0x0EC63A
+Robotnik_Buzzer_Sfx_Data:
 		include	"Sound\SFX\57 - Robotnik Alarm.asm"
-Spike_Move_Sfx_Data:										   ; Offset_0x0EC671
+Spike_Move_Sfx_Data:
 		include	"Sound\SFX\58 - Spike Move.asm"
 Offset_0x0EC68E:
 		include	"Sound\SFX\59 - Charging.asm"
@@ -40890,11 +40890,11 @@ Offset_0x0EC6CE:
 		include	"Sound\SFX\5A - Boss Laser.asm"
 Offset_0x0EC711:
 		include	"Sound\SFX\5B - Block Conveyor.asm"
-Draw_Bridge_Move_Sfx_Data:									   ; Offset_0x0EC739
+Draw_Bridge_Move_Sfx_Data:
 		include	"Sound\SFX\5C - Flip Bridge.asm"
-Geyser_Sfx_Data:											   ; Offset_0x0EC749
+Geyser_Sfx_Data:
 		include	"Sound\SFX\5D - Geyser.asm"
-Fan_Big_Sfx_Data:											   ; Offset_0x0EC762
+Fan_Big_Sfx_Data:
 		include	"Sound\SFX\5E - Boss Rotate.asm"
 Offset_0x0EC794:
 		include	"Sound\SFX\5F - Fan (Big).asm"
@@ -40902,11 +40902,11 @@ Offset_0x0EC7C5:
 		include	"Sound\SFX\60 - Fan (Small).asm"
 Offset_0x0EC7DD:
 		include	"Sound\SFX\61 - Fan Latch.asm"
-Smash_Sfx_Data:												   ; Offset_0x0EC7F6
+Smash_Sfx_Data:
 		include	"Sound\SFX\62 - Collapse.asm"
 Offset_0x0EC852:
 		include	"Sound\SFX\63 - Unknown Charge.asm"
-Switch_Blip_Sfx_Data:										   ; Offset_0x0EC87F
+Switch_Blip_Sfx_Data:
 		include	"Sound\SFX\64 - Switch.asm"
 Offset_0x0EC88C:
 		include	"Sound\SFX\65 - Flamethrower (Loud).asm"
@@ -40914,7 +40914,7 @@ Offset_0x0EC89B:
 		include	"Sound\SFX\66 - Mecha Spark.asm"
 Offset_0x0EC8C3:
 		include	"Sound\SFX\67.asm"
-Floor_Thump_Sfx_Data:										   ; Offset_0x0EC8F9
+Floor_Thump_Sfx_Data:
 		include	"Sound\SFX\68 - Floor Thump.asm"
 Offset_0x0EC922:
 		include	"Sound\SFX\69 - Laser.asm"
@@ -40922,13 +40922,13 @@ Offset_0x0EC94A:
 		include	"Sound\SFX\6A - Boss Panic.asm"
 Offset_0x0EC97C:
 		include	"Sound\SFX\6B - Unknown Spin.asm"
-Crash_Sfx_Data:												   ; Offset_0x0EC997
+Crash_Sfx_Data:
 		include	"Sound\SFX\6C - Crash.asm"
 Offset_0x0EC9BF:
 		include	"Sound\SFX\6D - Boss Zoom.asm"
 Offset_0x0ECA00:
 		include	"Sound\SFX\6E-6F - Boss Hit Floor.asm"
-Jump_Sfx_Data:												   ; Offset_0x0ECA31
+Jump_Sfx_Data:
 		include	"Sound\SFX\70 - Jump.asm"
 Offset_0x0ECA47:
 		include	"Sound\SFX\71 - Star Post.asm"
@@ -40938,7 +40938,7 @@ Offset_0x0ECA90:
 		include	"Sound\SFX\73 - Death 2.asm"
 Offset_0x0ECAC2:
 		include	"Sound\SFX\74 - Skid 2.asm"
-Level_Projectile_Sfx_Data:									   ; Offset_0x0ECAF7
+Level_Projectile_Sfx_Data:
 		include	"Sound\SFX\75 - Level Projectile.asm"
 Offset_0x0ECB23:
 		include	"Sound\SFX\76 - Spike Hit 2.asm"
@@ -40946,13 +40946,13 @@ Offset_0x0ECB52:
 		include	"Sound\SFX\77 - Push Block.asm"
 Offset_0x0ECB7F:
 		include	"Sound\SFX\78 - Goal.asm"
-Underwater_Sfx_Data:										   ; Offset_0x0ECBB2
+Underwater_Sfx_Data:
 		include	"Sound\SFX\79 - Action Block.asm"
 Offset_0x0ECBC4:
 		include	"Sound\SFX\7A - Splash 2.asm"
 Offset_0x0ECC05:
 		include	"Sound\SFX\7B - Unknown Shift.asm"
-Boss_Hit_Sfx_Data:											   ; Offset_0x0ECC24
+Boss_Hit_Sfx_Data:
 		include	"Sound\SFX\7C - Boss Hit.asm"
 Offset_0x0ECC58:
 		include	"Sound\SFX\7D - Bubble 2.asm"
@@ -40960,21 +40960,21 @@ Offset_0x0ECC8E:
 		include	"Sound\SFX\7E - Lava Ball.asm"
 Offset_0x0ECCD8:
 		include	"Sound\SFX\7F - Shield 2.asm"
-Hoverpad_Sfx_Data:											   ; Offset_0x0ECD05
+Hoverpad_Sfx_Data:
 		include	"Sound\SFX\80 - Hoverpad.asm"
-Transporter_Sfx_Data:										   ; Offset_0x0ECD32
+Transporter_Sfx_Data:
 		include	"Sound\SFX\81 - Transporter.asm"
-Tunnel_Booster_Sfx_Data:									   ; Offset_0x0ECD66
+Tunnel_Booster_Sfx_Data:
 		include	"Sound\SFX\82 - Tunnel Booster.asm"
-Rising_Platform_Sfx_Data:									   ; Offset_0x0ECD96
+Rising_Platform_Sfx_Data:
 		include	"Sound\SFX\83 - Balloon Platform.asm"
-Wave_Hover_Sfx_Data:										   ; Offset_0x0ECDC5
+Wave_Hover_Sfx_Data:
 		include	"Sound\SFX\84.asm"
-Trapdoor_Sfx_Data:											   ; Offset_0x0ECDF6
+Trapdoor_Sfx_Data:
 		include	"Sound\SFX\85 - Trap Door.asm"
-Balloon_Pop_Sfx_Data:										   ; Offset_0x0ECE20
+Balloon_Pop_Sfx_Data:
 		include	"Sound\SFX\86 - Balloon.asm"
-Cannon_Turn_Sfx_Data:										   ; Offset_0x0ECE6A
+Cannon_Turn_Sfx_Data:
 		include	"Sound\SFX\87 - Cannon Turn.asm"
 Offset_0x0ECE99:
 		include	"Sound\SFX\88 - Gravity Machine.asm"
@@ -40982,7 +40982,7 @@ Offset_0x0ECEC6:
 		include	"Sound\SFX\89 - Lightning.asm"
 Offset_0x0ECF11:
 		include	"Sound\SFX\8A - Boss Magma.asm"
-Small_Bumper_Sfx_Data:										   ; Offset_0x0ECF45
+Small_Bumper_Sfx_Data:
 		include	"Sound\SFX\8B - Small Bumpers.asm"
 Offset_0x0ECF75:
 		include	"Sound\SFX\8C - Chain Tension.asm"
@@ -40994,19 +40994,19 @@ Offset_0x0ECFE4:
 		include	"Sound\SFX\8F - Ground Slide.asm"
 Offset_0x0ECFFC:
 		include	"Sound\SFX\90 - Spike Balls.asm"
-Frost_Puff_Sfx_Data:										   ; Offset_0x0ED032
+Frost_Puff_Sfx_Data:
 		include	"Sound\SFX\91 - Frost Puff.asm"
-Ice_Spike_Sfx_Data:											   ; Offset_0x0ED050
+Ice_Spike_Sfx_Data:
 		include	"Sound\SFX\92 - Ice Spikes.asm"
 Offset_0x0ED07F:
 		include	"Sound\SFX\93 - Light Tunnel.asm"
 Offset_0x0ED0B2:
 		include	"Sound\SFX\94 - Rumble.asm"
-Tube_Launcher_Sfx_Data:										   ; Offset_0x0ED0E4
+Tube_Launcher_Sfx_Data:
 		include	"Sound\SFX\95 - Tube Launcher.asm"
 Offset_0x0ED12F:
 		include	"Sound\SFX\96.asm"
-Bridge_Collapse_Sfx_Data:									   ; Offset_0x0ED14D
+Bridge_Collapse_Sfx_Data:
 		include	"Sound\SFX\97 - Bridge Collapse.asm"
 Offset_0x0ED199:
 		include	"Sound\SFX\98 - Big Rumble.asm"
@@ -41014,7 +41014,7 @@ Offset_0x0ED1D1:
 		include	"Sound\SFX\99 - Unknown Power-Up.asm"
 Offset_0x0ED1FE:
 		include	"Sound\SFX\9A - Unknown Power-Down.asm"
-Buzzer_Sfx_Data:											   ; Offset_0x0ED22B
+Buzzer_Sfx_Data:
 		include	"Sound\SFX\9B - Alarm.asm"
 Offset_0x0ED258:
 		include	"Sound\SFX\9C - Death Egg Rise (Loud).asm"
@@ -41044,7 +41044,7 @@ Offset_0x0ED45E:
 		include	"Sound\SFX\A8 - Door Open.asm"
 Offset_0x0ED494:
 		include	"Sound\SFX\A9 - Door Move.asm"
-Door_Close_Sfx_Data:										   ; Offset_0x0ED4C6
+Door_Close_Sfx_Data:
 		include	"Sound\SFX\AA - Door Close.asm"
 Offset_0x0ED4FC:
 		include	"Sound\SFX\AB - Ghost Appear.asm"
@@ -41056,7 +41056,7 @@ Offset_0x0ED5A9:
 		include	"Sound\SFX\AE - Gumball Tab.asm"
 Offset_0x0ED5DC:
 		include	"Sound\SFX\AF - Boss Hand.asm"
-Slide_Thunk_Sfx_Data:										   ; Offset_0x0ED60B
+Slide_Thunk_Sfx_Data:
 		include	"Sound\SFX\B0 - Mecha Land.asm"
 Offset_0x0ED63F:
 		include	"Sound\SFX\B1 - Enemy Breath.asm"
@@ -41078,7 +41078,7 @@ Offset_0x0ED7DB:
 		include	"Sound\SFX\B9 - Targeting.asm"
 Offset_0x0ED80F:
 		include	"Sound\SFX\BA - Clank.asm"
-Super_Form_Change_Sfx_Data:									   ; Offset_0x0ED850
+Super_Form_Change_Sfx_Data:
 		include	"Sound\SFX\BB - Super Transform.asm"
 Offset_0x0ED88C:
 		include	"Sound\SFX\BC - Unknown Zap.asm"
@@ -41106,7 +41106,7 @@ Offset_0x0EDA6F:
 		include	"Sound\SFX\C7 - Launch Grab.asm"
 Offset_0x0EDA87:
 		include	"Sound\SFX\C8 - Launch Ready.asm"
-Energy_Zap_Sfx_Data:										   ; Offset_0x0EDAB7
+Energy_Zap_Sfx_Data:
 		include	"Sound\SFX\C9 - Energy Zap.asm"
 Offset_0x0EDAE1:
 		include	"Sound\SFX\CA - Jump 2.asm"
@@ -41116,17 +41116,17 @@ Offset_0x0EDB52:
 		include	"Sound\SFX\CC - Spin Dash.asm"
 Offset_0x0EDBA3:
 		include	"Sound\SFX\CD - Continue.asm"
-Check_Point_Sfx_Data:										   ; Offset_0x0EDC15
+Check_Point_Sfx_Data:
 		include	"Sound\SFX\CE - Star Post 2.asm"
 Offset_0x0EDC3F:
 		include	"Sound\SFX\CF - Flipper.asm"
-Special_Stage_Entry_Sfx_Data:								   ; Offset_0x0EDC74
+Special_Stage_Entry_Sfx_Data:
 		include	"Sound\SFX\D0 - Enter Special Stage.asm"
 Offset_0x0EDCA1:
 		include	"Sound\SFX\D1 - Register.asm"
-Spring_Sfx_Data:											   ; Offset_0x0EDD1C
+Spring_Sfx_Data:
 		include	"Sound\SFX\D2 - Spring.asm"
-Error_Sfx_Data:												   ; Offset_0x0EDD71
+Error_Sfx_Data:
 		include	"Sound\SFX\D3 - Error.asm"
 Offset_0x0EDD9D:
 		include	"Sound\SFX\D4 - Big Ring.asm"
@@ -41145,214 +41145,212 @@ Offset_0x0EDEDC:
 		binclude	"data\star trek\part13.bin"
 	endif
 SndBank_End
-
 	if SndBank_End - SndBank > $8000
 		fatal "SndBank must fit within $8000 bytes, but was $\{SndBank_End-SndBank }. Try moving something to the other bank."
 	endif
 	if SndBank_End - SndBank > Size_of_SndBank
 		fatal "Size_of_SndBank = $\{Size_of_SndBank}, but you have $\{SndBank_End-SndBank} bytes of sound effects."
 	endif
-
+; ---------------------------------------------------------------------------
 DACBank:	startBank
-DAC_Table:													   ; Offset_0x0F0000
-		dc.w	z80_ptr(DAC_81_Setup)	 ; $8036
-		dc.w	z80_ptr(DAC_82_Setup)	 ; $803B
-		dc.w	z80_ptr(DAC_83_Setup)	 ; $8040
-		dc.w	z80_ptr(DAC_84_Setup)	 ; $8045
-		dc.w	z80_ptr(DAC_85_Setup)	 ; $804A
-		dc.w	z80_ptr(DAC_86_Setup)	 ; $804F
-		dc.w	z80_ptr(DAC_87_Setup)	 ; $8054
-		dc.w	z80_ptr(DAC_88_Setup)	 ; $8059
-		dc.w	z80_ptr(DAC_89_Setup)	 ; $805E
-		dc.w	z80_ptr(DAC_8A_Setup)	 ; $8063
-		dc.w	z80_ptr(DAC_8B_Setup)	 ; $8068
-		dc.w	z80_ptr(DAC_8C_Setup)	 ; $806D
-		dc.w	z80_ptr(DAC_8D_Setup)	 ; $8072
-		dc.w	z80_ptr(DAC_8E_Setup)	 ; $8077
-		dc.w	z80_ptr(DAC_8F_Setup)	 ; $807C
-		dc.w	z80_ptr(DAC_90_Setup)	 ; $8081
-		dc.w	z80_ptr(DAC_91_Setup)	 ; $8086
-		dc.w	z80_ptr(DAC_92_Setup)	 ; $808B
-		dc.w	z80_ptr(DAC_93_Setup)	 ; $8090
-		dc.w	z80_ptr(DAC_94_Setup)	 ; $8095
-		dc.w	z80_ptr(DAC_95_Setup)	 ; $809A
-		dc.w	z80_ptr(DAC_96_Setup)	 ; $809F
-		dc.w	z80_ptr(DAC_97_Setup)	 ; $80A4
-		dc.w	z80_ptr(DAC_98_Setup)	 ; $80A9
-		dc.w	z80_ptr(DAC_99_Setup)	 ; $80AE
-		dc.w	z80_ptr(DAC_9A_Setup)	 ; $80B3
-		dc.w	z80_ptr(DAC_9B_Setup)	 ; $80B8
-DAC_81_Setup:												   ; Offset_0x0F0036
+DAC_Table:
+		dc.w	z80_ptr(DAC_81_Setup)
+		dc.w	z80_ptr(DAC_82_Setup)
+		dc.w	z80_ptr(DAC_83_Setup)
+		dc.w	z80_ptr(DAC_84_Setup)
+		dc.w	z80_ptr(DAC_85_Setup)
+		dc.w	z80_ptr(DAC_86_Setup)
+		dc.w	z80_ptr(DAC_87_Setup)
+		dc.w	z80_ptr(DAC_88_Setup)
+		dc.w	z80_ptr(DAC_89_Setup)
+		dc.w	z80_ptr(DAC_8A_Setup)
+		dc.w	z80_ptr(DAC_8B_Setup)
+		dc.w	z80_ptr(DAC_8C_Setup)
+		dc.w	z80_ptr(DAC_8D_Setup)
+		dc.w	z80_ptr(DAC_8E_Setup)
+		dc.w	z80_ptr(DAC_8F_Setup)
+		dc.w	z80_ptr(DAC_90_Setup)
+		dc.w	z80_ptr(DAC_91_Setup)
+		dc.w	z80_ptr(DAC_92_Setup)
+		dc.w	z80_ptr(DAC_93_Setup)
+		dc.w	z80_ptr(DAC_94_Setup)
+		dc.w	z80_ptr(DAC_95_Setup)
+		dc.w	z80_ptr(DAC_96_Setup)
+		dc.w	z80_ptr(DAC_97_Setup)
+		dc.w	z80_ptr(DAC_98_Setup)
+		dc.w	z80_ptr(DAC_99_Setup)
+		dc.w	z80_ptr(DAC_9A_Setup)
+		dc.w	z80_ptr(DAC_9B_Setup)
+DAC_81_Setup:
 		dc.b	dpcmLoopCounter(18790)
 		dc.w	little_endian(DAC_81_Data_End-DAC_81_Data)
 		dc.w	k68z80Pointer(DAC_81_Data)
-DAC_82_Setup:												   ; Offset_0x0F003B
+DAC_82_Setup:
 		dc.b	dpcmLoopCounter(11169)
 		dc.w	little_endian(DAC_82_83_84_85_Data_End-DAC_82_83_84_85_Data)
 		dc.w	k68z80Pointer(DAC_82_83_84_85_Data)
-DAC_83_Setup:												   ; Offset_0x0F0040
+DAC_83_Setup:
 		dc.b	dpcmLoopCounter(8935)
 		dc.w	little_endian(DAC_82_83_84_85_Data_End-DAC_82_83_84_85_Data)
 		dc.w	k68z80Pointer(DAC_82_83_84_85_Data)
-DAC_84_Setup:												   ; Offset_0x0F0045
+DAC_84_Setup:
 		dc.b	dpcmLoopCounter(7483)
 		dc.w	little_endian(DAC_82_83_84_85_Data_End-DAC_82_83_84_85_Data)
 		dc.w	k68z80Pointer(DAC_82_83_84_85_Data)
-DAC_85_Setup:												   ; Offset_0x0F004A
+DAC_85_Setup:
 		dc.b	dpcmLoopCounter(6478)
 		dc.w	little_endian(DAC_82_83_84_85_Data_End-DAC_82_83_84_85_Data)
 		dc.w	k68z80Pointer(DAC_82_83_84_85_Data)
-DAC_86_Setup:												   ; Offset_0x0F004F
+DAC_86_Setup:
 		dc.b	dpcmLoopCounter(18790)
 		dc.w	little_endian(DAC_86_Data_End-DAC_86_Data)
 		dc.w	k68z80Pointer(DAC_86_Data)
-DAC_87_Setup:												   ; Offset_0x0F0054
+DAC_87_Setup:
 		dc.b	dpcmLoopCounter(18790)
 		dc.w	little_endian(DAC_87_Data_End-DAC_87_Data)
 		dc.w	k68z80Pointer(DAC_87_Data)
-DAC_88_Setup:												   ; Offset_0x0F0059
+DAC_88_Setup:
 		dc.b	dpcmLoopCounter(16534)
 		dc.w	little_endian(DAC_88_Data_End-DAC_88_Data)
 		dc.w	k68z80Pointer(DAC_88_Data)
-DAC_89_Setup:												   ; Offset_0x0F005E
+DAC_89_Setup:
 		dc.b	dpcmLoopCounter(13332)
 		dc.w	little_endian(DAC_89_Data_End-DAC_89_Data)
 		dc.w	k68z80Pointer(DAC_89_Data)
-DAC_8A_Setup:												   ; Offset_0x0F0063
+DAC_8A_Setup:
 		dc.b	dpcmLoopCounter(8983)
 		dc.w	little_endian(DAC_8A_8B_Data_End-DAC_8A_8B_Data)
 		dc.w	k68z80Pointer(DAC_8A_8B_Data)
-DAC_8B_Setup:												   ; Offset_0x0F0068
+DAC_8B_Setup:
 		dc.b	dpcmLoopCounter(7366)
 		dc.w	little_endian(DAC_8A_8B_Data_End-DAC_8A_8B_Data)
 		dc.w	k68z80Pointer(DAC_8A_8B_Data)
-DAC_8C_Setup:												   ; Offset_0x0F006D
+DAC_8C_Setup:
 		dc.b	dpcmLoopCounter(14761)
 		dc.w	little_endian(DAC_8C_Data_End-DAC_8C_Data)
 		dc.w	k68z80Pointer(DAC_8C_Data)
-DAC_8D_Setup:												   ; Offset_0x0F0072
+DAC_8D_Setup:
 		dc.b	dpcmLoopCounter(12716)
 		dc.w	little_endian(DAC_8D_8E_Data_End-DAC_8D_8E_Data)
 		dc.w	k68z80Pointer(DAC_8D_8E_Data)
-DAC_8E_Setup:												   ; Offset_0x0F0077
+DAC_8E_Setup:
 		dc.b	dpcmLoopCounter(9791)
 		dc.w	little_endian(DAC_8D_8E_Data_End-DAC_8D_8E_Data)
 		dc.w	k68z80Pointer(DAC_8D_8E_Data)
-DAC_8F_Setup:												   ; Offset_0x0F007C
+DAC_8F_Setup:
 		dc.b	dpcmLoopCounter(14761)
 		dc.w	little_endian(DAC_8F_Data_End-DAC_8F_Data)
 		dc.w	k68z80Pointer(DAC_8F_Data)
-DAC_90_Setup:												   ; Offset_0x0F0081
+DAC_90_Setup:
 		dc.b	dpcmLoopCounter(20166)
 		dc.w	little_endian(DAC_90_91_92_93_Data_End-DAC_90_91_92_93_Data)
 		dc.w	k68z80Pointer(DAC_90_91_92_93_Data)
-DAC_91_Setup:												   ; Offset_0x0F0086
+DAC_91_Setup:
 		dc.b	dpcmLoopCounter(15729)
 		dc.w	little_endian(DAC_90_91_92_93_Data_End-DAC_90_91_92_93_Data)
 		dc.w	k68z80Pointer(DAC_90_91_92_93_Data)
-DAC_92_Setup:												   ; Offset_0x0F008B
+DAC_92_Setup:
 		dc.b	dpcmLoopCounter(13309)
 		dc.w	little_endian(DAC_90_91_92_93_Data_End-DAC_90_91_92_93_Data)
 		dc.w	k68z80Pointer(DAC_90_91_92_93_Data)
-DAC_93_Setup:												   ; Offset_0x0F0090
+DAC_93_Setup:
 		dc.b	dpcmLoopCounter(11293)
 		dc.w	little_endian(DAC_90_91_92_93_Data_End-DAC_90_91_92_93_Data)
 		dc.w	k68z80Pointer(DAC_90_91_92_93_Data)
-DAC_94_Setup:												   ; Offset_0x0F0095
+DAC_94_Setup:
 		dc.b	dpcmLoopCounter(16534)
 		dc.w	little_endian(DAC_94_95_96_97_Data_End-DAC_94_95_96_97_Data)
 		dc.w	k68z80Pointer(DAC_94_95_96_97_Data)
-DAC_95_Setup:												   ; Offset_0x0F009A
+DAC_95_Setup:
 		dc.b	dpcmLoopCounter(13062)
 		dc.w	little_endian(DAC_94_95_96_97_Data_End-DAC_94_95_96_97_Data)
 		dc.w	k68z80Pointer(DAC_94_95_96_97_Data)
-DAC_96_Setup:												   ; Offset_0x0F009F
+DAC_96_Setup:
 		dc.b	dpcmLoopCounter(11574)
 		dc.w	little_endian(DAC_94_95_96_97_Data_End-DAC_94_95_96_97_Data)
 		dc.w	k68z80Pointer(DAC_94_95_96_97_Data)
-DAC_97_Setup:												   ; Offset_0x0F00A4
+DAC_97_Setup:
 		dc.b	dpcmLoopCounter(9590)
 		dc.w	little_endian(DAC_94_95_96_97_Data_End-DAC_94_95_96_97_Data)
 		dc.w	k68z80Pointer(DAC_94_95_96_97_Data)
-DAC_98_Setup:												   ; Offset_0x0F00A9
+DAC_98_Setup:
 		dc.b	dpcmLoopCounter(12716)
 		dc.w	little_endian(DAC_98_99_9A_Data_End-DAC_98_99_9A_Data)
 		dc.w	k68z80Pointer(DAC_98_99_9A_Data)
-DAC_99_Setup:												   ; Offset_0x0F00AE
+DAC_99_Setup:
 		dc.b	dpcmLoopCounter(9283)
 		dc.w	little_endian(DAC_98_99_9A_Data_End-DAC_98_99_9A_Data)
 		dc.w	k68z80Pointer(DAC_98_99_9A_Data)
-DAC_9A_Setup:												   ; Offset_0x0F00B3
+DAC_9A_Setup:
 		dc.b	dpcmLoopCounter(8393)
 		dc.w	little_endian(DAC_98_99_9A_Data_End-DAC_98_99_9A_Data)
 		dc.w	k68z80Pointer(DAC_98_99_9A_Data)
-DAC_9B_Setup:												   ; Offset_0x0F00B8
+DAC_9B_Setup:
 		dc.b	dpcmLoopCounter(9590)
 		dc.w	little_endian(DAC_9B_Data_End-DAC_9B_Data)
 		dc.w	k68z80Pointer(DAC_9B_Data)
 ; ---------------------------------------------------------------------------
-DAC_86_Data:												   ; Offset_0x0F00BD
+DAC_86_Data:
 		binclude	"Sound\DAC\dac_86.bin"
 DAC_86_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_81_Data:												   ; Offset_0x0F03BD
+DAC_81_Data:
 		binclude	"Sound\DAC\dac_81.bin"
 DAC_81_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_82_83_84_85_Data:											   ; Offset_0x0F0B4D
+DAC_82_83_84_85_Data:
 		binclude	"Sound\DAC\dac82-85.bin"
 DAC_82_83_84_85_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_94_95_96_97_Data:											   ; Offset_0x0F100D
+DAC_94_95_96_97_Data:
 		binclude	"Sound\DAC\dac94-97.bin"
 DAC_94_95_96_97_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_90_91_92_93_Data:											   ; Offset_0x0F199D
+DAC_90_91_92_93_Data:
 		binclude	"Sound\DAC\dac90-93.bin"
 DAC_90_91_92_93_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_88_Data:												   ; Offset_0x0F1FED
+DAC_88_Data:
 		binclude	"Sound\DAC\dac_88.bin"
 DAC_88_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_8A_8B_Data:											   ; Offset_0x0F323D
+DAC_8A_8B_Data:
 		binclude	"Sound\DAC\dac8A-8B.bin"
 DAC_8A_8B_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_8C_Data:												   ; Offset_0x0F339D
+DAC_8C_Data:
 		binclude	"Sound\DAC\dac_8C.bin"
 DAC_8C_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_8D_8E_Data:											   ; Offset_0x0F3408
+DAC_8D_8E_Data:
 		binclude	"Sound\DAC\dac8D-8E.bin"
 DAC_8D_8E_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_87_Data:												   ; Offset_0x0F38D8
+DAC_87_Data:
 		binclude	"Sound\DAC\dac_87.bin"
 DAC_87_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_8F_Data:												   ; Offset_0x0F4018
+DAC_8F_Data:
 		binclude	"Sound\DAC\dac_8F.bin"
 DAC_8F_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_89_Data:												   ; Offset_0x0F4528
+DAC_89_Data:
 		binclude	"Sound\DAC\dac_89.bin"
 DAC_89_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_98_99_9A_Data:											   ; Offset_0x0F4F48
+DAC_98_99_9A_Data:
 		binclude	"Sound\DAC\dac98-9A.bin"
 DAC_98_99_9A_Data_End:
 ; ---------------------------------------------------------------------------
-DAC_9B_Data:												   ; Offset_0x0F5C67
+DAC_9B_Data:
 		binclude	"Sound\DAC\dac_9B.bin"
 DAC_9B_Data_End:
 ; ---------------------------------------------------------------------------
-Offset_0x0F7304:
 		binclude	"data\star trek\part14.bin"
 	finishBank
 ; ---------------------------------------------------------------------------
 SEGABank:	startBank
-SEGA_PCM_Data:												   ; Offset_0x0F8000
+SEGA_PCM_Data:
 		binclude	"Sound\SEGA.pcm"
 SEGA_PCM_Data_End:
 		binclude	"data\star trek\part15.bin"
@@ -41360,13 +41358,9 @@ SEGA_PCM_Data_End:
 ;===============================================================================
 ; Mapeamento dos Sprites do Sonic
 ;===============================================================================
-; Offset_100000:
 Sonic_Mappings:		include	"data\mappings\Sonic.asm"
-; Offset_0x101622:
 Sonic_Dyn_Script:	include	"data\mappings\Sonic DPLC.asm"
-; Offset_0x101FF4:
 Miles_Mappings:		include "data\mappings\Tails.asm"
-; Offset_0x102866:
 Miles_Dyn_Script:	include	"data\mappings\Tails DPLC.asm"
 ;===============================================================================
 ; Script para carga dos Sprites do Miles
