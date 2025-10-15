@@ -41481,10 +41481,13 @@ Versus_Menu_Bg_Mappings:
 		even
 Art_Menu_Frame:
 		binclude	"data\menus\menu_frm.nem"
+		even
 Art_Level_Icons:
 		binclude	"data\menus\levelico.nem"
+		even
 Art_Seal:			; N�o usado ; Left over ???
 		binclude	"data\art\seal.nem"
+		even
 Art_Pig:			; N�o usado ; Left over ???
 		binclude	"data\art\pig.nem"
 		even
