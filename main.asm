@@ -40517,7 +40517,6 @@ Offset_0x04CD0E:
 ; Left over - Parte de ponteiros de objetos de uma compila��o anterior
 ; <<<-
 ; ---------------------------------------------------------------------------
-Offset_0x04CD18:
 		binclude	"data\star trek\part1.bin"
 ;===============================================================================
 ; Lista de objetos das fases
