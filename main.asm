@@ -41354,7 +41354,7 @@ SEGA_PCM_Data_End:
 		binclude	"data\star trek\part15.bin"
 	finishBank
 ;===============================================================================
-; Mapeamento dos Sprites do Sonic
+; Player mappings and DPLCs
 ;===============================================================================
 Sonic_Mappings:		include	"data\mappings\Sonic.asm"
 Sonic_Dyn_Script:	include	"data\mappings\Sonic DPLC.asm"
