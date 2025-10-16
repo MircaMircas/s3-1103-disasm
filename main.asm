@@ -38490,7 +38490,7 @@ Offset_0x04B332:
 Offset_0x04B34A:
 		bra.w	Offset_0x04B3F6
 Offset_0x04B34E:
-		btst	#5,(Control_Ports_Buffer_Data+$01).w		; $FFFFF605
+		btst	#5,(Control_Ports_Buffer_Data+1).w		; $FFFFF605
 		beq.s	Offset_0x04B39A
 		jsr	(AllocateObject).l					 ; Offset_0x011DD8
 		bne.s	Offset_0x04B39A
@@ -38501,19 +38501,19 @@ Offset_0x04B34E:
 		andi.b	#$7F,status(A1)								; $002A
 		moveq	#0,d0
 		move.b	(Debug_object).w,d0				 ; $FFFFFE06
-		add.w	D0,d0
-		move.w	D0,d1
+		add.w	d0,d0
+		move.w	d0,d1
 		lsl.w	#2,d0
-		add.w	D1,d0
-		move.b	4(A2,d0.w),subtype(A1)					   ; $002C
-		move.l	(A2,d0.w),(A1)
-		move.b	#0,(A1)
+		add.w	d1,d0
+		move.b	4(a2,d0.w),subtype(a1)					   ; $002C
+		move.l	(a2,d0.w),(a1)
+		move.b	#0,(a1)
 		rts
 Offset_0x04B39A:
-		btst	#4,(Control_Ports_Buffer_Data+$01).w		; $FFFFF605
+		btst	#4,(Control_Ports_Buffer_Data+1).w		; $FFFFF605
 		beq.s	Offset_0x04B3C6
 		moveq	#0,d0
-		move.w	D0,(Debug_placement_mode).w				   ; $FFFFFE08
+		move.w	d0,(Debug_placement_mode).w				   ; $FFFFFE08
 		lea	(Obj_Memory_Address).w,a1					; $FFFFB000
 		move.l	(Debug_Player_Obj_Map).w,mappings(A1) ; $FFFFFFCA, $000C
 		move.w	(Debug_Player_Obj_Art_VRAM).w,Obj_Art_VRAM(A1) ; $FFFFFFCE, $000A
@@ -38523,27 +38523,27 @@ Offset_0x04B39A:
 Offset_0x04B3C6:
 		rts
 Offset_0x04B3C8:
-		move.b	D0,anim(A1)							; $0020
-		move.w	D0,Obj_Sub_X(A1)								; $0012
-		move.w	D0,Obj_Sub_Y(A1)								; $0016
-		move.b	D0,Obj_Player_Control(A1)						; $002E
-		move.b	D0,Obj_Player_Spdsh_Flag(A1)					; $003D
-		move.w	D0,Obj_Speed_X(A1)								; $0018
-		move.w	D0,Obj_Speed_Y(A1)								; $001A
-		move.w	D0,Obj_Inertia(A1)								; $001C
+		move.b	d0,anim(A1)							; $0020
+		move.w	d0,Obj_Sub_X(A1)								; $0012
+		move.w	d0,Obj_Sub_Y(A1)								; $0016
+		move.b	d0,Obj_Player_Control(A1)						; $002E
+		move.b	d0,Obj_Player_Spdsh_Flag(A1)					; $003D
+		move.w	d0,Obj_Speed_X(A1)								; $0018
+		move.w	d0,Obj_Speed_Y(A1)								; $001A
+		move.w	d0,Obj_Inertia(A1)								; $001C
 		move.b	#2,status(A1)								; $002A
 		move.b	#2,routine(A1)							; $0005
 		rts
 Offset_0x04B3F6:
 		moveq	#0,d0
 		move.b	(Debug_object).w,d0				 ; $FFFFFE06
-		add.w	D0,d0
-		move.w	D0,d1
+		add.w	d0,d0
+		move.w	d0,d1
 		lsl.w	#2,d0
-		add.w	D1,d0
-		move.l	4(A2,d0.w),mappings(A0)						   ; $000C
-		move.w	8(A2,d0.w),Obj_Art_VRAM(A0)					   ; $000A
-		move.b	(A2,d0.w),mapping_frame(A0)						; $0022
+		add.w	d1,d0
+		move.l	4(a2,d0.w),mappings(A0)						   ; $000C
+		move.w	8(a2,d0.w),Obj_Art_VRAM(A0)					   ; $000A
+		move.b	(a2,d0.w),mapping_frame(A0)						; $0022
 		rts
 ; ===========================================================================
 ; Offset_0x04B418:
