@@ -1115,7 +1115,6 @@ Offset_0x000F24:
 		and.b	d0,d1
 		move.b	d1,(a0)+
 		rts
-
 ;===============================================================================
 ; VDPRegSetup
 ;===============================================================================
@@ -2824,12 +2823,12 @@ PalCycle_Index:
 		dc.w	PalCycle_Hz_2-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
-		dc.w	PalCycle_CNz_1-PalCycle_Index
-		dc.w	PalCycle_CNz_2-PalCycle_Index
-		dc.w	PalCycle_FBz_1-PalCycle_Index
-		dc.w	PalCycle_FBz_2-PalCycle_Index
-		dc.w	PalCycle_Iz_1-PalCycle_Index
-		dc.w	PalCycle_Iz_2-PalCycle_Index
+		dc.w	PalCycle_CNz-PalCycle_Index
+		dc.w	PalCycle_CNz-PalCycle_Index
+		dc.w	PalCycle_FBz-PalCycle_Index
+		dc.w	PalCycle_FBz-PalCycle_Index
+		dc.w	PalCycle_Iz-PalCycle_Index
+		dc.w	PalCycle_Iz-PalCycle_Index
 		dc.w	PalCycle_LBz_1-PalCycle_Index
 		dc.w	PalCycle_LBz_2-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
@@ -2848,14 +2847,14 @@ PalCycle_Index:
 		dc.w	PalCycle_Null-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
-		dc.w	PalCycle_BPz_1-PalCycle_Index
-		dc.w	PalCycle_BPz_2-PalCycle_Index
+		dc.w	PalCycle_BPz-PalCycle_Index
+		dc.w	PalCycle_BPz-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
-		dc.w	PalCycle_CGz_1-PalCycle_Index
-		dc.w	PalCycle_CGz_2-PalCycle_Index
-		dc.w	PalCycle_EMz_1-PalCycle_Index
-		dc.w	PalCycle_EMz_2-PalCycle_Index
+		dc.w	PalCycle_CGz-PalCycle_Index
+		dc.w	PalCycle_CGz-PalCycle_Index
+		dc.w	PalCycle_EMz-PalCycle_Index
+		dc.w	PalCycle_EMz-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
 		dc.w	PalCycle_Null-PalCycle_Index
@@ -2934,8 +2933,8 @@ PalCycle_AIz_2:
 		addq.w	#8,(Palette_Cycle_Count_0).w
 		andi.w	#$18,d0
 		lea	(Pal_AIz2_Cyc1).l,a0
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$18).w
-		move.l	4(A0,d0.w),(Palette_Row_3_Offset+$1C).w
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+$18).w
+		move.l	4(a0,d0.w),(Palette_Row_3_Offset+$1C).w
 		move.w	(Palette_Cycle_Counters+2).w,d0
 		addq.w	#6,(Palette_Cycle_Counters+2).w
 		cmpi.w	#$30,(Palette_Cycle_Counters+2).w
@@ -2947,280 +2946,274 @@ Offset_0x00208A:
 		bcs.s	Offset_0x00209E
 		lea	(Pal_AIz2_Cyc3).l,a0
 Offset_0x00209E:
-		move.w	(A0,d0.w),(Palette_Row_2_Offset+8).w
-		move.w	2(A0,d0.w),(Palette_Row_2_Offset+$10).w
-		move.w	4(A0,d0.w),(Palette_Row_3_Offset+$16).w
-		move.w	#$A0E,(Palette_Row_2_Offset+$1C).w		   ; $FFFFED5C
-		cmpi.w	#$1C0,(Camera_X).w						   ; $FFFFEE78
+		move.w	(a0,d0.w),(Palette_Row_2_Offset+8).w
+		move.w	2(a0,d0.w),(Palette_Row_2_Offset+$10).w
+		move.w	4(a0,d0.w),(Palette_Row_3_Offset+$16).w
+		move.w	#$A0E,(Palette_Row_2_Offset+$1C).w
+		cmpi.w	#$1C0,(Camera_X).w
 		bcc.s	Offset_0x0020C4
-		move.w	4(A0,d0.w),(Palette_Row_2_Offset+$1C).w	 ; $FFFFED5C
+		move.w	4(a0,d0.w),(Palette_Row_2_Offset+$1C).w
 Offset_0x0020C4:
-		subq.w	#1,(Palette_Cycle_Counters+8).w			; $FFFFF658
+		subq.w	#1,(Palette_Cycle_Counters+8).w
 		bpl.s	Offset_0x002100
-		move.w	#2-1,(Palette_Cycle_Counters+8).w		; $FFFFF658
-		move.w	(Palette_Cycle_Counters+4).w,d0			  ; $FFFFF654
-		addq.w	#2,(Palette_Cycle_Counters+4).w			; $FFFFF654
-		cmpi.w	#$34,(Palette_Cycle_Counters+4).w		; $FFFFF654
+		move.w	#2-1,(Palette_Cycle_Counters+8).w
+		move.w	(Palette_Cycle_Counters+4).w,d0
+		addq.w	#2,(Palette_Cycle_Counters+4).w
+		cmpi.w	#$34,(Palette_Cycle_Counters+4).w
 		bcs.s	Offset_0x0020E6
-		move.w	#0,(Palette_Cycle_Counters+4).w		  ; $FFFFF654
+		move.w	#0,(Palette_Cycle_Counters+4).w
 Offset_0x0020E6:
-		lea	(Pal_AIz2_Cyc4).l,a0					; Offset_0x0025E0
-		cmpi.w	#$3800,(Camera_X).w							; $FFFFEE78
+		lea	(Pal_AIz2_Cyc4).l,a0
+		cmpi.w	#$3800,(Camera_X).w
 		bcs.s	Offset_0x0020FA
-		lea	(Pal_AIz2_Cyc5).l,a0					; Offset_0x002614
+		lea	(Pal_AIz2_Cyc5).l,a0
 Offset_0x0020FA:
-		move.w	(A0,d0.w),(Palette_Row_3_Offset+2).w	  ; $FFFFED62
+		move.w	(a0,d0.w),(Palette_Row_3_Offset+2).w
 Offset_0x002100:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_Hz_1:												   ; Offset_0x002102
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_Hz_1:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x00214E
-		move.w	#8-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		tst.b	(Palette_Cycle_Counters).w					 ; $FFFFF650
+		move.w	#8-1,(Palette_Cycle_Count_1).w
+		tst.b	(Palette_Cycle_Counters).w
 		beq.s	Offset_0x00211A
-		move.w	#0,(Palette_Cycle_Count_1).w			; $FFFFF634
+		move.w	#0,(Palette_Cycle_Count_1).w
 Offset_0x00211A:
-		lea	(Pal_Hz1_Cyc).l,a0						; Offset_0x002648
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#8,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$20,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		lea	(Pal_Hz1_Cyc).l,a0
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#8,(Palette_Cycle_Count_0).w
+		cmpi.w	#$20,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x002136
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x002136:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+6).w	  ; $FFFFED46
-		move.l	4(A0,d0.w),(Palette_Row_2_Offset+$A).w	; $FFFFED4A
-		move.l	(A0,d0.w),(Palette_UW_Row_2_Offset+6).w ; $FFFFF0C6
-		move.l	4(A0,d0.w),(Palette_UW_Row_2_Offset+$A).w ; $FFFFF0CA
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+6).w
+		move.l	4(a0,d0.w),(Palette_Row_2_Offset+$A).w
+		move.l	(a0,d0.w),(Palette_UW_Row_2_Offset+6).w
+		move.l	4(a0,d0.w),(Palette_UW_Row_2_Offset+$A).w
 Offset_0x00214E:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_Hz_2:												   ; Offset_0x002150
+PalCycle_Hz_2:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_CNz_1:												   ; Offset_0x002152
-PalCycle_CNz_2:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_CNz:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x002186
-		move.w	#4-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		lea	(Pal_CNz_Cyc1).l,a0						; Offset_0x002668
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#6,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$60,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#4-1,(Palette_Cycle_Count_1).w
+		lea	(Pal_CNz_Cyc1).l,a0
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#6,(Palette_Cycle_Count_0).w
+		cmpi.w	#$60,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x00217A
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x00217A:
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$12).w	; $FFFFED72
-		move.w	4(A0,d0.w),(Palette_Row_3_Offset+$16).w	 ; $FFFFED76
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+$12).w
+		move.w	4(a0,d0.w),(Palette_Row_3_Offset+$16).w
 Offset_0x002186:
-		lea	(Pal_CNz_Cyc2).l,a0						; Offset_0x0026C8
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#6,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$B4,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		lea	(Pal_CNz_Cyc2).l,a0
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#6,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$B4,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x0021A2
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x0021A2:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$12).w	; $FFFFED52
-		move.w	4(A0,d0.w),(Palette_Row_2_Offset+$16).w	 ; $FFFFED56
-		subq.w	#1,(Palette_Cycle_Counters+8).w			; $FFFFF658
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$12).w
+		move.w	4(a0,d0.w),(Palette_Row_2_Offset+$16).w
+		subq.w	#1,(Palette_Cycle_Counters+8).w
 		bpl.s	Offset_0x0021DC
-		move.w	#3-1,(Palette_Cycle_Counters+8).w		; $FFFFF658
-		lea	(Pal_CNz_Cyc3).l,a0						; Offset_0x00277C
-		move.w	(Palette_Cycle_Counters+4).w,d0			  ; $FFFFF654
-		addq.w	#4,(Palette_Cycle_Counters+4).w			; $FFFFF654
-		cmpi.w	#$40,(Palette_Cycle_Counters+4).w		; $FFFFF654
+		move.w	#3-1,(Palette_Cycle_Counters+8).w
+		lea	(Pal_CNz_Cyc3).l,a0
+		move.w	(Palette_Cycle_Counters+4).w,d0
+		addq.w	#4,(Palette_Cycle_Counters+4).w
+		cmpi.w	#$40,(Palette_Cycle_Counters+4).w
 		bcs.s	Offset_0x0021D6
-		move.w	#0,(Palette_Cycle_Counters+4).w		  ; $FFFFF654
+		move.w	#0,(Palette_Cycle_Counters+4).w
 Offset_0x0021D6:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$E).w	   ; $FFFFED4E
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$E).w
 Offset_0x0021DC:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_FBz_1:												   ; Offset_0x0021DE
-PalCycle_FBz_2:
+PalCycle_FBz:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_Iz_1:												   ; Offset_0x0021E0
-PalCycle_Iz_2:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_Iz:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x00220E
-		move.w	#6-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		lea	(Pal_Iz_Cyc1).l,a0						; Offset_0x0027BC
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#4,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$40,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#6-1,(Palette_Cycle_Count_1).w
+		lea	(Pal_Iz_Cyc1).l,a0
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#4,(Palette_Cycle_Count_0).w
+		cmpi.w	#$40,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x002208
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x002208:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$1C).w	; $FFFFED5C
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$1C).w
 Offset_0x00220E:
-		subq.w	#1,(Palette_Cycle_Counters+8).w			; $FFFFF658
+		subq.w	#1,(Palette_Cycle_Counters+8).w
 		bpl.s	Offset_0x002242
-		move.w	#$A-1,(Palette_Cycle_Counters+8).w		 ; $FFFFF658
-		lea	(Pal_Iz_Cyc2).l,a0						; Offset_0x0027FC
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#4,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$48,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		move.w	#$A-1,(Palette_Cycle_Counters+8).w
+		lea	(Pal_Iz_Cyc2).l,a0
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#4,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$48,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x002236
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x002236:
-		tst.w	(Background_Events+$16).w					 ; $FFFFEEE8
+		tst.w	(Background_Events+$16).w
 		beq.s	Offset_0x002242
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$1C).w	; $FFFFED7C
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+$1C).w
 Offset_0x002242:
-		subq.w	#1,(Palette_Cycle_Counters+$A).w		 ; $FFFFF65A
+		subq.w	#1,(Palette_Cycle_Counters+$A).w
 		bpl.s	Offset_0x002298
-		move.w	#8-1,(Palette_Cycle_Counters+$A).w		 ; $FFFFF65A
-		lea	(Pal_Iz_Cyc3).l,a0						; Offset_0x002844
-		move.w	(Palette_Cycle_Counters+4).w,d0			  ; $FFFFF654
-		addq.w	#4,(Palette_Cycle_Counters+4).w			; $FFFFF654
-		cmpi.w	#$18,(Palette_Cycle_Counters+4).w		; $FFFFF654
+		move.w	#8-1,(Palette_Cycle_Counters+$A).w
+		lea	(Pal_Iz_Cyc3).l,a0
+		move.w	(Palette_Cycle_Counters+4).w,d0
+		addq.w	#4,(Palette_Cycle_Counters+4).w
+		cmpi.w	#$18,(Palette_Cycle_Counters+4).w
 		bcs.s	Offset_0x00226A
-		move.w	#0,(Palette_Cycle_Counters+4).w		  ; $FFFFF654
+		move.w	#0,(Palette_Cycle_Counters+4).w
 Offset_0x00226A:
-		tst.w	(Background_Events+$16).w					 ; $FFFFEEE8
+		tst.w	(Background_Events+$16).w
 		beq.s	Offset_0x002276
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$18).w	; $FFFFED78
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+$18).w
 Offset_0x002276:
-		lea	(Pal_Iz_Cyc4).l,a0						; Offset_0x00285C
-		move.w	(Palette_Cycle_Counters+6).w,d0			  ; $FFFFF656
-		addq.w	#4,(Palette_Cycle_Counters+6).w			; $FFFFF656
-		cmpi.w	#$40,(Palette_Cycle_Counters+6).w		; $FFFFF656
+		lea	(Pal_Iz_Cyc4).l,a0
+		move.w	(Palette_Cycle_Counters+6).w,d0
+		addq.w	#4,(Palette_Cycle_Counters+6).w
+		cmpi.w	#$40,(Palette_Cycle_Counters+6).w
 		bcs.s	Offset_0x002292
-		move.w	#0,(Palette_Cycle_Counters+6).w		  ; $FFFFF656
+		move.w	#0,(Palette_Cycle_Counters+6).w
 Offset_0x002292:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$18).w	; $FFFFED58
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$18).w
 Offset_0x002298:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_LBz_1:												   ; Offset_0x00229A
-		lea	(Pal_LBz1_Cyc).l,a0						; Offset_0x00289C
-		bra.s	PalCycle_LBz_Main					   ; Offset_0x0022A8
+PalCycle_LBz_1:
+		lea	(Pal_LBz1_Cyc).l,a0
+		bra.s	PalCycle_LBz_Main
 ; ---------------------------------------------------------------------------
-PalCycle_LBz_2:												   ; Offset_0x0022A2
-		lea	(Pal_LBz2_Cyc).l,a0						; Offset_0x0028AE
+PalCycle_LBz_2:
+		lea	(Pal_LBz2_Cyc).l,a0
 PalCycle_LBz_Main:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x0022D6
-		move.w	#4-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#6,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$12,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#4-1,(Palette_Cycle_Count_1).w
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#6,(Palette_Cycle_Count_0).w
+		cmpi.w	#$12,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x0022CA
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x0022CA:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$10).w	; $FFFFED50
-		move.w	4(A0,d0.w),(Palette_Row_2_Offset+$14).w	 ; $FFFFED54
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$10).w
+		move.w	4(a0,d0.w),(Palette_Row_2_Offset+$14).w
 Offset_0x0022D6:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_LRz_1:												   ; Offset_0x0022D8
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_LRz_1:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x00232E
-		move.w	#$10-1,(Palette_Cycle_Count_1).w			; $FFFFF634
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#8,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$80,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#$10-1,(Palette_Cycle_Count_1).w
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#8,(Palette_Cycle_Count_0).w
+		cmpi.w	#$80,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x0022FA
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x0022FA:
-		lea	(Pal_LRz1_Cyc1).l,a0					; Offset_0x0028C0
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+2).w	  ; $FFFFED42
-		move.l	4(A0,d0.w),(Palette_Row_2_Offset+6).w	   ; $FFFFED46
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#4,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$1C,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		lea	(Pal_LRz1_Cyc1).l,a0
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+2).w
+		move.l	4(a0,d0.w),(Palette_Row_2_Offset+6).w
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#4,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$1C,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x002322
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x002322:
-		lea	(Pal_LRz1_Cyc2).l,a0					; Offset_0x002940
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+2).w	  ; $FFFFED62
+		lea	(Pal_LRz1_Cyc2).l,a0
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+2).w
 Offset_0x00232E:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_LRz_2:												   ; Offset_0x002330
+PalCycle_LRz_2:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_BPz_1:												   ; Offset_0x002332
-PalCycle_BPz_2:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_BPz:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x002366
-		move.w	#8-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		lea	(Pal_BPz_Cyc1).l,a0						; Offset_0x002964
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#6,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$12,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#8-1,(Palette_Cycle_Count_1).w
+		lea	(Pal_BPz_Cyc1).l,a0
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#6,(Palette_Cycle_Count_0).w
+		cmpi.w	#$12,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x00235A
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x00235A:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+$1A).w	; $FFFFED5A
-		move.w	4(A0,d0.w),(Palette_Row_2_Offset+$1E).w	 ; $FFFFED5E
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+$1A).w
+		move.w	4(a0,d0.w),(Palette_Row_2_Offset+$1E).w
 Offset_0x002366:
-		subq.w	#1,(Palette_Cycle_Counters+8).w			; $FFFFF658
+		subq.w	#1,(Palette_Cycle_Counters+8).w
 		bpl.s	Offset_0x00239A
-		move.w	#$12-1,(Palette_Cycle_Counters+8).w		  ; $FFFFF658
-		lea	(Pal_BPz_Cyc2).l,a0						; Offset_0x002976
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#6,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$7E,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		move.w	#$12-1,(Palette_Cycle_Counters+8).w
+		lea	(Pal_BPz_Cyc2).l,a0
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#6,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$7E,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x00238E
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x00238E:
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+4).w	  ; $FFFFED64
-		move.w	4(A0,d0.w),(Palette_Row_3_Offset+8).w	   ; $FFFFED68
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+4).w
+		move.w	4(a0,d0.w),(Palette_Row_3_Offset+8).w
 Offset_0x00239A:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_CGz_1:												   ; Offset_0x00239C
-PalCycle_CGz_2:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_CGz:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x0023D0
-		move.w	#$A-1,(Palette_Cycle_Count_1).w			   ; $FFFFF634
-		lea	(Pal_CGz_Cyc).l,a0						; Offset_0x0029F4
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#8,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$50,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#$A-1,(Palette_Cycle_Count_1).w
+		lea	(Pal_CGz_Cyc).l,a0
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#8,(Palette_Cycle_Count_0).w
+		cmpi.w	#$50,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x0023C4
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x0023C4:
-		move.l	(A0,d0.w),(Palette_Row_2_Offset+4).w	  ; $FFFFED44
-		move.l	4(A0,d0.w),(Palette_Row_2_Offset+8).w	   ; $FFFFED48
+		move.l	(a0,d0.w),(Palette_Row_2_Offset+4).w
+		move.l	4(a0,d0.w),(Palette_Row_2_Offset+8).w
 Offset_0x0023D0:
 		rts
 ; ---------------------------------------------------------------------------
-PalCycle_EMz_1:												   ; Offset_0x0023D2
-PalCycle_EMz_2:
-		subq.w	#1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
+PalCycle_EMz:
+		subq.w	#1,(Palette_Cycle_Count_1).w
 		bpl.s	Offset_0x002400
-		move.w	#8-1,(Palette_Cycle_Count_1).w			  ; $FFFFF634
-		lea	(Pal_EMz_Cyc1).l,a0						; Offset_0x002A44
-		move.w	(Palette_Cycle_Count_0).w,d0				; $FFFFF632
-		addq.w	#2,(Palette_Cycle_Count_0).w			  ; $FFFFF632
-		cmpi.w	#$3C,(Palette_Cycle_Count_0).w			  ; $FFFFF632
+		move.w	#8-1,(Palette_Cycle_Count_1).w
+		lea	(Pal_EMz_Cyc1).l,a0
+		move.w	(Palette_Cycle_Count_0).w,d0
+		addq.w	#2,(Palette_Cycle_Count_0).w
+		cmpi.w	#$3C,(Palette_Cycle_Count_0).w
 		bcs.s	Offset_0x0023FA
-		move.w	#0,(Palette_Cycle_Count_0).w			; $FFFFF632
+		move.w	#0,(Palette_Cycle_Count_0).w
 Offset_0x0023FA:
-		move.w	4(A0,d0.w),(Palette_Row_2_Offset+$1C).w	 ; $FFFFED5C
+		move.w	4(a0,d0.w),(Palette_Row_2_Offset+$1C).w
 Offset_0x002400:
-		subq.w	#1,(Palette_Cycle_Counters+8).w			; $FFFFF658
+		subq.w	#1,(Palette_Cycle_Counters+8).w
 		bpl.s	Offset_0x00242E
-		move.w	#$20-1,(Palette_Cycle_Counters+8).w		  ; $FFFFF658
-		lea	(Pal_EMz_Cyc2).l,a0						; Offset_0x002A80
-		move.w	(Palette_Cycle_Counters+2).w,d0			  ; $FFFFF652
-		addq.w	#4,(Palette_Cycle_Counters+2).w			; $FFFFF652
-		cmpi.w	#$34,(Palette_Cycle_Counters+2).w		; $FFFFF652
+		move.w	#$20-1,(Palette_Cycle_Counters+8).w
+		lea	(Pal_EMz_Cyc2).l,a0
+		move.w	(Palette_Cycle_Counters+2).w,d0
+		addq.w	#4,(Palette_Cycle_Counters+2).w
+		cmpi.w	#$34,(Palette_Cycle_Counters+2).w
 		bcs.s	Offset_0x002428
-		move.w	#0,(Palette_Cycle_Counters+2).w		  ; $FFFFF652
+		move.w	#0,(Palette_Cycle_Counters+2).w
 Offset_0x002428:
-		move.l	(A0,d0.w),(Palette_Row_3_Offset+$12).w	; $FFFFED72
+		move.l	(a0,d0.w),(Palette_Row_3_Offset+$12).w
 Offset_0x00242E:
 		rts
 ; ---------------------------------------------------------------------------
-Pal_AIz1_Cyc1:												   ; Offset_0x002430
+Pal_AIz1_Cyc1:
 		dc.w	$0EE8, $0EE2, $0EA4, $0E64, $0EE2, $0EA4, $0E64, $0EE8
 		dc.w	$0EA4, $0E64, $0EE8, $0EE2, $0E64, $0EE8, $0EE2, $0EA4
 ; ---------------------------------------------------------------------------
-Pal_AIz1_Cyc2:												   ; Offset_0x002450
+Pal_AIz1_Cyc2:
 		dc.w	$0EEC, $0EEE, $0EE8, $0E40, $0EEC, $0EE8, $0EE8, $0EEE
 		dc.w	$0EEA, $0E86, $0EE8, $0EE8, $0EE8, $0E40, $0EE8, $0E86
 		dc.w	$0EE6, $0EEE, $0EE8, $0E40, $0EEA, $0EE8, $0EE8, $0EEE
@@ -3230,7 +3223,7 @@ Pal_AIz1_Cyc2:												   ; Offset_0x002450
 		dc.w	$0EEC, $0EEE, $0EE8, $0E40, $0EEC, $0EE8, $0EE8, $0EEE
 		dc.w	$0EEC, $0E86, $0EE8, $0EE8, $0EEC, $0E40, $0EE8, $0E86
 ; ---------------------------------------------------------------------------
-Pal_AIz1_Cyc3:												   ; Offset_0x0024D0
+Pal_AIz1_Cyc3:
 		dc.w	$0CEC, $0CEE, $0EEE, $0CEE, $0EEE, $0EEE, $0EEE, $0EEE
 		dc.w	$0EEE, $0EEE, $0EEE, $0EEE, $0EEE, $0EEE, $0EEE, $0EEE
 		dc.w	$0EEE, $0EEE, $0EEE, $0EEE, $0EEE, $0EE8, $0EEE, $0EEE
@@ -3238,42 +3231,42 @@ Pal_AIz1_Cyc3:												   ; Offset_0x0024D0
 		dc.w	$0EE8, $0EE8, $0EE8, $0EE8, $0EE8, $0EE8, $0EE8, $0EE8
 		dc.w	$0EE8, $0AEC, $0EE8, $0AEC, $0CEC, $0AEC, $0CEC, $0CEC
 ; ---------------------------------------------------------------------------
-Pal_AIz1_Cyc4:												   ; Offset_0x002530
+Pal_AIz1_Cyc4:
 		dc.w	$0EA4, $0E60, $0EE2, $0EA4, $0EE8, $0EA4, $0E60, $0EE8
 		dc.w	$0EEE, $0E60, $0EE2, $0EE2, $0EE8, $0EA4, $0EA4, $0EE2
 		dc.w	$0E60, $0E60, $0EE2, $0E60, $0EEE, $0EE2, $0E60, $0EE8
 ; ---------------------------------------------------------------------------
-Pal_AIz2_Cyc1:												   ; Offset_0x002560
+Pal_AIz2_Cyc1:
 		dc.w	$0EE8, $0EE2, $0EC4, $0EA4, $0EE2, $0EC4, $0EA4, $0EE8
 		dc.w	$0EC4, $0EA4, $0EE8, $0EE2, $0EA4, $0EE8, $0EE2, $0EC4
 ; ---------------------------------------------------------------------------
-Pal_AIz2_Cyc2:												   ; Offset_0x002580
+Pal_AIz2_Cyc2:
 		dc.w	$0024, $0044, $008E, $0026, $0046, $00AE, $0024, $0048
 		dc.w	$008E, $0026, $004A, $00AE, $0024, $004C, $008E, $0026
 		dc.w	$004A, $00AE, $0024, $0048, $008E, $0024, $0046, $008E
 ; ---------------------------------------------------------------------------
-Pal_AIz2_Cyc3:												   ; Offset_0x0025B0
+Pal_AIz2_Cyc3:
 		dc.w	$0024, $0044, $000C, $0026, $0046, $000E, $0024, $0048
 		dc.w	$000C, $0026, $004A, $000E, $0024, $004C, $000C, $0026
 		dc.w	$004A, $000E, $0024, $0048, $000C, $0024, $0046, $000C
 ; ---------------------------------------------------------------------------
-Pal_AIz2_Cyc4:												   ; Offset_0x0025E0
+Pal_AIz2_Cyc4:
 		dc.w	$006E, $006E, $006E, $006E, $028E, $04AE, $06AE, $08CE
 		dc.w	$08EE, $0AEE, $0AEE, $0AEE, $0AEE, $0AEE, $08EE, $08EE
 		dc.w	$08EE, $08EE, $08CE, $08CE, $08CE, $06AE, $06AE, $04AE
 		dc.w	$04AE, $028E
 ; ---------------------------------------------------------------------------
-Pal_AIz2_Cyc5:												   ; Offset_0x002614
+Pal_AIz2_Cyc5:
 		dc.w	$000C, $000C, $000C, $000C, $002C, $000E, $002E, $004E
 		dc.w	$006E, $008E, $008E, $008E, $008E, $008E, $006E, $004E
 		dc.w	$004E, $004E, $002E, $002E, $002E, $000E, $000E, $002C
 		dc.w	$002C, $002C
 ; ---------------------------------------------------------------------------
-Pal_Hz1_Cyc:												   ; Offset_0x002648
+Pal_Hz1_Cyc:
 		dc.w	$0EC8, $0EC0, $0EA0, $0E80, $0EC0, $0EA0, $0E80, $0EC8
 		dc.w	$0EA0, $0E80, $0EC8, $0EC0, $0E80, $0EC8, $0EC0, $0EA0
 ; ---------------------------------------------------------------------------
-Pal_CNz_Cyc1:												   ; Offset_0x002668
+Pal_CNz_Cyc1:
 		dc.w	$0000, $0066, $00EE, $0022, $0044, $00CC, $0044, $0022
 		dc.w	$00AA, $0066, $0000, $0088, $0088, $0000, $0066, $00AA
 		dc.w	$0022, $0044, $00CC, $0044, $0022, $00EE, $0066, $0000
@@ -3281,7 +3274,7 @@ Pal_CNz_Cyc1:												   ; Offset_0x002668
 		dc.w	$0044, $0088, $00EE, $0066, $0066, $00EE, $0088, $0044
 		dc.w	$00CC, $00AA, $0022, $00AA, $00CC, $0000, $0088, $00EE
 ; ---------------------------------------------------------------------------
-Pal_CNz_Cyc2:												   ; Offset_0x0026C8
+Pal_CNz_Cyc2:
 		dc.w	$0E20, $008A, $0C0E, $0C42, $006C, $0E0E, $0A64, $004C
 		dc.w	$0E0C, $0884, $002E, $0E0A, $06A6, $000E, $0E08, $04C6
 		dc.w	$020E, $0E06, $02E8, $040E, $0E04, $00E8, $060E, $0E02
@@ -3295,44 +3288,44 @@ Pal_CNz_Cyc2:												   ; Offset_0x0026C8
 		dc.w	$040E, $0E02, $00E8, $060E, $0E00, $00C8, $080E, $0E00
 		dc.w	$00AA, $0A0E
 ; ---------------------------------------------------------------------------
-Pal_CNz_Cyc3:												   ; Offset_0x00277C
+Pal_CNz_Cyc3:
 		dc.w	$02E0, $0ECE, $04E2, $0EAC, $06E4, $0E8A, $08E6, $0E68
 		dc.w	$0AE8, $0E46, $0CEA, $0E24, $0EEC, $0E02, $0EEE, $0E00
 		dc.w	$0EEC, $0E02, $0CEA, $0E24, $0AE8, $0E46, $08E6, $0E68
 		dc.w	$06E4, $0E8A, $04E2, $0EAC, $02E0, $0ECE, $00E0, $0EEE
 ; ---------------------------------------------------------------------------
-Pal_Iz_Cyc1:												   ; Offset_0x0027BC
+Pal_Iz_Cyc1:
 		dc.w	$0E62, $0E20, $0E44, $0E20, $0E44, $0E00, $0E42, $0E00
 		dc.w	$0E62, $0C00, $0E82, $0A00, $0EA2, $0C00, $0EC0, $0E00
 		dc.w	$0EE0, $0E20, $0EE4, $0E00, $0EE4, $0C00, $0EE4, $0A00
 		dc.w	$0EE0, $0800, $0EC2, $0A00, $0EA2, $0C00, $0E82, $0E20
 ; ---------------------------------------------------------------------------
-Pal_Iz_Cyc2:												   ; Offset_0x0027FC
+Pal_Iz_Cyc2:
 		dc.w	$0E06, $0E08, $0E04, $0E06, $0C04, $0E04, $0C02, $0C04
 		dc.w	$0A02, $0C02, $0A00, $0A02, $0800, $0A00, $0600, $0800
 		dc.w	$0600, $0800, $0600, $0800, $0600, $0800, $0800, $0A00
 		dc.w	$0A00, $0A02, $0A02, $0C02, $0C02, $0C04, $0C04, $0E04
 		dc.w	$0E04, $0E06, $0E06, $0E08
 ; ---------------------------------------------------------------------------
-Pal_Iz_Cyc3:												   ; Offset_0x002844
+Pal_Iz_Cyc3:
 		dc.w	$0840, $0EEA, $0860, $0EE0, $0A80, $0EC0, $0EC0, $0A80
 		dc.w	$0A80, $0EC0, $0860, $0EE0
 ; ---------------------------------------------------------------------------
-Pal_Iz_Cyc4:												   ; Offset_0x00285C
+Pal_Iz_Cyc4:
 		dc.w	$00E8, $0CEC, $00C8, $0AEA, $00C8, $0AEA, $00A6, $06E8
 		dc.w	$00A6, $06E8, $0084, $00E8, $0084, $00E8, $0082, $00C8
 		dc.w	$0064, $00A6, $0064, $00A6, $0082, $00C8, $0084, $00E8
 		dc.w	$00A6, $06E8, $00C8, $0AEA, $00E8, $0CEC, $00E8, $0CEC
 ; ---------------------------------------------------------------------------
-Pal_LBz1_Cyc:												   ; Offset_0x00289C
+Pal_LBz1_Cyc:
 		dc.w	$08E0, $00C0, $0080, $00C0, $0080, $08E0, $0080, $08E0
 		dc.w	$00C0
 ; ---------------------------------------------------------------------------
-Pal_LBz2_Cyc:												   ; Offset_0x0028AE
+Pal_LBz2_Cyc:
 		dc.w	$0EEA, $0EA4, $0C62, $0EA4, $0C62, $0EEA, $0C62, $0EEA
 		dc.w	$0EA4
 ; ---------------------------------------------------------------------------
-Pal_LRz1_Cyc1:												   ; Offset_0x0028C0
+Pal_LRz1_Cyc1:
 		dc.w	$00EE, $00AE, $006E, $000E, $00AE, $006E, $000E, $00EE
 		dc.w	$006E, $000E, $00EE, $02CE, $002E, $08EE, $04EE, $006E
 		dc.w	$0AEE, $06EE, $008E, $004E, $04EE, $006E, $002E, $08EE
@@ -3342,16 +3335,16 @@ Pal_LRz1_Cyc1:												   ; Offset_0x0028C0
 		dc.w	$00AC, $006E, $002E, $000A, $008E, $004E, $000C, $00CE
 		dc.w	$006E, $000E, $00EE, $00AE, $000E, $00EE, $00AE, $006E
 ; ---------------------------------------------------------------------------
-Pal_LRz1_Cyc2:												   ; Offset_0x002940
+Pal_LRz1_Cyc2:
 		dc.w	$0224, $0224, $0224, $0424, $0224, $0426, $0426, $0224
 		dc.w	$0424, $0224, $0224, $0224, $0224, $0224, $0224, $0422
 		dc.w	$0422, $0422
 ; ---------------------------------------------------------------------------
-Pal_BPz_Cyc1:												   ; Offset_0x002964
+Pal_BPz_Cyc1:
 		dc.w	$00EE, $00AE, $006C, $00AE, $006E, $00EE, $006E, $00EE
 		dc.w	$00AE
 ; ---------------------------------------------------------------------------
-Pal_BPz_Cyc2:												   ; Offset_0x002976
+Pal_BPz_Cyc2:
 		dc.w	$0EE0, $0E0E, $00EE, $0EA0, $0A0E, $00EA, $0E60, $060E
 		dc.w	$00E6, $0E20, $020E, $00E2, $0E02, $002E, $02E0, $0E06
 		dc.w	$006E, $06E0, $0E0A, $00AE, $0AE0, $0E0E, $00EE, $0EE0
@@ -3361,25 +3354,24 @@ Pal_BPz_Cyc2:												   ; Offset_0x002976
 		dc.w	$00E6, $0E60, $060E, $00E2, $0E20, $020E, $02E0, $0E02
 		dc.w	$002E, $06E0, $0E06, $006E, $0AE0, $0E0A, $00AE
 ; ---------------------------------------------------------------------------
-Pal_CGz_Cyc:												   ; Offset_0x0029F4
+Pal_CGz_Cyc:
 		dc.w	$000E, $0008, $0004, $0EEE, $000C, $0006, $0002, $0CCE
 		dc.w	$000A, $0004, $0000, $0AAE, $0008, $0002, $0000, $088E
 		dc.w	$0006, $0000, $0000, $066E, $0004, $0000, $0000, $044E
 		dc.w	$0006, $0000, $0000, $066E, $0008, $0002, $0000, $088E
 		dc.w	$000A, $0004, $0002, $0AAE, $000C, $0006, $0004, $0CCE
 ; ---------------------------------------------------------------------------
-Pal_EMz_Cyc1:												   ; Offset_0x002A44
+Pal_EMz_Cyc1:
 		dc.w	$0006, $0008, $000A, $000C, $000E, $000E, $000E, $000E
 		dc.w	$000C, $000A, $0008, $0006, $0006, $0006, $0006, $0008
 		dc.w	$000A, $000C, $000E, $000E, $000E, $000C, $000A, $0008
 		dc.w	$0006, $0008, $000A, $000A, $000A, $0008
 ; ---------------------------------------------------------------------------
-Pal_EMz_Cyc2:												   ; Offset_0x002A80
+Pal_EMz_Cyc2:
 		dc.w	$0000, $000E, $0002, $000C, $0004, $000A, $0006, $0008
 		dc.w	$0008, $0006, $000A, $0004, $000C, $0002, $000E, $0000
 		dc.w	$000C, $0002, $000A, $0004, $0008, $0006, $0006, $0008
 		dc.w	$0004, $000A, $0002, $000C
-
 ; ===========================================================================
 ; Offset_0x002AB8:
 PalCycle_SuperSonic:
@@ -3437,32 +3429,32 @@ Offset_0x002B2A:
 		rts
 
 Offset_0x002B50:
-		subq.b	#1,(Super_Sonic_Palette_Timer).w		  ; $FFFFF65E
+		subq.b	#1,(Super_Sonic_Palette_Timer).w
 		bpl.s	Offset_0x002B00
-		move.b	#8-1,(Super_Sonic_Palette_Timer).w			; $FFFFF65E
-		lea	(Pal_SuperSonic_Cyc).l,a0				; Offset_0x002BA0
-		move.w	(Super_Sonic_Palette_Frame).w,d0			; $FFFFF65C
-		addq.w	#8,(Super_Sonic_Palette_Frame).w		  ; $FFFFF65C
-		cmpi.w	#$78,(Super_Sonic_Palette_Frame).w		  ; $FFFFF65C
+		move.b	#8-1,(Super_Sonic_Palette_Timer).w
+		lea	(Pal_SuperSonic_Cyc).l,a0
+		move.w	(Super_Sonic_Palette_Frame).w,d0
+		addq.w	#8,(Super_Sonic_Palette_Frame).w
+		cmpi.w	#$78,(Super_Sonic_Palette_Frame).w
 	if FixBugs
 		bls.s	Offset_0x002B78
 	else
 		bcs.s	Offset_0x002B78
 	endif
-		move.w	#$30,(Super_Sonic_Palette_Frame).w		  ; $FFFFF65C
+		move.w	#$30,(Super_Sonic_Palette_Frame).w
 Offset_0x002B78:
-		lea	(Palette_Row_0_Offset+4).w,a1			  ; $FFFFED04
-		move.l	(A0,d0.w),(A1)+
-		move.w	4(A0,d0.w),(A1)
-		lea	(Pal_SuperSonic_Underwater_Cyc).l,a0	; Offset_0x002C20
-		tst.b	(Water_Level_Flag).w						 ; $FFFFF730
+		lea	(Palette_Row_0_Offset+4).w,a1
+		move.l	(a0,d0.w),(A1)+
+		move.w	4(a0,d0.w),(A1)
+		lea	(Pal_SuperSonic_Underwater_Cyc).l,a0
+		tst.b	(Water_Level_Flag).w
 		beq.w	Offset_0x002B00
-		lea	(Palette_UW_Row_0_Offset+4).w,a1		  ; $FFFFF084
-		move.l	(A0,d0.w),(A1)+
-		move.w	4(A0,d0.w),(A1)
+		lea	(Palette_UW_Row_0_Offset+4).w,a1
+		move.l	(a0,d0.w),(A1)+
+		move.w	4(a0,d0.w),(A1)
 		rts
 ; ---------------------------------------------------------------------------
-Pal_SuperSonic_Cyc:											   ; Offset_0x002BA0
+Pal_SuperSonic_Cyc:
 		dc.w	$0A22, $0C42, $0E44, $0E66, $0844, $0A64, $0E66, $0E88
 		dc.w	$0666, $0A86, $0E88, $0EAA, $0488, $0AA8, $0EAA, $0ECC
 		dc.w	$04AA, $0ACA, $0ECC, $0EEE, $04CC, $0AEC, $0EEE, $0EEE
@@ -3472,7 +3464,7 @@ Pal_SuperSonic_Cyc:											   ; Offset_0x002BA0
 		dc.w	$00EE, $06EE, $0AEE, $0EEE, $00EE, $04EE, $08EE, $0CEE
 		dc.w	$00EE, $06EE, $0AEE, $0EEE, $00EE, $08EE, $0CEE, $0EEE
 ; ---------------------------------------------------------------------------
-Pal_SuperSonic_Underwater_Cyc:								   ; Offset_0x002C20
+Pal_SuperSonic_Underwater_Cyc:
 		dc.w	$0E08, $0E28, $0E2A, $0E4C, $0C2A, $0E4A, $0E4C, $0E6E
 		dc.w	$0A4C, $0E6C, $0E6E, $0E8E, $0A6E, $0E8E, $0E8E, $0E8E
 		dc.w	$0A6E, $0E8E, $0E8E, $0E8E, $0A6E, $0E8E, $0E8E, $0E8E
@@ -3639,184 +3631,179 @@ Pal_FadeToBlack:
 		dbf	d4,.loop
 		rts
 ; ---------------------------------------------------------------------------
-Pal_FadeOut:												   ; Offset_0x002E08
+Pal_FadeOut:
 		moveq	#0,d0
-		lea	(Palette_Buffer).w,a0						; $FFFFED00
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		lea	(Palette_Buffer).w,a0
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002E18:
-		bsr.s	Pal_DecColor						   ; Offset_0x002E36
-		dbf	D0,Offset_0x002E18
+		bsr.s	Pal_DecColor
+		dbf	d0,Offset_0x002E18
 		moveq	#0,d0
-		lea	(Palette_Underwater_Buffer).w,a0			; $FFFFF080
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		lea	(Palette_Underwater_Buffer).w,a0
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002E2E:
-		bsr.s	Pal_DecColor						   ; Offset_0x002E36
-		dbf	D0,Offset_0x002E2E
+		bsr.s	Pal_DecColor
+		dbf	d0,Offset_0x002E2E
 		rts
-Pal_DecColor:												   ; Offset_0x002E36
-		move.w	(A0),d2
-		beq.s	Pal_NoDec							   ; Offset_0x002E62
+Pal_DecColor:
+		move.w	(a0),d2
+		beq.s	Pal_NoDec
 Pal_DecRed:
-		move.w	D2,d1
+		move.w	d2,d1
 		andi.w	#$E,d1
-		beq.s	Pal_DecGreen						   ; Offset_0x002E46
-		subq.w	#2,(A0)+
+		beq.s	Pal_DecGreen
+		subq.w	#2,(a0)+
 		rts
-Pal_DecGreen:												   ; Offset_0x002E46
-		move.w	D2,d1
+Pal_DecGreen:
+		move.w	d2,d1
 		andi.w	#$E0,d1
-		beq.s	Pal_DecBlue							   ; Offset_0x002E54
-		subi.w	#$20,(A0)+
+		beq.s	Pal_DecBlue
+		subi.w	#$20,(a0)+
 		rts
-Pal_DecBlue:												   ; Offset_0x002E54
-		move.w	D2,d1
+Pal_DecBlue:
+		move.w	d2,d1
 		andi.w	#$E00,d1
-		beq.s	Pal_NoDec							   ; Offset_0x002E62
-		subi.w	#$200,(A0)+
+		beq.s	Pal_NoDec
+		subi.w	#$200,(a0)+
 		rts
-Pal_NoDec:													   ; Offset_0x002E62
+Pal_NoDec:
 		addq.w	#2,a0
 		rts
 ; ---------------------------------------------------------------------------
-Pal_MakeWhite: ; Usado pelo Special Stage					   ; Offset_0x002E66
-		move.w	#$3F,(Palette_Fade_Info).w				  ; $FFFFF626
+Pal_MakeWhite: ; Usado pelo Special Stage
+		move.w	#$3F,(Palette_Fade_Info).w
 		moveq	#0,d0
-		lea	(Palette_Buffer).w,a0						; $FFFFED00
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
+		lea	(Palette_Buffer).w,a0
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
 		move.w	#$EEE,d1
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002E80:
-		move.w	D1,(A0)+
-		dbf	D0,Offset_0x002E80
+		move.w	d1,(a0)+
+		dbf	d0,Offset_0x002E80
 		move.w	#$15,d4
 Offset_0x002E8A:
-		move.b	#$12,(VBlank_Index).w						; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		bsr.s	Pal_WhiteToBlack					   ; Offset_0x002EA0
-		bsr.w	RunPLC_RAM								   ; Offset_0x001556
-		dbf	D4,Offset_0x002E8A
+		move.b	#$12,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		bsr.s	Pal_WhiteToBlack
+		bsr.w	RunPLC_RAM
+		dbf	d4,Offset_0x002E8A
 		rts
 ; ---------------------------------------------------------------------------
-Pal_WhiteToBlack:											   ; Offset_0x002EA0
+Pal_WhiteToBlack:
 		moveq	#0,d0
-		lea	(Palette_Buffer).w,a0						; $FFFFED00
-		lea	(Palette_Data_Target).w,a1					; $FFFFED80
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
-		adda.w	D0,a1
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		lea	(Palette_Buffer).w,a0
+		lea	(Palette_Data_Target).w,a1
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
+		adda.w	d0,a1
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002EB6:
-		bsr.s	Pal_DecColor_2						   ; Offset_0x002EE0
-		dbf	D0,Offset_0x002EB6
-		tst.b	(Water_Level_Flag).w						 ; $FFFFF730
+		bsr.s	Pal_DecColor_2
+		dbf	d0,Offset_0x002EB6
+		tst.b	(Water_Level_Flag).w
 		beq.s	Offset_0x002EDE
 		moveq	#0,d0
-		lea	(Palette_Underwater_Buffer).w,a0			; $FFFFF080
-		lea	(Palette_Underwater_Target).w,a1			; $FFFFF000
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
-		adda.w	D0,a1
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		lea	(Palette_Underwater_Buffer).w,a0
+		lea	(Palette_Underwater_Target).w,a1
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
+		adda.w	d0,a1
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002ED8:
-		bsr.s	Pal_DecColor_2						   ; Offset_0x002EE0
-		dbf	D0,Offset_0x002ED8
+		bsr.s	Pal_DecColor_2
+		dbf	d0,Offset_0x002ED8
 Offset_0x002EDE:
 		rts
 ; ---------------------------------------------------------------------------
-Pal_DecColor_2:												   ; Offset_0x002EE0
-		move.w	(A1)+,d2
-		move.w	(A0),d3
-		cmp.w	D2,d3
-		beq.s	Pal_NoDec_2							   ; Offset_0x002F0C
+Pal_DecColor_2:
+		move.w	(a1)+,d2
+		move.w	(a0),d3
+		cmp.w	d2,d3
+		beq.s	Pal_NoDec_2
 Pal_DecBlue_2:
-		move.w	D3,d1
+		move.w	d3,d1
 		subi.w	#$200,d1
-		bcs.s	Pal_DecGreen_2						   ; Offset_0x002EF8
-		cmp.w	D2,d1
-		bcs.s	Pal_DecGreen_2						   ; Offset_0x002EF8
-		move.w	D1,(A0)+
+		bcs.s	Pal_DecGreen_2
+		cmp.w	d2,d1
+		bcs.s	Pal_DecGreen_2
+		move.w	d1,(a0)+
 		rts
-Pal_DecGreen_2:												   ; Offset_0x002EF8
-		move.w	D3,d1
+Pal_DecGreen_2:
+		move.w	d3,d1
 		subi.w	#$20,d1
-		bcs.s	Pal_DecRed_2						   ; Offset_0x002F08
-		cmp.w	D2,d1
-		bcs.s	Pal_DecRed_2						   ; Offset_0x002F08
-		move.w	D1,(A0)+
+		bcs.s	Pal_DecRed_2
+		cmp.w	d2,d1
+		bcs.s	Pal_DecRed_2
+		move.w	d1,(a0)+
 		rts
-Pal_DecRed_2:												   ; Offset_0x002F08
-		subq.w	#2,(A0)+
+Pal_DecRed_2:
+		subq.w	#2,(a0)+
 		rts
-Pal_NoDec_2:												   ; Offset_0x002F0C
+Pal_NoDec_2:
 		addq.w	#2,a0
 		rts
 ; ---------------------------------------------------------------------------
-Pal_MakeFlash:	; Usado pelo Special Stage					   ; Offset_0x002F10
-		move.w	#$3F,(Palette_Fade_Info).w				  ; $FFFFF626
+Pal_MakeFlash:	; Usado pelo Special Stage
+		move.w	#$3F,(Palette_Fade_Info).w
 		move.w	#$15,d4
 Offset_0x002F1A:
-		move.b	#$12,(VBlank_Index).w						; $FFFFF62A
-		bsr.w	Wait_For_VSync						   ; Offset_0x001AEE
-		bsr.s	Pal_ToWhite							   ; Offset_0x002F30
-		bsr.w	RunPLC_RAM								   ; Offset_0x001556
-		dbf	D4,Offset_0x002F1A
+		move.b	#$12,(VBlank_Index).w
+		bsr.w	Wait_For_VSync
+		bsr.s	Pal_ToWhite
+		bsr.w	RunPLC_RAM
+		dbf	d4,Offset_0x002F1A
 		rts
-Pal_ToWhite:												   ; Offset_0x002F30
+Pal_ToWhite:
 		moveq	#0,d0
-		lea	(Palette_Buffer).w,a0						; $FFFFED00
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		lea	(Palette_Buffer).w,a0
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002F40:
-		bsr.s	Pal_AddColor_2						   ; Offset_0x002F5E
-		dbf	D0,Offset_0x002F40
+		bsr.s	Pal_AddColor_2
+		dbf	d0,Offset_0x002F40
 		moveq	#0,d0
-		lea	(Palette_Underwater_Buffer).w,a0			; $FFFFF080
-		move.b	(Palette_Fade_Info).w,d0					; $FFFFF626
-		adda.w	D0,a0
-		move.b	(Palette_Fade_Count).w,d0					; $FFFFF627
+		lea	(Palette_Underwater_Buffer).w,a0
+		move.b	(Palette_Fade_Info).w,d0
+		adda.w	d0,a0
+		move.b	(Palette_Fade_Count).w,d0
 Offset_0x002F56:
-		bsr.s	Pal_AddColor_2						   ; Offset_0x002F5E
-		dbf	D0,Offset_0x002F56
+		bsr.s	Pal_AddColor_2
+		dbf	d0,Offset_0x002F56
 		rts
-Pal_AddColor_2:												   ; Offset_0x002F5E
-		move.w	(A0),d2
+Pal_AddColor_2:
+		move.w	(a0),d2
 		cmpi.w	#$EEE,d2
-		beq.s	Pal_NoAdd_2							   ; Offset_0x002F9A
+		beq.s	Pal_NoAdd_2
 Pal_AddRed_2:
-		move.w	D2,d1
+		move.w	d2,d1
 		andi.w	#$E,d1
 		cmpi.w	#$E,d1
-		beq.s	Pal_AddGreen_2						   ; Offset_0x002F76
-		addq.w	#2,(A0)+
+		beq.s	Pal_AddGreen_2
+		addq.w	#2,(a0)+
 		rts
-Pal_AddGreen_2:												   ; Offset_0x002F76
-		move.w	D2,d1
+Pal_AddGreen_2:
+		move.w	d2,d1
 		andi.w	#$E0,d1
 		cmpi.w	#$E0,d1
-		beq.s	Pal_AddBlue_2						   ; Offset_0x002F88
-		addi.w	#$20,(A0)+
+		beq.s	Pal_AddBlue_2
+		addi.w	#$20,(a0)+
 		rts
-Pal_AddBlue_2:												   ; Offset_0x002F88
-		move.w	D2,d1
+Pal_AddBlue_2:
+		move.w	d2,d1
 		andi.w	#$E00,d1
 		cmpi.w	#$E00,d1
-		beq.s	Pal_NoAdd_2							   ; Offset_0x002F9A
-		addi.w	#$200,(A0)+
+		beq.s	Pal_NoAdd_2
+		addi.w	#$200,(a0)+
 		rts
-Pal_NoAdd_2:												   ; Offset_0x002F9A
+Pal_NoAdd_2:
 		addq.w	#2,a0
 		rts
-;===============================================================================
-; Rotinas para escurecer / clarear a tela progressivamente
-; <<<-
-;===============================================================================
-
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutines to load the palette for various circumstances
@@ -3831,7 +3818,7 @@ PalLoad_ForFade:
 		adda.w	d0,a1
 		move.l	(a1)+,a2
 		move.w	(a1)+,a3
-		adda.w	#$80,a3
+		adda.w	#Palette_Data_Target-Palette_Buffer,a3
 		move.w	(a1)+,d7
 ; Offset_0x002FB2: PalLoad1_Loop:
 .loop:
@@ -3864,7 +3851,7 @@ PalLoad_Water_Now:
 		adda.w	d0,a1
 		move.l	(a1)+,a2
 		move.w	(a1)+,a3
-		adda.w	#$380,a3
+		adda.w	#Palette_Underwater_Buffer-Palette_Buffer,a3
 		move.w	(a1)+,d7
 ; Offset_0x02FE6:
 PalLoad3_Loop:
@@ -3881,7 +3868,7 @@ PalLoad_Water_ForFade:
 		adda.w	d0,a1
 		move.l	(a1)+,a2
 		move.w	(a1)+,a3
-		adda.w	#$300,a3
+		adda.w	#Palette_Underwater_Target-Palette_Buffer,a3
 		move.w	(a1)+,d7
 ; Offset_0x003002:
 PalLoad4_Loop:
@@ -4013,11 +4000,6 @@ Offset_0x0031C6:
 		add.l	d4,d0
 		dbf	d2,Offset_0x0031C0
 		rts
-;===============================================================================
-; Logo da SEGA
-; <<<-
-;===============================================================================
-
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; GAME MODE - Title Screen
@@ -4612,10 +4594,9 @@ TitleSonic_Frames:
 		dc.l	Pal_Title_Screen_Sonic
 		dc.l	Map_Title_Screen_Sonic
 ;===============================================================================
-; Modo de jogo ou demonstra��o das fases
-; ->>>
+; Music playlist
 ;===============================================================================
-PlayList:													   ; Offset_0x00396E
+PlayList:
 		dc.b	mus_AIZ1			; $01
 		dc.b	mus_AIZ2			; $02
 		dc.b	mus_HCZ1			; $03
@@ -5027,7 +5008,7 @@ Offset_0x003EE2:
 		bne.s	Offset_0x003EFC
 		move.w	(Sound_Test_Sound).w,d0
 		lsl.w	#8,d0
-		move.w	D0,(Tmp_FF7E).w
+		move.w	d0,(Tmp_FF7E).w
 Offset_0x003EFC:
 		move.w	#$3F,(Palette_Fade_Info).w
 		jsr	(Pal_Clear).l
@@ -5046,7 +5027,7 @@ Level_Main_Loop:
 ; ---------------------------------------------------------------------------
 Offset_0x003F38:
 		move.w	(Tmp_FF7E).w,d0
-		add.w	D0,(Tmp_FF7C).w
+		add.w	d0,(Tmp_FF7C).w
 		bcc.s	Offset_0x003F8C
 		bsr.w	Pause
 		move.w	#$100,(Z80_Bus_Request).l
@@ -5056,8 +5037,8 @@ Offset_0x003F38:
 		move.l	#DMA_Buffer_List,(DMA_Buffer_List_End).w
 		lea	(Sprite_Table_Input).w,a5
 Offset_0x003F6C:
-		move.w	#0,(A5)
-		lea	$80(A5),a5
+		move.w	#0,(a5)
+		lea	$80(a5),a5
 		cmpa.l	#Obj_Player_One,a5
 		bcs.s	Offset_0x003F6C
 Offset_0x003F7C:
@@ -5126,7 +5107,7 @@ Offset_0x004050:
 
 ; Offset_0x004058: Init_Player_Selected:
 Level_SetPlayerMode:
-		cmpi.b	#$80+gm_DemoMode,(Game_Mode).w
+		cmpi.b	#$80|gm_DemoMode,(Game_Mode).w
 		beq.s	Offset_0x00406E
 		tst.w	(Two_Player_Flag).w
 		bne.s	Offset_0x00406E
@@ -5183,11 +5164,10 @@ InitPlayers_TailsAlone:
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
-
 Offset_0x0040F2:
 		move.b	(Menu_Player_One_Cursor).w,d0
 		bsr.s	Offset_0x004130
-		move.l	D1,(Obj_Player_One).w
+		move.l	d1,(Obj_Player_One).w
 		move.b	(Menu_Player_Two_Cursor).w,d0
 		bsr.s	Offset_0x004130
 		move.l	d1,(Obj_Player_Two).w
@@ -5220,11 +5200,8 @@ Offset_0x00415C:
 		rts
 ; ---------------------------------------------------------------------------
 Pal_Level_2P:
-		dc.w	$0A86, $0EEE, $084E, $040C, $0206, $0080, $000E, $0008
-		dc.w	$00AE, $008E, $08AE, $046A, $0ECC, $0CAA, $0866, $0222
-; ---------------------------------------------------------------------------
-; Rotina para carregar o jogador selecionado no modo 1 PLAYER
-; <<<- Sonic And Miles / Sonic Alone / Miles Alone
+		dc.w	$A86, $EEE, $84E, $40C, $206, $80, $E, 8
+		dc.w	$AE, $8E, $8AE, $46A, $ECC, $CAA, $866, $222
 ; ---------------------------------------------------------------------------
 
 Obj_Clear_Collision_Response_List:
@@ -5242,6 +5219,12 @@ UpdateWaterSurface:
 		tst.b	(Water_Level_Flag).w
 		beq.s	Offset_0x0041AE
 		move.w	(Camera_X).w,d1
+	if FixBugs
+		move.b	(Control_Ports_Buffer_Data+1).w,d0
+		or.b	(Control_Ports_Buffer_Data+3).w,d0
+		andi.b	#button_start_mask,d0
+		beq.s	Offset_0x0041A4
+	endif
 		btst	#0,(Level_frame_counter+1).w
 		beq.s	Offset_0x0041A4
 		addi.w	#$20,d1
@@ -5756,10 +5739,7 @@ Hz2_Slide_Action_Data:
 Iz_Slide_Tile_Data:
 		dc.b	$30, $C0, $35, $BF, $27, $2D, $46, $22
 		dc.b	$2A, $2E
-;===============================================================================
-; Modo de jogo ou demonstra��o das fases
-; <<<-
-;===============================================================================
+; ---------------------------------------------------------------------------
 AIz_1_Water_Transistion:
 		dc.w	bytesToWcnt(AIz_1_Water_Transistion_End-AIz_1_Water_Transistion_Start)
 
@@ -5804,14 +5784,14 @@ Unused_Water_Transistion_Start:
 		dc.w	$0028, $002E, $0034, $003A
 Unused_Water_Transistion_End
 ;===============================================================================
-; Rotina de controle autom�tico do jogador usado no modo de demonstra��o
+; Automatic player control routine used in demo mode
 ;===============================================================================
 Init_Demo_Control:
 		tst.w	(Auto_Control_Player_Flag).w
 		bne.w	Run_Demo_Mode
 		rts
 ; ---------------------------------------------------------------------------
-; Offset_0x004800: ; Sonic 2 Left over
+; Offset_0x004800: ; Sonic 2 Leftover
 		lea	(Demo_Index).l,a1
 		moveq	#0,d0
 		move.b	(Current_Zone).w,d0
@@ -5834,7 +5814,7 @@ Offset_0x00482E:
 Offset_0x004842:
 		rts
 ; ---------------------------------------------------------------------------
-; Offset_0x004844: ; Sonic 2 Left over
+; Offset_0x004844: ; Sonic 2 Leftover
 		cmpi.b	#S2_EHz_Id,(Current_Zone).w
 		bne.s	Offset_0x004882
 		lea	((Dev_RAM_Start+$C000)&$FFFFFF).l,a1
@@ -5894,7 +5874,7 @@ Offset_0x00489E:
 Offset_0x0048DC:
 		rts
 ; ---------------------------------------------------------------------------
-; Offset_0x0048DE: ; Sonic 2 Left Over
+; Offset_0x0048DE: ; Sonic 2 Leftover
 		cmpi.b	#S2_EHz_Id,(Current_Zone).w
 		bne.s	Offset_0x004916
 		lea	(Demo_Angel_Island).l,a1
@@ -5924,38 +5904,35 @@ Offset_0x004914:
 Offset_0x004916:
 		move.w	#0,(Control_Ports_Buffer_Data+2).w
 		rts
-;===============================================================================
-; Rotina de controle autom�tico do jogador usado no modo de demonstra��o
-;===============================================================================
-
-Demo_Index:													   ; Offset_0x00491E
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
-		dc.l	Demo_Angel_Island					   ; Offset_0x004BEA
 ; ---------------------------------------------------------------------------
-Demo_End_Index: ; Left over do Sonic 1						   ; Offset_0x004982
+Demo_Index:
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+		dc.l	Demo_Angel_Island
+; ---------------------------------------------------------------------------
+Demo_End_Index: ; Leftover from Sonic 1
 		dc.w	$008B, $0837, $0042, $085C, $006A, $085F, $002F, $082C
 		dc.w	$0021, $0803, $2830, $0808, $002E, $0815, $000F, $0846
 		dc.w	$001A, $08FF, $08CA, $0000, $0000, $0000, $0000, $0000
@@ -5983,19 +5960,18 @@ LoadCollisionIndex:
 ; End of subroutine LoadCollisionIndex
 
 ;===============================================================================
-; Rotina Oscillate_Num_Init
-; ->>>
+; Routine Oscillate_Num_Init
 ;===============================================================================
-Oscillate_Num_Init:											   ; Offset_0x0049DE
-		lea	(Oscillate_Data_Buffer).w,a1				; $FFFFFE5E
-		lea	(Oscillate_Data).l,a2					; Offset_0x0049F2
+Oscillate_Num_Init:
+		lea	(Oscillate_Data_Buffer).w,a1
+		lea	(Oscillate_Data).l,a2
 		moveq	#bytesToWcnt(Oscillate_Data_End-Oscillate_Data),d1
 Offset_0x0049EA:
-		move.w	(A2)+,(A1)+
-		dbf	D1,Offset_0x0049EA
+		move.w	(a2)+,(a1)+
+		dbf	d1,Offset_0x0049EA
 		rts
 ; ---------------------------------------------------------------------------
-Oscillate_Data:												   ; Offset_0x0049F2
+Oscillate_Data:
 		dc.w	$007D, $0080, $0000, $0080, $0000, $0080, $0000, $0080
 		dc.w	$0000, $0080, $0000, $0080, $0000, $0080, $0000, $0080
 		dc.w	$0000, $0080, $0000, $3848, $00EE, $2080, $00B4, $3080
@@ -6003,63 +5979,52 @@ Oscillate_Data:												   ; Offset_0x0049F2
 		dc.w	$00FE
 Oscillate_Data_End:
 ;===============================================================================
-; Rotina Oscillate_Num_Init
-; <<<-
+; Routine Oscillate_Num_Do
 ;===============================================================================
-
-;===============================================================================
-; Rotina Oscillate_Num_Do
-; ->>>
-;===============================================================================
-Oscillate_Num_Do:											  ;	 Offset_0x004A34
-		tst.w	(Two_Player_Flag).w							 ; $FFFFFFD8
+Oscillate_Num_Do:
+		tst.w	(Two_Player_Flag).w
 		bne.s	Offset_0x004A42
-		cmpi.b	#6,(Obj_Player_One+routine).w		  ; $FFFFB005
+		cmpi.b	#6,(Obj_Player_One+routine).w
 		bcc.s	Offset_0x004A88
 Offset_0x004A42:
-		lea	(Oscillate_Data_Buffer).w,a1				; $FFFFFE5E
-		lea	(Oscillate_Data2).l,a2					; Offset_0x004A8A
-		move.w	(A1)+,d3
+		lea	(Oscillate_Data_Buffer).w,a1
+		lea	(Oscillate_Data2).l,a2
+		move.w	(a1)+,d3
 		moveq	#bytesToLcnt(Oscillate_Data2_End-Oscillate_Data2),d1
 Offset_0x004A50:
-		move.w	(A2)+,d2
-		move.w	(A2)+,d4
-		btst	D1,d3
+		move.w	(a2)+,d2
+		move.w	(a2)+,d4
+		btst	d1,d3
 		bne.s	Offset_0x004A6C
-		move.w	2(A1),d0
-		add.w	D2,d0
-		move.w	D0,2(A1)
-		add.w	D0,(A1)
-		cmp.b	(A1),d4
+		move.w	2(a1),d0
+		add.w	d2,d0
+		move.w	d0,2(a1)
+		add.w	d0,(a1)
+		cmp.b	(a1),d4
 		bhi.s	Offset_0x004A7E
-		bset	D1,d3
+		bset	d1,d3
 		bra.s	Offset_0x004A7E
 Offset_0x004A6C:
-		move.w	2(A1),d0
-		sub.w	D2,d0
-		move.w	D0,2(A1)
-		add.w	D0,(A1)
-		cmp.b	(A1),d4
+		move.w	2(a1),d0
+		sub.w	d2,d0
+		move.w	d0,2(a1)
+		add.w	d0,(a1)
+		cmp.b	(a1),d4
 		bls.s	Offset_0x004A7E
-		bclr	D1,d3
+		bclr	d1,d3
 Offset_0x004A7E:
 		addq.w	#4,a1
-		dbf	D1,Offset_0x004A50
-		move.w	D3,(Oscillate_Data_Buffer).w				; $FFFFFE5E
+		dbf	d1,Offset_0x004A50
+		move.w	d3,(Oscillate_Data_Buffer).w
 Offset_0x004A88:
 		rts
 ; ---------------------------------------------------------------------------
-Oscillate_Data2:											   ; Offset_0x004A8A
+Oscillate_Data2:
 		dc.w	$0002, $0010, $0002, $0018, $0002, $0020, $0002, $0030
 		dc.w	$0004, $0020, $0008, $0008, $0008, $0040, $0004, $0040
 		dc.w	$0002, $0038, $0002, $0038, $0002, $0020, $0003, $0030
 		dc.w	$0005, $0050, $0007, $0070, $0002, $0040, $0002, $0040
 Oscillate_Data2_End:
-;===============================================================================
-; Rotina Oscillate_Num_Do
-; <<<-
-;===============================================================================
-
 ; ---------------------------------------------------------------------------
 ; Subroutine to change global object animation variables (rings)
 ; ---------------------------------------------------------------------------
@@ -6091,17 +6056,11 @@ Offset_0x004B02:
 		rts
 ; End of function ChangeRingFrame
 
-;===============================================================================
-; Rotina para fazer os an�is e outros objetos girarem em torno de si
-; <<<-
-;===============================================================================
-
-Clear_End_Level_Art_Load_Flag:								   ; Offset_0x004B0A
-		move.w	#0,(End_Level_Art_Load_Flag).w			; $FFFFFFC8
+Clear_End_Level_Art_Load_Flag:
+		move.w	#0,(End_Level_Art_Load_Flag).w
 		rts
 ;===============================================================================
-; Rotina para testar e setar o flag de carga da arte de fim de fase
-; ->>>
+; Routine to test and set the load flag of the end-of-phase art
 ;===============================================================================
 S2_Test_End_Level_Art_Load:									   ; Offset_0x004B12
 		move.w	#0,(End_Level_Art_Load_Flag).w			; $FFFFFFC8
@@ -6133,11 +6092,6 @@ Set_End_Level_Flag:											   ; Offset_0x004B80
 		move.w	#1,(End_Level_Art_Load_Flag).w			; $FFFFFFC8
 Dont_Set_End_Level_Flag:									   ; Offset_0x004B86
 		rts
-;===============================================================================
-; Rotina para testar e setar o flag de carga da arte de fim de fase
-; ->>>
-;===============================================================================
-
 ; ---------------------------------------------------------------------------
 ; Subroutine to load signpost art when a flag is set (leftover from Sonic 2)
 ; ---------------------------------------------------------------------------
@@ -6186,12 +6140,7 @@ SignpostUpdateEnd:
 		rts
 ; End of function CheckLoadSignpostArt
 
-;===============================================================================
-; Rotina para carregar a arte de fim de fase
-; <<<-
-;===============================================================================
-
-Demo_Angel_Island:											   ; Offset_0x004BEA
+Demo_Angel_Island:
 		binclude	"data\aiz\demo.dat"
 		even
 ; ===========================================================================
@@ -48425,14 +48374,14 @@ Left_Over_Incomplete_LRz_Rocks_Layout_2:					   ; Offset_0x1F6840
 Left_Over_LRz_Rocks_Layout_2a:								  ; Offset_0x1F5D0A
 		binclude	"data\lrz\rockpos2.dat"
 ; ---------------------------------------------------------------------------
-		align	 $1000	; $FF Fill
+		align	 $1000
 ; ---------------------------------------------------------------------------
-Player_Start_Speed_Array:									   ; Offset_0x1F7000
+Player_Start_Speed_Array:
 		dc.w	$0600, $0010, $0020, $0000
 		dc.w	$04C0, $001C, $0070, $0000
 		dc.w	$0580, $0010, $0200, $0000
 ; ---------------------------------------------------------------------------
-Player_Start_Position_Array:								   ; Offset_0x1F7018
+Player_Start_Position_Array:
 		binclude	"Levels\AIZ\Starting Position - Act 1.bin"
 		binclude	"Levels\AIZ\Starting Position - Act 2.bin"
 		dc.w	$0280, $0020, $0220, $082C	; Hz
@@ -48460,9 +48409,8 @@ Player_Start_Position_Array:								   ; Offset_0x1F7018
 		dc.w	$0060, $0070, $0060, $0070	; DEz Boss / HPz Portal
 ;===============================================================================
 ; Array do posicionamento dos objetos das fases
-; ->>>
 ;===============================================================================
-Objects_Layout:												   ; Offset_0x1F70D8
+Objects_Layout:
 		dc.l	AIz_Obj_Act1						   ; Offset_0x1F72DE
 		dc.l	AIz_Obj_Act2						   ; Offset_0x1F75C6
 		dc.l	Hz_Obj_Act1							   ; Offset_0x1F7F46
@@ -48512,13 +48460,7 @@ Objects_Layout:												   ; Offset_0x1F70D8
 		dc.l	DEz_Final_Boss_Obj					   ; Offset_0x1FFBB4
 		dc.l	HPz_Obj_2							   ; Offset_0x1FFBC0
 ;===============================================================================
-; Array do posicionamento dos objetos das fases
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Array do posicionamento dos an�is das fases
-; ->>>
 ;===============================================================================
 Rings_Layout:												   ; Offset_0x1F7198
 		dc.l	AIz_Rng_Act1						   ; Offset_0x1F7A4C
@@ -48570,11 +48512,6 @@ Rings_Layout:												   ; Offset_0x1F7198
 		dc.l	DEz_Final_Boss_Rng					   ; Offset_0x1FFBCC
 		dc.l	HPz_Rng_2							   ; Offset_0x1FFBD2
 ;===============================================================================
-; Array do posicionamento dos an�is das fases
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Ponteiro para origem e destino dos tuneis trasportadores usados na LBz de
 ; ->>>	   acordo com o sub-tipo do objeto
 ;===============================================================================
@@ -48600,10 +48537,6 @@ LBz_Automatic_Tunnel_From_To_Data:							   ; Offset_0x1F7258
 		dc.l	Teleport_Data_0x12					   ; Offset_0x1FF548
 		dc.l	Teleport_Data_0x13					   ; Offset_0x1FF5C6
 		dc.l	Teleport_Data_0x14					   ; Offset_0x1FF5F0
-;===============================================================================
-; Ponteiro para origem e destino dos tuneis trasportadores usados na LBz de
-; <<<-	   acordo com o sub-tipo do objeto
-;===============================================================================
 		dc.l	Offset_0x1FF61A
 		dc.l	Offset_0x1FF61A
 		dc.l	Offset_0x1FF61A
@@ -48615,7 +48548,6 @@ LBz_Automatic_Tunnel_From_To_Data:							   ; Offset_0x1F7258
 		dc.l	Offset_0x1FF61A
 		dc.l	Offset_0x1FF61A
 		dc.l	Offset_0x1FF61A
-
 		dc.w	$FFFF, 0, 0
 ; ---------------------------------------------------------------------------
 ; Offset_0x1F72DE:
@@ -48628,7 +48560,6 @@ AIz_Obj_Act2:	binclude	"Levels\AIZ\Object Layout - Act 2.bin"
 AIz_Rng_Act1:	binclude	"Levels\AIZ\Ring Layout - Act 1.bin"
 ; Offset_0x1F7BE4:
 AIz_Rng_Act2:	binclude	"Levels\AIZ\Ring Layout - Act 2.bin"
-
 ; ---------------------------------------------------------------------------
 		dc.w	$FFFF, $0000, $0000
 Hz_Obj_Act1:												   ; Offset_0x1F7F46
