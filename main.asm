@@ -907,19 +907,18 @@ HBlank_WaterPAL:
 		movem.l	d0-d1/a0-a2,-(sp)
 
 		lea	(VDP_Data_Port).l,a1
-		move.w	#$8AFF,VDP_Control_Port-VDP_Data_Port(a1)	; reset HBlank timing
+		move.w	#$8A00+256-1,VDP_Control_Port-VDP_Data_Port(a1)	; reset HBlank timing
 		stopZ80
 		move.l	(Palette_Underwater_Ptr).w,a2
-		moveq	#$C,d0
-; Offset_0x000D40:
-		dbf	d0,*
+		moveq	#130/10-1,d0
+		dbf	d0,*	; wait 130 cycles
 		move.w	(a2)+,d1
 		move.b	(Scanline_Counter).w,d0
 		subi.b	#200,d0			; are we below line 200?
 		bcs.s	.transferColours	; if yes, branch
 		sub.b	d0,d1
 		bcs.s	.skipTransfer
-; Offset_0x000D54:
+
 .transferColours:
 		move.w	(a2)+,d0
 		lea	(Palette_Underwater_Buffer).w,a0
@@ -931,11 +930,10 @@ HBlank_WaterPAL:
 		move.w	(a0)+,(a1)		; transfer the third color
 		nop
 		nop
-		moveq	#$24,d0
-; Offset_0x000D70:
-		dbf	d0,*
+		moveq	#370/10-1,d0
+		dbf	d0,*	; wait 370 cycles
 		dbf	d1,.transferColours	; repeat for number of colors
-; Offset_0x000D78:
+
 .skipTransfer:
 		startZ80
 		movem.l	(sp)+,d0-d1/a0-a2
@@ -968,19 +966,18 @@ HBlank_WaterNTSC:
 		move.w	#0,(Horizontal_Interrupt_Flag).w
 		movem.l	d0-d1/a0-a2,-(sp)
 		lea	(VDP_Data_Port).l,a1
-		move.w	#$8AFF,VDP_Control_Port-VDP_Data_Port(a1)	; reset HBlank timing
+		move.w	#$8A00+256-1,VDP_Control_Port-VDP_Data_Port(a1)	; reset HBlank timing
 		stopZ80
 		move.l	(Palette_Underwater_Ptr).w,a2
-		moveq	#$1B,d0
-; Offset_0x000DD4:
-		dbf	d0,*
+		moveq	#280/10-1,d0
+		dbf	d0,*	; wait 280 cycles
 		move.w	(a2)+,d1
 		move.b	(Scanline_Counter).w,d0
 		subi.b	#200,d0			; are we below line 200?
 		bcs.s	.transferColors		; if yes, branch
 		sub.b	d0,d1
 		bcs.s	.skipTransfer
-; Offset_0x000DE8:
+
 .transferColors:
 		move.w	(a2)+,d0
 		lea	(Palette_Underwater_Buffer).w,a0
@@ -991,9 +988,8 @@ HBlank_WaterNTSC:
 		move.l	(a0)+,(a1)		; transfer two colors
 		move.w	(a0)+,(a1)		; transfer third color
 		nop
-		moveq	#$33,d0
-; Offset_0x000E02:
-		dbf	d0,*
+		moveq	#520/10-1,d0
+		dbf	d0,*	; wait 520 cycles
 		dbf	d1,.transferColors	; repeat for number of colors
 ; Offset_0x000E0A:
 .skipTransfer:
@@ -1242,7 +1238,7 @@ Offset_0x00113E:
 		move.w	#0,(Z80_Reset).l		; reset Z80
 	if FixBugs
 		; ensures that the YM2612 is ready to be written to
-		moveq	#200/10,d0	; set to wait for 200 cycles
+		moveq	#200/10-1,d0	; set to wait for 200 cycles
 		dbf	d0,*	; wait for YM2612
 	else
 		nop
