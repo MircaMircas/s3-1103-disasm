@@ -14941,14 +14941,14 @@ Offset_0x012612:
 Offset_0x012614:
 		lea	(Offset_0x01267E).l,a1
 		bsr.w	Resize_Max_Y_From_X					   ; Offset_0x012988
-		move.w	#$020E,(Palette_Row_2_Offset+$1E).w			; $FFFFED5E
+		move.w	#$20E,(Palette_Row_2_Offset+$1E).w			; $FFFFED5E
 		cmpi.w	#$2B00,(Camera_X).w							; $FFFFEE78
 		bcs.s	Offset_0x012632
-		move.w	#$0004,(Palette_Row_2_Offset+$1E).w			; $FFFFED5E
+		move.w	#$004,(Palette_Row_2_Offset+$1E).w			; $FFFFED5E
 Offset_0x012632:
 		cmpi.w	#$2D80,(Camera_X).w							; $FFFFEE78
 		bcs.s	Offset_0x01264C
-		move.w	#$0C02,(Palette_Row_2_Offset+$1E).w			; $FFFFED5E
+		move.w	#$C02,(Palette_Row_2_Offset+$1E).w			; $FFFFED5E
 		moveq	#$5A,d0
 		jsr	(LoadPLC).l								 ; Offset_0x0014D0
 		addq.b	#2,(Dynamic_Resize_Routine).w				; $FFFFEE33
@@ -15332,14 +15332,8 @@ Offset_0x0129A0:
 		move.w	D1,(Level_Limits_Max_Y).w					; $FFFFEE12
 		move.w	D1,(Miles_Level_Limits_Max_Y).w				; $FFFFEE22
 		rts
-; ---------------------------------------------------------------------------
-; Rotinas para redimensionamento autom�tico das fases e gerenciamento dos chefes
-; <<<-	de fase
-; ---------------------------------------------------------------------------
-
 ;===============================================================================
 ; Rotina para carregar o pocicionamento das pedras na Lava Reef
-; ->>>
 ;===============================================================================
 LRz_Load_Rock_Pos:											   ; Offset_0x0129AA
 		moveq	#0,d0
@@ -15410,11 +15404,6 @@ Offset_0x012A2E:
 		bls.s	Offset_0x012A2C
 		move.l	A2,(LRz_Rocks_Pos_Previous).w				; $FFFFFEB6
 		rts
-;===============================================================================
-; Rotina para carregar o pocicionamento das pedras na Lava Reef
-; <<<-
-;===============================================================================
-
 Build_LRz_Rocks:											   ; Offset_0x012A3A
 		movea.l	(LRz_Rocks_Pos_Next).w,a0					; $FFFFFEB2
 		move.l	(LRz_Rocks_Pos_Previous).w,d2				; $FFFFFEB6
@@ -16015,7 +16004,7 @@ MonitorContents_Move:
 ; Offset_0x0131C4:
 MonitorContents_Main:
 		addq.b	#2,routine(a0)
-		move.w	#$1D,anim_frame_timer(a0)
+		move.w	#30-1,anim_frame_timer(a0)
 		move.w	Obj_Player_Last(a0),a1
 		lea	(Monitors_Broken).w,a2
 		cmpa.w	#Obj_Player_One,a1			; did Sonic break the monitor?
@@ -16274,7 +16263,6 @@ MonAni_Broken:		dc.b	  2,  0,  1, $B,$FE,  1
 Monitors_Mappings:	include	"data/mappings/01 - Monitors.asm"
 ; ---------------------------------------------------------------------------
 ; Rotina para tratar os espinhos e outros objetos como objeto s�lido
-; ->>>
 ; ---------------------------------------------------------------------------
 Solid_Object:												   ; Offset_0x013556
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
@@ -16448,10 +16436,6 @@ Offset_0x01370E:
 		bset	D4,d6
 		moveq	#0,d4
 		rts
-; ---------------------------------------------------------------------------
-; Rotina para tratar os espinhos e outros objetos como objeto s�lido
-; <<<-
-; ---------------------------------------------------------------------------
 Solid_Object_Offset:										   ; Offset_0x013720
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
 		moveq	#3,d6
@@ -16590,7 +16574,6 @@ Offset_0x013888:
 		bpl.w	Offset_0x013978
 ; ---------------------------------------------------------------------------
 ; Rotina para tratar os monitores como objeto s�lido
-; ->>>
 ; ---------------------------------------------------------------------------
 SolidObject_cont:										  ; Offset_0x013890
 		move.w	x_pos(A1),d0									; $0010
@@ -16768,13 +16751,7 @@ Offset_0x013A52:
 		moveq	#0,d4
 		rts
 ; ---------------------------------------------------------------------------
-; Rotina para tratar os monitores como objeto s�lido
-; <<<-
-; ---------------------------------------------------------------------------
-
-; ---------------------------------------------------------------------------
 ; Rotina para tratar os monitores e outros objetos como plataformas
-; ->>>
 ; ---------------------------------------------------------------------------
 Player_On_Platform:											   ; Offset_0x013A56
 		move.w	y_pos(A0),d0									; $0014
@@ -16798,10 +16775,6 @@ Offset_0x013A66:
 		sub.w	D2,x_pos(A1)									; $0010
 Offset_0x013A8E:
 		rts
-; ---------------------------------------------------------------------------
-; Rotina para tratar os monitores e outros objetos como plataformas
-; <<<-
-; ---------------------------------------------------------------------------
 Solid_Object_Sloped_2:										   ; Offset_0x013A90
 		btst	#3,status(A1)								; $002A
 		beq.s	Offset_0x013AD0
@@ -16842,7 +16815,6 @@ Offset_0x013AF0:
 		bra.s	Offset_0x013AB0
 ; ---------------------------------------------------------------------------
 ; Rotina usada pelas molas e outros objetos
-; ->>>
 ; ---------------------------------------------------------------------------
 Platform_Object:											   ; Offset_0x013AF6
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
@@ -16947,10 +16919,6 @@ Offset_0x013BFE:
 		bsr.w	Player_On_Platform					   ; Offset_0x013A56
 		moveq	#0,d4
 		rts
-; ---------------------------------------------------------------------------
-; Rotina usada pelas molas e outros objetos
-; <<<-
-; ---------------------------------------------------------------------------
  Offset_0x013C08:
 		tst.w	Obj_Speed_Y(A1)									 ; $001A
 		bmi.w	Offset_0x013CE2
@@ -17717,7 +17685,6 @@ AIz_2_Rock_Mappings:	include	"data/mappings/05 - AIZ2 Rock.asm"
 EMz_Rock_Mappings:	include	"data/mappings/05 - EMZ Rock.asm"
 ;===============================================================================
 ; Objeto 0x04 - Plataformas que desmoronam ao serem tocadas
-; ->>>
 ;===============================================================================
 ; Offset_0x01582E:
 Obj_0x04_Collapsing_Platform:
@@ -17799,7 +17766,6 @@ Offset_0x01594E:
 		bra.w	DisplaySprite				; Offset_0x011148
 ;===============================================================================
 ; Objeto 0x0F - Plataformas que desmoronam ao serem tocadas
-; ->>>
 ;===============================================================================
 ; Offset_0x01595E:
 Obj_0x0F_Collapsing_Platform:
@@ -20341,7 +20307,6 @@ Offset_0x01A716:
 		jmp	(DisplaySprite).l				; Offset_0x011148
 ;===============================================================================
 ; Rotina para causar danos ao Sonic / Miles
-; ->>>
 ;===============================================================================
 Hurt_Player_A1:						; Offset_0x01A71C
 		btst	#Invincibility_Type,Obj_Player_Status(A1)	; $01, $002F
@@ -20362,10 +20327,6 @@ Hurt_Player_A1:						; Offset_0x01A71C
 		movea.l	A2,a0
 Offset_0x01A750:
 		rts
-;===============================================================================
-; Rotina para causar danos ao Sonic / Miles
-; <<<-
-;===============================================================================
 Offset_0x01A752:
 		moveq	#0,d0
 		move.b	subtype(A0),d0					; $002C
@@ -21814,13 +21775,7 @@ DEz_Final_Boss_Animate:										   ; Offset_0x01F558
 HPz_Portal_Animate:											   ; Offset_0x01F558
 		rts
 ;===============================================================================
-; Rotina para carregar os sprites dinamicamente para a VRAM
-; <<<-	   Ex: Flores na Emerald Hill, �leo na Oil Ocean, etc ....
-;===============================================================================
-
-;===============================================================================
 ; Rotina para inicializar os contadores das anima��es
-; ->>>
 ;===============================================================================
 Animate_Counters_Init:										   ; Offset_0x01F55A
 		cmpi.w	#Hz_Act_1,(Current_ZoneAndAct).w			   ; $0100, $FFFFFE10
@@ -21863,10 +21818,6 @@ Offset_0x01F5E6:
 		move.b	#$40,(Animate_Counters+3).w				; $FFFFF7F3
 Offset_0x01F5FA:
 		rts
-;===============================================================================
-; Rotina para inicializar os contadores das anima��es
-; <<<-
-;===============================================================================
 Obj_0x1E_LBz_Spin_Launcher:									   ; Offset_0x01F5FC
 		include "objects\obj_0x1E.asm"
 Obj_0x1F_LBz_Hook:											   ; Offset_0x01F892
@@ -21891,7 +21842,6 @@ Obj_0x2B_AIz_Flipping_Bridge:								   ; Offset_0x021B1C
 		include "objects\obj_0x2B.asm"
 ;===============================================================================
 ; Objeto 0x2C - Ponte que desmorona na Angel Island
-; ->>>
 ;===============================================================================
 ; Offset_0x021F0C:
 Obj_0x2C_AIz_Collapsing_Bridge:
@@ -21932,7 +21882,7 @@ Offset_0x021FB6:
 		move.w	D2,(A2)+
 		addq.w	#2,a2
 		addi.w	#$1E,d3
-		dbra	D6,Offset_0x021FB6
+		dbf	D6,Offset_0x021FB6
 		move.w	#2,-2(A2)
 		move.w	A1,Obj_Control_Var_0C(A0)				; $003C
 Offset_0x021FCE:
@@ -22149,7 +22099,6 @@ Obj_0x32_AIz_Draw_Bridge:									   ; Offset_0x02235C
 		include "objects\obj_0x32.asm"
 ;===============================================================================
 ; Objeto 0x2D - Troncos que descem nas cachoeiras da Angel Island
-; ->>>
 ;===============================================================================
 Offset_0x02278C:
 		dc.w	$0001, $0003, $0007, $000F, $001F, $003F, $007F, $00FF
@@ -22679,7 +22628,6 @@ Map_50000_Points:											   ; Offset_0x023F68
 		dc.w	$FC04, $0006, $0007
 ;===============================================================================
 ; Objeto 0x34 - Poste de reinício, utilizado para salvar sua posição na fase
-; ->>>
 ;===============================================================================
 ; Offset_0x023F76:
 Obj_0x34_Star_Post:
@@ -22815,7 +22763,6 @@ Offset_0x02411A:
 		jmp	(MarkObjGone).l				; Offset_0x011AF2
 ; ---------------------------------------------------------------------------
 ; Rotina para salvar localização atual do jogador.
-; ->>>
 ; ---------------------------------------------------------------------------
 Star_Post_Save_Info:						 ; Offset_0x024150
 		cmpa.w	#Obj_Player_One,a3					; $B000
@@ -22848,11 +22795,6 @@ Star_Post_Save_Info_P2:						; Offset_0x0241B4
 		move.b	(Ring_Status_Flag_P2).w,(Saved_Ring_Status_Flag_P2).w ; $FFFFFEC7, $FFFFFE55
 		move.l	(Time_Count_Address_P2).w,(Saved_Time_Count_Address_P2).w ; $FFFFFED2, $FFFFFEE8
 		rts
-; ---------------------------------------------------------------------------
-; Rotina para salvar localização atual do jogador.
-; <<<-
-; ---------------------------------------------------------------------------
-
 ; ---------------------------------------------------------------------------
 ; Rotina para carregar a última localização salva do jogador.
 ; ->>>	Referência externa.
@@ -22887,9 +22829,6 @@ Offset_0x02425E:
 		move.w	D0,(Sonic_Level_Limits_Min_X).w			; $FFFFEE14
 Offset_0x024270:
 		rts
-; ---------------------------------------------------------------------------
-; Rotina para carregar a última localização salva do jogador.
-; <<<-	Referência externa.
 ; ---------------------------------------------------------------------------
 Star_Post_Animate_Data:						; Offset_0x024272
 		dc.w	Offset_0x024278-Star_Post_Animate_Data
@@ -23248,7 +23187,7 @@ Offset_0x024756:
 ; Offset_0x024764: Title_Card_Letters_Ptr:
 TitleCard_LevelGfx:
 		dc.l	TC_Angel_Island
-		dc.l	TC_Hidrocity
+		dc.l	TC_Hydrocity
 		dc.l	TC_Marble_Garden
 		dc.l	TC_Carnival_Night
 		dc.l	TC_Flying_Battery
@@ -46505,7 +46444,7 @@ Title_Card_ZONE_ACT:										   ; Offset_0x13AD10
 		binclude	"data\art\tc_zone.kosm"
 TC_Angel_Island:											   ; Offset_0x13AEF2
 		binclude	"data\art\tc_aiz.kosm"
-TC_Hidrocity:												   ; Offset_0x13B004
+TC_Hydrocity:												   ; Offset_0x13B004
 		binclude	"data\art\tc_hz.kosm"
 TC_Marble_Garden:											   ; Offset_0x13B156
 		binclude	"data\art\tc_mgz.kosm"
