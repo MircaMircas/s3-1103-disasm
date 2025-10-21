@@ -3956,8 +3956,8 @@ Offset_0x00310C:
 		move.w	#0,(VBlank_Subroutine).w
 		move.w	#0,(PalCycle_Done_Flag).w
 		lea	(Obj_Player_Two).w,a1
-		move.l	#Obj_SegaSonic,(A1)
-		move.b	#$4C,subtype(A1)
+		move.l	#Obj_SegaSonic,(a1)
+		move.b	#$4C,subtype(a1)
 		move.w	#240,(Demo_Timer).w
 		jsr	(Init_Sprite_Table).l
 		move.w	(VDP_Register_1_Command).w,d0
@@ -4341,9 +4341,9 @@ Offset_0x003608:
 ; ==============================================================================
 ; Offset_0x003612:
 SonicFrameIndex:
-		dc.b	$2A, $FF, $00, $01, $02, $03, $00, $01
-		dc.b	$02, $03, $04, $05, $06, $07, $08, $09
-		dc.b	$0A, $0B, $0C, $0D, $0E, $0F, $10, $11
+		dc.b	$2A, $FF
+		dc.b	0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+		dc.b	$A, $B, $C, $D, $E, $F, $10, $11
 		dc.b	$12, $13, $14, $15, $16, $17, $18, $19
 		dc.b	$1A, $1B, $1C, $1D, $1E, $1F, $20, $21
 		dc.b	$22, $23, $24, $25, $26, $27, $28, $29
@@ -4465,135 +4465,11 @@ TitleBanner_Frames:
 ; ===========================================================================
 ; Offset_0x00376A: Title_Screen_Sonic_Data:
 TitleSonic_Frames:
+	rept $2B
 		dc.l	Art_Title_Screen_Sonic
 		dc.l	Pal_Title_Screen_Sonic
 		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
-		dc.l	Art_Title_Screen_Sonic
-		dc.l	Pal_Title_Screen_Sonic
-		dc.l	Map_Title_Screen_Sonic
+	endm
 ;===============================================================================
 ; Music playlist
 ;===============================================================================
