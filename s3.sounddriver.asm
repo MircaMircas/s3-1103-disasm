@@ -3128,6 +3128,11 @@ z80_VolEnvPointers:
 		dw	VolEnv_23
 		dw	VolEnv_24
 
+		; DANGER! There is no pointer for VolEnv_25 here, thankfully no song in the prototype uses this.
+		; Trying to play VolEnv_25 (sTone_26 in SMPS2ASM) will cause the driver to read this unused Star Trek data,
+		; which thankfully doesn't crash the game, just plays a random note.
+		; Side note there is also no VolEnv_26 (sTone_27 in SMPS2ASM) in this driver.
+
 		binclude	"data\star trek\part10.bin"
 
 VolEnv_00:	db	2, 83h
