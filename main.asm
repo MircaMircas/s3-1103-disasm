@@ -3445,43 +3445,43 @@ Offset_0x002B50:
 		move.w	#$30,(Super_Sonic_Palette_Frame).w
 Offset_0x002B78:
 		lea	(Palette_Row_0_Offset+4).w,a1
-		move.l	(a0,d0.w),(A1)+
-		move.w	4(a0,d0.w),(A1)
+		move.l	(a0,d0.w),(a1)+
+		move.w	4(a0,d0.w),(a1)
 		lea	(Pal_SuperSonic_Underwater_Cyc).l,a0
 		tst.b	(Water_Level_Flag).w
 		beq.w	Offset_0x002B00
 		lea	(Palette_UW_Row_0_Offset+4).w,a1
-		move.l	(a0,d0.w),(A1)+
-		move.w	4(a0,d0.w),(A1)
+		move.l	(a0,d0.w),(a1)+
+		move.w	4(a0,d0.w),(a1)
 		rts
 ; ---------------------------------------------------------------------------
 Pal_SuperSonic_Cyc:
-		dc.w	$0A22, $0C42, $0E44, $0E66, $0844, $0A64, $0E66, $0E88
-		dc.w	$0666, $0A86, $0E88, $0EAA, $0488, $0AA8, $0EAA, $0ECC
-		dc.w	$04AA, $0ACA, $0ECC, $0EEE, $04CC, $0AEC, $0EEE, $0EEE
-		dc.w	$04EE, $0AEE, $0EEE, $0EEE, $06EE, $0EEE, $0EEE, $0EEE
-		dc.w	$08EE, $0EEE, $0EEE, $0EEE, $06EE, $0CEE, $0EEE, $0EEE
-		dc.w	$04EE, $0AEE, $0EEE, $0EEE, $02EE, $08EE, $0CEE, $0EEE
-		dc.w	$00EE, $06EE, $0AEE, $0EEE, $00EE, $04EE, $08EE, $0CEE
-		dc.w	$00EE, $06EE, $0AEE, $0EEE, $00EE, $08EE, $0CEE, $0EEE
+		dc.w	$A22, $C42, $E44, $E66, $844, $A64, $E66, $E88
+		dc.w	$666, $A86, $E88, $EAA, $488, $AA8, $EAA, $ECC
+		dc.w	$4AA, $ACA, $ECC, $EEE, $4CC, $AEC, $EEE, $EEE
+		dc.w	$4EE, $AEE, $EEE, $EEE, $6EE, $EEE, $EEE, $EEE
+		dc.w	$8EE, $EEE, $EEE, $EEE, $6EE, $CEE, $EEE, $EEE
+		dc.w	$4EE, $AEE, $EEE, $EEE, $2EE, $8EE, $CEE, $EEE
+		dc.w	$0EE, $6EE, $AEE, $EEE, $0EE, $4EE, $8EE, $CEE
+		dc.w	$0EE, $6EE, $AEE, $EEE, $0EE, $8EE, $CEE, $EEE
 ; ---------------------------------------------------------------------------
 Pal_SuperSonic_Underwater_Cyc:
-		dc.w	$0E08, $0E28, $0E2A, $0E4C, $0C2A, $0E4A, $0E4C, $0E6E
-		dc.w	$0A4C, $0E6C, $0E6E, $0E8E, $0A6E, $0E8E, $0E8E, $0E8E
-		dc.w	$0A6E, $0E8E, $0E8E, $0E8E, $0A6E, $0E8E, $0E8E, $0E8E
-		dc.w	$0A6E, $0E8E, $0E8E, $0E8E, $0A6E, $0E8E, $0E8E, $0E8E
-		dc.w	$0C8E, $0EAE, $0EAE, $0EAE, $0C8E, $0EAE, $0EAE, $0EAE
-		dc.w	$0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE
-		dc.w	$0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE
-		dc.w	$0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE, $0EAE
-		dc.w	$0A24, $0C44, $0E46, $0E68, $0C46, $0E66, $0E68, $0E8A
-		dc.w	$0E68, $0E88, $0E8A, $0EAC, $0E68, $0E88, $0E8A, $0EAC
-		dc.w	$0E88, $0EAA, $0EAC, $0ECC, $0E88, $0EAA, $0EAC, $0ECC
-		dc.w	$0EA8, $0ECC, $0ECC, $0ECC, $0EA8, $0ECC, $0ECC, $0ECC
-		dc.w	$0EA8, $0ECC, $0ECC, $0ECC, $0ECA, $0ECC, $0ECC, $0ECC
-		dc.w	$0ECC, $0ECC, $0ECC, $0ECC, $0ECC, $0ECC, $0ECC, $0ECC
-		dc.w	$0ECC, $0ECC, $0ECC, $0ECC, $0ECC, $0ECC, $0ECC, $0ECC
-		dc.w	$0ECA, $0ECC, $0ECC, $0ECC, $0EA8, $0ECC, $0ECC, $0ECC
+		dc.w	$E08, $E28, $E2A, $E4C, $C2A, $E4A, $E4C, $E6E
+		dc.w	$A4C, $E6C, $E6E, $E8E, $A6E, $E8E, $E8E, $E8E
+		dc.w	$A6E, $E8E, $E8E, $E8E, $A6E, $E8E, $E8E, $E8E
+		dc.w	$A6E, $E8E, $E8E, $E8E, $A6E, $E8E, $E8E, $E8E
+		dc.w	$C8E, $EAE, $EAE, $EAE, $C8E, $EAE, $EAE, $EAE
+		dc.w	$EAE, $EAE, $EAE, $EAE, $EAE, $EAE, $EAE, $EAE
+		dc.w	$EAE, $EAE, $EAE, $EAE, $EAE, $EAE, $EAE, $EAE
+		dc.w	$EAE, $EAE, $EAE, $EAE, $EAE, $EAE, $EAE, $EAE
+		dc.w	$A24, $C44, $E46, $E68, $C46, $E66, $E68, $E8A
+		dc.w	$E68, $E88, $E8A, $EAC, $E68, $E88, $E8A, $EAC
+		dc.w	$E88, $EAA, $EAC, $ECC, $E88, $EAA, $EAC, $ECC
+		dc.w	$EA8, $ECC, $ECC, $ECC, $EA8, $ECC, $ECC, $ECC
+		dc.w	$EA8, $ECC, $ECC, $ECC, $ECA, $ECC, $ECC, $ECC
+		dc.w	$ECC, $ECC, $ECC, $ECC, $ECC, $ECC, $ECC, $ECC
+		dc.w	$ECC, $ECC, $ECC, $ECC, $ECC, $ECC, $ECC, $ECC
+		dc.w	$ECA, $ECC, $ECC, $ECC, $EA8, $ECC, $ECC, $ECC
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to fade in from black
