@@ -4607,7 +4607,7 @@ Level_ChkDebug:
 		move.b	#1,(Debug_Mode_Active).w
 ; Offset_0x003ADE:
 Level_ChkMode:
-		move.w	#$8AFF,(Horizontal_Int_Count_Cmd).w
+		move.w	#$8A00+256-1,(Horizontal_Int_Count_Cmd).w
 		tst.w	(Two_Player_Flag).w
 		beq.s	Level_LoadPal
 		move.w	#$4EF9,(H_int_jump).w
@@ -4615,7 +4615,7 @@ Level_ChkMode:
 		move.w	#$8014,(a6)
 		move.w	#$8220,(a6)
 		move.w	#$8405,(a6)
-		move.w	#$8A6B,(Horizontal_Int_Count_Cmd).w
+		move.w	#$8A00+108-1,(Horizontal_Int_Count_Cmd).w
 		move.w	#$9003,(a6)
 		cmpi.b	#BPz_Id,(Current_Zone).w
 		bne.s	Level_LoadPal
@@ -5077,8 +5077,8 @@ Offset_0x00415C:
 		rts
 ; ---------------------------------------------------------------------------
 Pal_Level_2P:
-		dc.w	$A86, $EEE, $84E, $40C, $206, $80, $E, 8
-		dc.w	$AE, $8E, $8AE, $46A, $ECC, $CAA, $866, $222
+		dc.w	$A86, $EEE, $84E, $40C, $206, $080, $00E, $008
+		dc.w	$0AE, $08E, $8AE, $46A, $ECC, $CAA, $866, $222
 ; ---------------------------------------------------------------------------
 
 Obj_Clear_Collision_Response_List:
@@ -7691,50 +7691,44 @@ Pal_Special_Stage_2_Test:									   ; Offset_0x0071D6
 Obj_Spheres_2:												   ; Offset_0x007256
 		include "objects\spheres2.asm"
 ;===============================================================================
-; Modo de teste para o Special Stage
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ;  Rotina Build_HUD - Rotina para mostrar o HUD na tela
-; ->>>
 ;===============================================================================
-Build_HUD_2P:												   ; Offset_0x00798C
-		tst.w	(Debug_Mode_Active).w						 ; $FFFFFFFA
-		bne.s	Build_HUD							   ; Offset_0x007994
+Build_HUD_2P:
+		tst.w	(Debug_Mode_Active).w
+		bne.s	Build_HUD
 		rts
-Build_HUD:													   ; Offset_0x007994
+Build_HUD:
 		moveq	#0,d4
-		btst	#3,(Level_frame_counter+1).w			  ; $FFFFFE05
+		btst	#3,(Level_frame_counter+1).w
 		bne.s	Offset_0x0079B0
-		tst.w	(Ring_count).w						 ; $FFFFFE20
+		tst.w	(Ring_count).w
 		bne.s	Offset_0x0079A6
 		addq.w	#2,d4
 Offset_0x0079A6:
-		cmpi.b	#9,(Timer_minute).w			; $FFFFFE23
+		cmpi.b	#9,(Timer_minute).w
 		bne.s	Offset_0x0079B0
 		addq.w	#4,d4
 Offset_0x0079B0:
 		move.w	#$90,d0
 		move.w	#$108,d1
 		move.w	#$86CA,d5
-		lea	HUD_Mappings(PC),a1					  ; Offset_0x0079D4
-		adda.w	(A1,d4.w),a1
-		move.w	(A1)+,d4
+		lea	HUD_Mappings(pc),a1
+		adda.w	(a1,d4.w),a1
+		move.w	(a1)+,d4
 		subq.w	#1,d4
 		bmi.s	Offset_0x0079D0
 		jmp	(Offset_0x0114D6).l
 Offset_0x0079D0:
 		rts
-Build_HUD_P2:												   ; Offset_0x0079D2
+Build_HUD_P2:
 		rts
 ; ---------------------------------------------------------------------------
-HUD_Mappings:												   ; Offset_0x0079D4
-		dc.w	HUD_Map_Normal-HUD_Mappings			   ; Offset_0x0079DC
-		dc.w	HUD_Map_RING_Warning-HUD_Mappings	   ; Offset_0x007A1A
-		dc.w	HUD_Map_TIME_Warning-HUD_Mappings	   ; Offset_0x007A4C
-		dc.w	HUD_Map_RING_TIME_Warning-HUD_Mappings ; Offset_0x007A84
-HUD_Map_Normal:												   ; Offset_0x0079DC
+HUD_Mappings:
+		dc.w	HUD_Map_Normal-HUD_Mappings
+		dc.w	HUD_Map_RING_Warning-HUD_Mappings
+		dc.w	HUD_Map_TIME_Warning-HUD_Mappings
+		dc.w	HUD_Map_RING_TIME_Warning-HUD_Mappings
+HUD_Map_Normal:
 		dc.w	$000A
 		dc.w	$800D, $2000, $0000
 		dc.w	$800D, $2018, $0020
@@ -7746,7 +7740,7 @@ HUD_Map_Normal:												   ; Offset_0x0079DC
 		dc.w	$A009, $2030, $0030
 		dc.w	$4005, $010A, $0000
 		dc.w	$400D, $210E, $0010
-HUD_Map_RING_Warning:										   ; Offset_0x007A1A
+HUD_Map_RING_Warning:
 		dc.w	$0008
 		dc.w	$800D, $2000, $0000
 		dc.w	$800D, $2018, $0020
@@ -7756,7 +7750,7 @@ HUD_Map_RING_Warning:										   ; Offset_0x007A1A
 		dc.w	$A009, $2030, $0030
 		dc.w	$4005, $010A, $0000
 		dc.w	$400D, $210E, $0010
-HUD_Map_TIME_Warning:										   ; Offset_0x007A4C
+HUD_Map_TIME_Warning:
 		dc.w	$0009
 		dc.w	$800D, $2000, $0000
 		dc.w	$800D, $2018, $0020
@@ -7767,7 +7761,7 @@ HUD_Map_TIME_Warning:										   ; Offset_0x007A4C
 		dc.w	$A009, $2030, $0030
 		dc.w	$4005, $010A, $0000
 		dc.w	$400D, $210E, $0010
-HUD_Map_RING_TIME_Warning:									   ; Offset_0x007A84
+HUD_Map_RING_TIME_Warning:
 		dc.w	$0007
 		dc.w	$800D, $2000, $0000
 		dc.w	$800D, $2018, $0020
@@ -7777,24 +7771,18 @@ HUD_Map_RING_TIME_Warning:									   ; Offset_0x007A84
 		dc.w	$4005, $010A, $0000
 		dc.w	$400D, $210E, $0010
 ;===============================================================================
-;  Rotina Build_HUD - Rotina para mostrar o HUD na tela
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para adicionar pontos ao HUD do primeiro jogador
-; ->>>
 ;===============================================================================
-Add_Points_P1:												   ; Offset_0x007AB0
+Add_Points_P1:
 		move.b	#1,(Update_HUD_score).w				; $FFFFFE1F
 		lea	(Score_Count_Address).w,a3					; $FFFFFE26
-		add.l	D0,(A3)
+		add.l	d0,(a3)
 		move.l	#999999,d1
-		cmp.l	(A3),d1
+		cmp.l	(a3),d1
 		bhi.s	Add_Points_Max_Score_P1				   ; Offset_0x007AC8
-		move.l	D1,(A3)
-Add_Points_Max_Score_P1:									   ; Offset_0x007AC8
-		move.l	(A3),d0
+		move.l	d1,(a3)
+Add_Points_Max_Score_P1:
+		move.l	(a3),d0
 		cmp.l	(Next_Extra_Life_Score).w,d0				; $FFFFFFC0
 		bcs.s	Offset_0x007AEA
 		addi.l	#5000,(Next_Extra_Life_Score).w		   ; $FFFFFFC0
@@ -7805,20 +7793,20 @@ Add_Points_Max_Score_P1:									   ; Offset_0x007AC8
 Offset_0x007AEA:
 		rts
 ; ---------------------------------------------------------------------------
-Add_Points:													   ; Offset_0x007AEC
+Add_Points:
 		tst.w	(Two_Player_Flag).w							 ; $FFFFFFD8
 		beq.s	Add_Points_P1						   ; Offset_0x007AB0
 		cmpa.w	#Obj_Player_One,a3								; $B000
 		beq.s	Add_Points_P1						   ; Offset_0x007AB0
 		move.b	#1,(HUD_Score_Refresh_Flag_P2).w		  ; $FFFFFECB
 		lea	(Score_Count_Address_P2).w,a3				; $FFFFFED6
-		add.l	D0,(A3)
+		add.l	d0,(a3)
 		move.l	#999999,d1
-		cmp.l	(A3),d1
+		cmp.l	(a3),d1
 		bhi.s	Add_Points_Max_Score_P2				   ; Offset_0x007B10
-		move.l	D1,(A3)
-Add_Points_Max_Score_P2:									   ; Offset_0x007B10
-		move.l	(A3),d0
+		move.l	d1,(a3)
+Add_Points_Max_Score_P2:
+		move.l	(a3),d0
 		cmp.l	(Next_Extra_Life_Score_P2).w,d0				; $FFFFFFC4
 		bcs.s	Offset_0x007B32
 		addi.l	#5000,(Next_Extra_Life_Score_P2).w	   ; $FFFFFFC4
@@ -7829,15 +7817,9 @@ Add_Points_Max_Score_P2:									   ; Offset_0x007B10
 Offset_0x007B32:
 		rts
 ;===============================================================================
-; Rotina para adicionar pontos ao HUD do primeiro jogador
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para atualizar os contadores na tela (Pontos, Tempo, Vidas...).
-; ->>>
 ;===============================================================================
-HUD_Update:													   ; Offset_0x007B34
+HUD_Update:
 		nop
 		lea	(VDP_Data_Port).l,a6							; $00C00000
 		tst.w	(Two_Player_Flag).w							 ; $FFFFFFD8
@@ -7871,20 +7853,20 @@ Offset_0x007B92:
 		tst.w	(Pause_Status).w							 ; $FFFFF63A
 		bne.s	Offset_0x007BEC
 		lea	(Timer).w,a1				   ; $FFFFFE22
-		cmpi.l	#$93B3B,(A1)+
+		cmpi.l	#$93B3B,(a1)+
 		beq.w	Timer_Over							   ; Offset_0x007BFC
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007BEC
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007BCC
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#9,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#9,(a1)
 		bcs.s	Offset_0x007BCC
-		move.b	#9,(A1)
+		move.b	#9,(a1)
 Offset_0x007BCC:
 		move.l	#$5E400003,d0
 		moveq	#0,d1
@@ -7905,7 +7887,7 @@ Offset_0x007BFA:
 Timer_Over:													   ; Offset_0x007BFC
 		clr.b	(Update_HUD_timer).w				   ; $FFFFFE1E
 		lea	(Obj_Player_One).w,a0						; $FFFFB000
-		move.l	A0,a2
+		movea.l	a0,a2
 		bsr.w	Kill_Player							   ; Offset_0x00A4A4
 		move.b	#1,(Time_Over_flag).w					  ; $FFFFFE1A
 		rts
@@ -7939,20 +7921,20 @@ Offset_0x007C64:
 		tst.w	(Pause_Status).w							 ; $FFFFF63A
 		bne.s	Offset_0x007C9A
 		lea	(Timer).w,a1				   ; $FFFFFE22
-		cmpi.l	#$93B3B,(A1)+
+		cmpi.l	#$93B3B,(a1)+
 		nop
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007C9A
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007C9A
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#9,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#9,(a1)
 		bcs.s	Offset_0x007C9A
-		move.b	#9,(A1)
+		move.b	#9,(a1)
 Offset_0x007C9A:
 		rts
 Offset_0x007C9C:
@@ -7966,38 +7948,38 @@ S2_HUD_Update_2P:											   ; Offset_0x007CA6
 		tst.b	(Update_HUD_timer).w				   ; $FFFFFE1E
 		beq.s	Offset_0x007CE6
 		lea	(Timer).w,a1				   ; $FFFFFE22
-		cmpi.l	#$93B3B,(A1)+
+		cmpi.l	#$93B3B,(a1)+
 		beq.w	Timer_Over_2P_Sonic					   ; Offset_0x007D90
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007CE6
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007CE6
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#9,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#9,(a1)
 		bcs.s	Offset_0x007CE6
-		move.b	#9,(A1)
+		move.b	#9,(a1)
 Offset_0x007CE6:
 		tst.b	(HUD_Timer_Refresh_Flag_P2).w				 ; $FFFFFECA
 		beq.s	Offset_0x007D1E
 		lea	(Time_Count_Address_P2).w,a1				; $FFFFFED2
-		cmpi.l	#$93B3B,(A1)+
+		cmpi.l	#$93B3B,(a1)+
 		beq.w	Timer_Over_2P_Miles					   ; Offset_0x007DAA
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007D1E
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#60,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#60,(a1)
 		bcs.s	Offset_0x007D1E
-		move.b	#0,(A1)
-		addq.b	#1,-(A1)
-		cmpi.b	#9,(A1)
+		move.b	#0,(a1)
+		addq.b	#1,-(a1)
+		cmpi.b	#9,(a1)
 		bcs.s	Offset_0x007D1E
-		move.b	#9,(A1)
+		move.b	#9,(a1)
 Offset_0x007D1E:
 		tst.b	(Update_HUD_lives).w					; $FFFFFE1C
 		beq.s	Offset_0x007D2C
@@ -8013,19 +7995,19 @@ Offset_0x007D3A:
 		or.b	(HUD_Timer_Refresh_Flag_P2).w,d0			; $FFFFFECA
 		beq.s	Offset_0x007D70
 		lea	(Loser_Timer_Left).w,a1						; $FFFFFEF8
-		tst.w	(A1)+
+		tst.w	(a1)+
 		beq.s	Offset_0x007D70
-		subq.b	#1,-(A1)
+		subq.b	#1,-(a1)
 		bhi.s	Offset_0x007D70
-		move.b	#60,(A1)
-		cmpi.b	#$C,-1(A1)
+		move.b	#60,(a1)
+		cmpi.b	#$C,-1(a1)
 		bne.s	Offset_0x007D66
 		move.w	#mus_S2Drowning,d0								  ; $009F
 		jsr	(PlaySound).l							; Offset_0x001176
 Offset_0x007D66:
-		subq.b	#1,-(A1)
+		subq.b	#1,-(a1)
 		bcc.s	Offset_0x007D70
-		move.w	#0,(A1)
+		move.w	#0,(a1)
 		bsr.s	Offset_0x007D82
 Offset_0x007D70:
 		move.l	#$5E400003,d0
@@ -8043,7 +8025,7 @@ Offset_0x007D82:
 Timer_Over_2P_Sonic:										   ; Offset_0x007D90
 		clr.b	(Update_HUD_timer).w				   ; $FFFFFE1E
 		lea	(Obj_Player_One).w,a0						; $FFFFB000
-		movea.l	A0,a2
+		movea.l	a0,a2
 		bsr.w	Kill_Player							   ; Offset_0x00A4A4
 		move.b	#1,(Time_Over_flag).w					  ; $FFFFFE1A
 		tst.b	(HUD_Timer_Refresh_Flag_P2).w				 ; $FFFFFECA
@@ -8052,16 +8034,16 @@ Timer_Over_2P_Sonic:										   ; Offset_0x007D90
 Timer_Over_2P_Miles:										   ; Offset_0x007DAA
 		clr.b	(HUD_Timer_Refresh_Flag_P2).w				 ; $FFFFFECA
 		lea	(Obj_Player_Two).w,a0						; $FFFFB04A
-		movea.l	A0,a2
+		movea.l	a0,a2
 		bsr.w	Kill_Player							   ; Offset_0x00A4A4
 		move.b	#1,(Time_Over_Flag_P2).w				  ; $FFFFFECC
 Offset_0x007DBE:
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x007DC0:
-		move.l	#$5F400003,(VDP_Control_Port)				; $00C00004
-		lea	HUD_Rings_Mask(PC),a2				  ; Offset_0x007E46
-		move.w	#2,d2
+		move.l	#$5F400003,(VDP_Control_Port).l
+		lea	HUD_Rings_Mask(pc),a2				  ; Offset_0x007E46
+		move.w	#3-1,d2
 		bra.s	Offset_0x007DF6
 ; ---------------------------------------------------------------------------
 Head_Up_Display_Base:										   ; Offset_0x007DD4
@@ -8069,27 +8051,27 @@ Head_Up_Display_Base:										   ; Offset_0x007DD4
 		bsr.w	HUD_Lives							   ; Offset_0x00804E
 		tst.w	(Two_Player_Flag).w							 ; $FFFFFFD8
 		bne.s	Offset_0x007E22
-		move.l	#$5C400003,(VDP_Control_Port)				; $00C00004
-		lea	HUD_ScoreTime_Mask(PC),a2			  ; Offset_0x007E3A
-		move.w	#$E,d2
+		move.l	#$5C400003,(VDP_Control_Port).l
+		lea	HUD_ScoreTime_Mask(pc),a2			  ; Offset_0x007E3A
+		move.w	#$F-1,d2
 Offset_0x007DF6:
-		lea	HUD_Art_Numbers(PC),a1				  ; Offset_0x0080BA
+		lea	HUD_Art_Numbers(pc),a1				  ; Offset_0x0080BA
 Offset_0x007DFA:
-		move.w	#$F,d1
-		move.b	(A2)+,d0
+		move.w	#$10-1,d1
+		move.b	(a2)+,d0
 		bmi.s	Offset_0x007E16
-		ext.w	D0
+		ext.w	d0
 		lsl.w	#5,d0
-		lea	(A1,d0.w),a3
+		lea	(a1,d0.w),a3
 Offset_0x007E0A:
-		move.l	(A3)+,(A6)
-		dbf	D1,Offset_0x007E0A
+		move.l	(a3)+,(a6)
+		dbf	d1,Offset_0x007E0A
 Offset_0x007E10:
-		dbf	D2,Offset_0x007DFA
+		dbf	d2,Offset_0x007DFA
 		rts
 Offset_0x007E16:
-		move.l	#0,(A6)
-		dbf	D1,Offset_0x007E16
+		move.l	#0,(a6)
+		dbf	d1,Offset_0x007E16
 		bra.s	Offset_0x007E10
 Offset_0x007E22:
 		bsr.w	HUD_Lives_P2						   ; Offset_0x008040
@@ -8104,126 +8086,126 @@ HUD_Rings_Mask:												   ; Offset_0x007E46
 		dc.l	$FFFF0000
 ; ---------------------------------------------------------------------------
 HUD_Debug:													   ; Offset_0x007E4A
-		move.l	#$5C400003,(VDP_Control_Port)				; $00C00004
+		move.l	#$5C400003,(VDP_Control_Port).l
 		move.w	(Camera_X).w,d1								; $FFFFEE78
-		swap	D1
+		swap	d1
 		move.w	(Obj_Player_One+x_pos).w,d1					; $FFFFB010
 		bsr.s	Offset_0x007E6A
 		move.w	(Camera_Y).w,d1								; $FFFFEE7C
-		swap	D1
+		swap	d1
 		move.w	(Obj_Player_One+y_pos).w,d1					; $FFFFB014
 Offset_0x007E6A:
-		moveq	#7,d6
+		moveq	#8-1,d6
 		lea	(HUD_Art_Debug_Numbers).l,a1			; Offset_0x0084FA
 Offset_0x007E72:
 		rol.w	#4,d1
-		move.w	D1,d2
+		move.w	d1,d2
 		andi.w	#$F,d2
 		cmpi.w	#$A,d2
 		bcs.s	Offset_0x007E84
 		addi.w	#7,d2
 Offset_0x007E84:
 		lsl.w	#5,d2
-		lea	(A1,d2.w),a3
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		swap	D1
-		dbf	D6,Offset_0x007E72
+		lea	(a1,d2.w),a3
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		swap	d1
+		dbf	d6,Offset_0x007E72
 		rts
 ; ---------------------------------------------------------------------------
 HUD_Draw_Three_Digit_Number:								   ; Offset_0x007EA2
 		lea	(HUD_Val_000100).l,a2					; Offset_0x007F6E
-		moveq	#2,d6
+		moveq	#3-1,d6
 		bra.s	Offset_0x007EB4
 ; ---------------------------------------------------------------------------
 HUD_Draw_Six_Digit_Number:									   ; Offset_0x007EAC
 		lea	(HUD_Val_100000).l,a2					; Offset_0x007F62
-		moveq	#5,d6
+		moveq	#6-1,d6
 Offset_0x007EB4:
 		moveq	#0,d4
-		lea	HUD_Art_Numbers(PC),a1				  ; Offset_0x0080BA
+		lea	HUD_Art_Numbers(pc),a1				  ; Offset_0x0080BA
 Offset_0x007EBA:
 		moveq	#0,d2
-		move.l	(A2)+,d3
+		move.l	(a2)+,d3
 Offset_0x007EBE:
-		sub.l	D3,d1
+		sub.l	d3,d1
 		bcs.s	Offset_0x007EC6
 		addq.w	#1,d2
 		bra.s	Offset_0x007EBE
 Offset_0x007EC6:
-		add.l	D3,d1
-		tst.w	D2
+		add.l	d3,d1
+		tst.w	d2
 		beq.s	Offset_0x007ED0
 		move.w	#1,d4
 Offset_0x007ED0:
-		tst.w	D4
+		tst.w	d4
 		beq.s	Offset_0x007EFE
 		lsl.w	#6,d2
-		move.l	D0,4(A6)
-		lea	(A1,d2.w),a3
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
+		move.l	d0,4(a6)
+		lea	(a1,d2.w),a3
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
 Offset_0x007EFE:
 		addi.l	#$400000,d0
-		dbf	D6,Offset_0x007EBA
+		dbf	d6,Offset_0x007EBA
 		rts
 ; ---------------------------------------------------------------------------
 Timer_Count_Down:											   ; Offset_0x007F0A
-		move.l	#$5F800003,(VDP_Control_Port)				; $00C00004
+		move.l	#$5F800003,(VDP_Control_Port).l
 		lea	(VDP_Data_Port).l,a6							; $00C00000
 		lea	(HUD_Val_000010).l,a2					; Offset_0x007F72
 		moveq	#1,d6
 		moveq	#0,d4
-		lea	HUD_Art_Numbers(PC),a1				  ; Offset_0x0080BA
+		lea	HUD_Art_Numbers(pc),a1				  ; Offset_0x0080BA
 Offset_0x007F28:
 		moveq	#0,d2
-		move.l	(A2)+,d3
+		move.l	(a2)+,d3
 Offset_0x007F2C:
-		sub.l	D3,d1
+		sub.l	d3,d1
 		bcs.s	Offset_0x007F34
 		addq.w	#1,d2
 		bra.s	Offset_0x007F2C
 Offset_0x007F34:
-		add.l	D3,d1
+		add.l	d3,d1
 		lsl.w	#6,d2
-		lea	(A1,d2.w),a3
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		dbf	D6,Offset_0x007F28
+		lea	(a1,d2.w),a3
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		dbf	d6,Offset_0x007F28
 		rts
 ; ---------------------------------------------------------------------------
 HUD_Val_100000:												   ; Offset_0x007F62
@@ -8241,32 +8223,32 @@ HUD_Val_000001:												   ; Offset_0x007F76
 ; ---------------------------------------------------------------------------
 HUD_Draw_Single_Digit_Number:								   ; Offset_0x007F7A
 		lea	(HUD_Val_000001).l,a2					; Offset_0x007F76
-		moveq	#0,d6
+		moveq	#1-1,d6
 		bra.s	Offset_0x007F8C
 ; ---------------------------------------------------------------------------
 HUD_Draw_Two_Digit_Number:									   ; Offset_0x007F84
 		lea	(HUD_Val_000010).l,a2					; Offset_0x007F72
-		moveq	#1,d6
+		moveq	#2-1,d6
 Offset_0x007F8C:
 		moveq	#0,d4
-		lea	HUD_Art_Numbers(PC),a1				  ; Offset_0x0080BA
+		lea	HUD_Art_Numbers(pc),a1				  ; Offset_0x0080BA
 Offset_0x007F92:
 		moveq	#0,d2
-		move.l	(A2)+,d3
+		move.l	(a2)+,d3
 Offset_0x007F96:
-		sub.l	D3,d1
+		sub.l	d3,d1
 		bcs.s	Offset_0x007F9E
 		addq.w	#1,d2
 		bra.s	Offset_0x007F96
 Offset_0x007F9E:
-		add.l	D3,d1
-		tst.w	D2
+		add.l	d3,d1
+		tst.w	d2
 		beq.s	Offset_0x007FA8
 		move.w	#1,d4
 Offset_0x007FA8:
 		lsl.w	#6,d2
-		move.l	D0,4(A6)
-		lea	(A1,d2.w),a3
+		move.l	d0,4(A6)
+		lea	(a1,d2.w),a3
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
@@ -8284,57 +8266,57 @@ Offset_0x007FA8:
 		move.l	(A3)+,(A6)
 		move.l	(A3)+,(A6)
 		addi.l	#$400000,d0
-		dbf	D6,Offset_0x007F92
+		dbf	d6,Offset_0x007F92
 		rts
 ; ---------------------------------------------------------------------------
 S2_HUD_Level_Results:
 ; HUD_Draw_Four_Digit_Number:								   ; Offset_0x007FDE
 		lea	(HUD_Val_001000).l,a2					; Offset_0x007F6A
-		moveq	#3,d6
+		moveq	#4-1,d6
 		moveq	#0,d4
-		lea	HUD_Art_Numbers(PC),a1				  ; Offset_0x0080BA
+		lea	HUD_Art_Numbers(pc),a1				  ; Offset_0x0080BA
 Offset_0x007FEC:
 		moveq	#0,d2
-		move.l	(A2)+,d3
+		move.l	(a2)+,d3
 Offset_0x007FF0:
-		sub.l	D3,d1
+		sub.l	d3,d1
 		bcs.s	Offset_0x007FF8
 		addq.w	#1,d2
 		bra.s	Offset_0x007FF0
 Offset_0x007FF8:
-		add.l	D3,d1
-		tst.w	D2
+		add.l	d3,d1
+		tst.w	d2
 		beq.s	Offset_0x008002
 		move.w	#1,d4
 Offset_0x008002:
-		tst.w	D4
+		tst.w	d4
 		beq.s	Offset_0x008032
 		lsl.w	#6,d2
-		lea	(A1,d2.w),a3
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
+		lea	(a1,d2.w),a3
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
 Offset_0x00802C:
-		dbf	D6,Offset_0x007FEC
+		dbf	d6,Offset_0x007FEC
 		rts
 Offset_0x008032:
-		moveq	#$F,d5
+		moveq	#$10-1,d5
 Offset_0x008034:
-		move.l	#0,(A6)
-		dbf	D5,Offset_0x008034
+		move.l	#0,(a6)
+		dbf	d5,Offset_0x008034
 		bra.s	Offset_0x00802C
 ; ---------------------------------------------------------------------------
 HUD_Lives_P2:												   ; Offset_0x008040
@@ -8349,48 +8331,48 @@ HUD_Lives:													   ; Offset_0x00804E
 		move.b	(Life_count).w,d1							; $FFFFFE12
 Offset_0x00805A:
 		lea	(HUD_Val_000010).l,a2					; Offset_0x007F72
-		moveq	#1,d6
+		moveq	#2-1,d6
 		moveq	#0,d4
-		lea	HUD_Art_Life_Numbers(PC),a1			  ; Offset_0x0083BA
+		lea	HUD_Art_Life_Numbers(pc),a1			  ; Offset_0x0083BA
 Offset_0x008068:
-		move.l	D0,4(A6)
+		move.l	d0,4(A6)
 		moveq	#0,d2
-		move.l	(A2)+,d3
+		move.l	(a2)+,d3
 Offset_0x008070:
-		sub.l	D3,d1
+		sub.l	d3,d1
 		bcs.s	Offset_0x008078
 		addq.w	#1,d2
 		bra.s	Offset_0x008070
 Offset_0x008078:
-		add.l	D3,d1
-		tst.w	D2
+		add.l	d3,d1
+		tst.w	d2
 		beq.s	Offset_0x008082
 		move.w	#1,d4
 Offset_0x008082:
-		tst.w	D4
+		tst.w	d4
 		beq.s	Offset_0x0080A8
 Offset_0x008086:
 		lsl.w	#5,d2
-		lea	(A1,d2.w),a3
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
-		move.l	(A3)+,(A6)
+		lea	(a1,d2.w),a3
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
+		move.l	(a3)+,(a6)
 Offset_0x00809C:
 		addi.l	#$400000,d0
-		dbf	D6,Offset_0x008068
+		dbf	d6,Offset_0x008068
 		rts
 Offset_0x0080A8:
-		tst.w	D6
+		tst.w	d6
 		beq.s	Offset_0x008086
-		moveq	#7,d5
+		moveq	#8-1,d5
 Offset_0x0080AE:
-		move.l	#0,(A6)
-		dbf	D5,Offset_0x0080AE
+		move.l	#0,(a6)
+		dbf	d5,Offset_0x0080AE
 		bra.s	Offset_0x00809C
 ; ---------------------------------------------------------------------------
 HUD_Art_Numbers:											   ; Offset_0x0080BA
@@ -8400,13 +8382,7 @@ HUD_Art_Life_Numbers:										   ; Offset_0x0083BA
 HUD_Art_Debug_Numbers:										   ; Offset_0x0084FA
 		binclude	"data\art\hud_debg.dat"
 ;===============================================================================
-; Rotina para atualizar os contadores na tela (Pontos, Tempo, Vidas...).
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para carregar o pocicionamento dos an�is nas fases
-; ->>>
 ;===============================================================================
 Load_Ring_Pos:												   ; Offset_0x0087DA
 		moveq	#0,d0
@@ -8432,40 +8408,40 @@ Offset_0x008808:
 		addq.w	#4,a1
 		addq.w	#2,a2
 Offset_0x00880C:
-		cmp.w	(A1),d4
+		cmp.w	(a1),d4
 		bhi.s	Offset_0x008808
-		move.l	A1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
-		move.w	A2,(Ring_Offset_Ptr).w						; $FFFFEE4C
+		move.l	a1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
+		move.w	a2,(Ring_Offset_Ptr).w						; $FFFFEE4C
 		addi.w	#$150,d4
 		bra.s	Offset_0x008820
 Offset_0x00881E:
 		addq.w	#4,a1
 Offset_0x008820:
-		cmp.w	(A1),d4
+		cmp.w	(a1),d4
 		bhi.s	Offset_0x00881E
-		move.l	A1,(Ring_End_Offset_Ptr).w					; $FFFFEE48
+		move.l	a1,(Ring_End_Offset_Ptr).w					; $FFFFEE48
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x00882A:
 		lea	(Ring_Consumption_Table).w,a2				; $FFFFEF80
-		move.w	(A2)+,d1
+		move.w	(a2)+,d1
 		subq.w	#1,d1
 		bcs.s	Offset_0x00885E
 Offset_0x008834:
-		move.w	(A2)+,d0
+		move.w	(a2)+,d0
 		beq.s	Offset_0x008834
-		move.w	D0,a1
-		subq.b	#1,(A1)
+		movea.w	d0,a1
+		subq.b	#1,(a1)
 		bne.s	Offset_0x00885A
-		move.b	#6,(A1)
-		addq.b	#1,1(A1)
-		cmpi.b	#8,1(A1)
+		move.b	#6,(a1)
+		addq.b	#1,1(a1)
+		cmpi.b	#8,1(a1)
 		bne.s	Offset_0x00885A
-		move.w	#-1,(A1)
-		clr.w	-2(A2)
+		move.w	#-1,(a1)
+		clr.w	-2(a2)
 		subq.w	#1,(Ring_Consumption_Table).w			  ; $FFFFEF80
 Offset_0x00885A:
-		dbf	D1,Offset_0x008834
+		dbf	d1,Offset_0x008834
 Offset_0x00885E:
 		movea.l	(Ring_Start_Offset_Ptr).w,a1				; $FFFFEE44
 		movea.w	(Ring_Offset_Ptr).w,a2						; $FFFFEE4C
@@ -8478,57 +8454,51 @@ Offset_0x008872:
 		addq.w	#4,a1
 		addq.w	#2,a2
 Offset_0x008876:
-		cmp.w	(A1),d4
+		cmp.w	(a1),d4
 		bhi.s	Offset_0x008872
 		bra.s	Offset_0x008880
 Offset_0x00887C:
 		subq.w	#4,a1
 		subq.w	#2,a2
 Offset_0x008880:
-		cmp.w	-4(A1),d4
+		cmp.w	-4(a1),d4
 		bls.s	Offset_0x00887C
-		move.l	A1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
-		move.w	A2,(Ring_Offset_Ptr).w						; $FFFFEE4C
-		move.l	(Ring_End_Offset_Ptr).w,a2					; $FFFFEE48
+		move.l	a1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
+		move.w	a2,(Ring_Offset_Ptr).w						; $FFFFEE4C
+		movea.l	(Ring_End_Offset_Ptr).w,a2					; $FFFFEE48
 		addi.w	#$150,d4
 		bra.s	Offset_0x00889A
 Offset_0x008898:
 		addq.w	#4,a2
 Offset_0x00889A:
-		cmp.w	(A2),d4
+		cmp.w	(a2),d4
 		bhi.s	Offset_0x008898
 		bra.s	Offset_0x0088A2
 Offset_0x0088A0:
 		subq.w	#4,a2
 Offset_0x0088A2:
-		cmp.w	-4(A2),d4
+		cmp.w	-4(a2),d4
 		bls.s	Offset_0x0088A0
-		move.l	A2,(Ring_End_Offset_Ptr).w					; $FFFFEE48
+		move.l	a2,(Ring_End_Offset_Ptr).w					; $FFFFEE48
 		rts
 ;===============================================================================
-; Rotina para carregar o pocicionamento dos an�is nas fases
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotinas para responder ao toque dos an�is pelo jogador
-; ->>>
 ;===============================================================================
 TouchRings:													   ; Offset_0x0088AE
-		cmpi.b	#$5A,Obj_P_Invunerblt_Time(A0)					; $0034
+		cmpi.b	#90,Obj_P_Invunerblt_Time(A0)					; $0034
 		bcc.w	Offset_0x00894E
 		movea.l	(Ring_Start_Offset_Ptr).w,a1				; $FFFFEE44
 		movea.l	(Ring_End_Offset_Ptr).w,a2					; $FFFFEE48
-		cmpa.l	A1,a2
+		cmpa.l	a1,a2
 		beq.w	Offset_0x00894E
 		movea.w	(Ring_Offset_Ptr).w,a4						; $FFFFEE4C
-		move.w	x_pos(A0),d2									; $0010
-		move.w	y_pos(A0),d3									; $0014
+		move.w	x_pos(a0),d2									; $0010
+		move.w	y_pos(a0),d3									; $0014
 		subi.w	#8,d2
 		moveq	#0,d5
-		move.b	Obj_Height_2(A0),d5								; $001E
+		move.b	Obj_Height_2(a0),d5								; $001E
 		subq.b	#3,d5
-		sub.w	D5,d3
+		sub.w	d5,d3
 	if FixBugs
 		cmpi.b	#8,anim(A0)	; check ducking animation
 	else
@@ -8542,44 +8512,44 @@ Offset_0x0088EE:
 		move.w	#6,d1
 		move.w	#$C,d6
 		move.w	#$10,d4
-		add.w	D5,d5
+		add.w	d5,d5
 Offset_0x0088FC:
-		tst.w	(A4)
+		tst.w	(a4)
 		bne.w	Offset_0x008944
-		move.w	(A1),d0
-		sub.w	D1,d0
-		sub.w	D2,d0
+		move.w	(a1),d0
+		sub.w	d1,d0
+		sub.w	d2,d0
 		bcc.s	Offset_0x008912
-		add.w	D6,d0
+		add.w	d6,d0
 		bcs.s	Offset_0x008918
 		bra.w	Offset_0x008944
 Offset_0x008912:
-		cmp.w	D4,d0
+		cmp.w	d4,d0
 		bhi.w	Offset_0x008944
 Offset_0x008918:
-		move.w	2(A1),d0
-		sub.w	D1,d0
-		sub.w	D3,d0
+		move.w	2(a1),d0
+		sub.w	d1,d0
+		sub.w	d3,d0
 		bcc.s	Offset_0x00892A
-		add.w	D6,d0
+		add.w	d6,d0
 		bcs.s	Offset_0x008930
 		bra.w	Offset_0x008944
 Offset_0x00892A:
-		cmp.w	D5,d0
+		cmp.w	d5,d0
 		bhi.w	Offset_0x008944
 Offset_0x008930:
-		move.w	#$604,(A4)
+		move.w	#$604,(a4)
 		bsr.s	Offset_0x008950
 		lea	(Ring_Consumption_Table+2).w,a3			  ; $FFFFEF82
 Offset_0x00893A:
-		tst.w	(A3)+
+		tst.w	(a3)+
 		bne.s	Offset_0x00893A
-		move.w	A4,-(A3)
+		move.w	a4,-(a3)
 		addq.w	#1,(Ring_Consumption_Table).w			  ; $FFFFEF80
 Offset_0x008944:
 		addq.w	#4,a1
 		addq.w	#2,a4
-		cmpa.l	A1,a2
+		cmpa.l	a1,a2
 		bne.w	Offset_0x0088FC
 Offset_0x00894E:
 		rts
@@ -8591,13 +8561,7 @@ Offset_0x008950:
 Offset_0x008960:
 		jmp	(CollectRing_Sonic).l							   ; Offset_0x010A26
 ;===============================================================================
-; Rotinas para responder ao toque dos an�is pelo jogador
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para carregar os an�is das fases
-; ->>>
 ;===============================================================================
 Load_Rings_Layout:											   ; Offset_0x008966
 		clearRAM	Ring_Status_Table,Ring_Status_Table_End
@@ -8610,7 +8574,7 @@ Offset_0x00897C:
 		ror.b	#1,d0
 		lsr.w	#5,d0
 		lea	(Rings_Layout).l,a1					  ; Offset_0x1F7198
-		move.l	(a1,d0.w),a1
+		movea.l	(a1,d0.w),a1
 		move.l	a1,(Ring_Start_Offset_Ptr).w				; $FFFFEE44
 		addq.w	#4,a1
 		moveq	#0,d5
@@ -8624,11 +8588,6 @@ Offset_0x0089AA:
 		move.w	d5,(Remainning_Rings_Count).w				; $FFFFFF04
 		move.w	#0,(Perfect_Bonus_Rings_Flag).w			; $FFFFFF06
 		rts
-;===============================================================================
-; Rotina para carregar os an�is das fases
-; <<<-
-;===============================================================================
-
 ; ---------------------------------------------------------------------------
 ; Subroutine to draw on-screen rings
 ; ---------------------------------------------------------------------------
@@ -8726,21 +8685,21 @@ Offset_0x008A86:
 		moveq	#1,d4
 		bra.s	Offset_0x008A96
 Offset_0x008A92:
-		lea	6(A1),a1
+		lea	6(a1),a1
 Offset_0x008A96:
-		cmp.w	2(A1),d4
+		cmp.w	2(a1),d4
 		bhi.s	Offset_0x008A92
-		move.l	A1,(CNz_Triangle_Pos_Start).w				; $FFFFF71C
-		move.l	A1,(CNz_Triangle_Pos_Start_2P).w			; $FFFFF724
+		move.l	a1,(CNz_Triangle_Pos_Start).w				; $FFFFF71C
+		move.l	a1,(CNz_Triangle_Pos_Start_2P).w			; $FFFFF724
 		addi.w	#$150,d4
 		bra.s	Offset_0x008AAE
 Offset_0x008AAA:
-		lea	6(A1),a1
+		lea	6(a1),a1
 Offset_0x008AAE:
-		cmp.w	2(A1),d4
+		cmp.w	2(a1),d4
 		bhi.s	Offset_0x008AAA
-		move.l	A1,(CNz_Triangle_Pos_End).w					; $FFFFF720
-		move.l	A1,(CNz_Triangle_Pos_End_2P).w				; $FFFFF728
+		move.l	a1,(CNz_Triangle_Pos_End).w					; $FFFFF720
+		move.l	a1,(CNz_Triangle_Pos_End_2P).w				; $FFFFF728
 		move.b	#1,(CNz_Triangle_Pos_Flag).w			  ; $FFFFF71B
 		rts
 ; ---------------------------------------------------------------------------
@@ -8752,36 +8711,36 @@ Offset_0x008AC4:
 		moveq	#1,d4
 		bra.s	Offset_0x008AD8
 Offset_0x008AD4:
-		lea	6(A1),a1
+		lea	6(a1),a1
 Offset_0x008AD8:
-		cmp.w	2(A1),d4
+		cmp.w	2(a1),d4
 		bhi.s	Offset_0x008AD4
 		bra.s	Offset_0x008AE2
 Offset_0x008AE0:
 		subq.w	#6,a1
 Offset_0x008AE2:
-		cmp.w	-4(A1),d4
+		cmp.w	-4(a1),d4
 		bls.s	Offset_0x008AE0
-		move.l	A1,(CNz_Triangle_Pos_Start).w				; $FFFFF71C
-		move.l	(CNz_Triangle_Pos_End).w,a2					; $FFFFF720
+		move.l	a1,(CNz_Triangle_Pos_Start).w				; $FFFFF71C
+		movea.l	(CNz_Triangle_Pos_End).w,a2					; $FFFFF720
 		addi.w	#$150,d4
 		bra.s	Offset_0x008AFA
 Offset_0x008AF6:
-		lea	6(A2),a2
+		lea	6(a2),a2
 Offset_0x008AFA:
-		cmp.w	2(A2),d4
+		cmp.w	2(a2),d4
 		bhi.s	Offset_0x008AF6
 		bra.s	Offset_0x008B04
 Offset_0x008B02:
 		subq.w	#6,a2
 Offset_0x008B04:
-		cmp.w	-4(A2),d4
+		cmp.w	-4(a2),d4
 		bls.s	Offset_0x008B02
-		move.l	A2,(CNz_Triangle_Pos_End).w					; $FFFFF720
+		move.l	a2,(CNz_Triangle_Pos_End).w					; $FFFFF720
 		tst.w	(Two_Player_Flag).w							 ; $FFFFFFD8
 		bne.s	Offset_0x008B1E
-		move.l	A1,(CNz_Triangle_Pos_Start_2P).w			; $FFFFF724
-		move.l	A2,(CNz_Triangle_Pos_End_2P).w				; $FFFFF728
+		move.l	a1,(CNz_Triangle_Pos_Start_2P).w			; $FFFFF724
+		move.l	a2,(CNz_Triangle_Pos_End_2P).w				; $FFFFF728
 		rts
 Offset_0x008B1E:
 		movea.l	(CNz_Triangle_Pos_Start_2P).w,a1			; $FFFFF724
@@ -8791,38 +8750,33 @@ Offset_0x008B1E:
 		moveq	#1,d4
 		bra.s	Offset_0x008B32
 Offset_0x008B2E:
-		lea	6(A1),a1
+		lea	6(a1),a1
 Offset_0x008B32:
-		cmp.w	2(A1),d4
+		cmp.w	2(a1),d4
 		bhi.s	Offset_0x008B2E
 		bra.s	Offset_0x008B3C
 Offset_0x008B3A:
 		subq.w	#6,a1
 Offset_0x008B3C:
-		cmp.w	-4(A1),d4
+		cmp.w	-4(a1),d4
 		bls.s	Offset_0x008B3A
-		move.l	A1,(CNz_Triangle_Pos_Start_2P).w			; $FFFFF724
+		move.l	a1,(CNz_Triangle_Pos_Start_2P).w			; $FFFFF724
 		movea.l	(CNz_Triangle_Pos_End_2P).w,a2				; $FFFFF728
 		addi.w	#$150,d4
 		bra.s	Offset_0x008B54
 Offset_0x008B50:
-		lea	6(A2),a2
+		lea	6(a2),a2
 Offset_0x008B54:
-		cmp.w	2(A2),d4
+		cmp.w	2(a2),d4
 		bhi.s	Offset_0x008B50
 		bra.s	Offset_0x008B5E
 Offset_0x008B5C:
 		subq.w	#6,a2
 Offset_0x008B5E:
-		cmp.w	-4(A2),d4
+		cmp.w	-4(a2),d4
 		bls.s	Offset_0x008B5C
-		move.l	A2,(CNz_Triangle_Pos_End_2P).w				; $FFFFF728
+		move.l	a2,(CNz_Triangle_Pos_End_2P).w				; $FFFFF728
 		rts
-;===============================================================================
-; Rotina para carregar o posiconamento dos tri�ngulos na Casino Night
-; <<<-	 Sonic 2 left over
-;===============================================================================
-
 ;===============================================================================
 ; Rotina para responder ao toque nos tri�ngulos na Casino Night
 ; ->>>	 Sonic 2 left over
@@ -8835,15 +8789,15 @@ S2_Touch_Response_Cnz_Triangles:							   ; Offset_0x008B6A
 		movea.l	(CNz_Triangle_Pos_Start_2P).w,a1			; $FFFFF724
 		movea.l	(CNz_Triangle_Pos_End_2P).w,a2				; $FFFFF728
 Offset_0x008B80:
-		cmpa.l	A1,a2
+		cmpa.l	a1,a2
 		beq.w	Offset_0x008C1A
-		move.w	x_pos(A0),d2									; $0010
-		move.w	y_pos(A0),d3									; $0014
+		move.w	x_pos(a0),d2									; $0010
+		move.w	y_pos(a0),d3									; $0014
 		subi.w	#9,d2
 		moveq	#0,d5
-		move.b	Obj_Height_2(A0),d5								; $001E
+		move.b	Obj_Height_2(a0),d5								; $001E
 		subq.b	#3,d5
-		sub.w	D5,d3
+		sub.w	d5,d3
 	if FixBugs
 		cmpi.b	#8,anim(A0)	; check ducking animation
 	else
@@ -8857,35 +8811,35 @@ Offset_0x008BAA:
 		move.w	#$12,d4
 		add.w	D5,d5
 Offset_0x008BB0:
-		move.w	(A1),d0
+		move.w	(a1),d0
 		andi.w	#$E,d0
 		lea	Offset_0x008BFA(pc,d0.w),a3
 		moveq	#0,d1
-		move.b	(A3)+,d1
-		move.w	2(A1),d0
-		sub.w	D1,d0
-		sub.w	D2,d0
+		move.b	(a3)+,d1
+		move.w	2(a1),d0
+		sub.w	d1,d0
+		sub.w	d2,d0
 		bcc.s	Offset_0x008BD2
-		add.w	D1,d1
-		add.w	D1,d0
+		add.w	d1,d1
+		add.w	d1,d0
 		bcs.s	Offset_0x008BD8
 		bra.w	Offset_0x008C10
 Offset_0x008BD2:
-		cmp.w	D4,d0
+		cmp.w	d4,d0
 		bhi.w	Offset_0x008C10
 Offset_0x008BD8:
 		moveq	#0,d1
-		move.b	(A3)+,d1
-		move.w	4(A1),d0
-		sub.w	D1,d0
-		sub.w	D3,d0
+		move.b	(a3)+,d1
+		move.w	4(a1),d0
+		sub.w	d1,d0
+		sub.w	d3,d0
 		bcc.s	Offset_0x008BF2
-		add.w	D1,d1
-		add.w	D1,d0
+		add.w	d1,d1
+		add.w	d1,d0
 		bcs.w	Offset_0x008C06
 		bra.w	Offset_0x008C10
 Offset_0x008BF2:
-		cmp.w	D5,d0
+		cmp.w	d5,d0
 		bhi.w	Offset_0x008C10
 		bra.s	Offset_0x008C06
 ; ---------------------------------------------------------------------------
@@ -8894,13 +8848,13 @@ Offset_0x008BFA:
 		dc.b	$08, $40, $08, $40
 ; ---------------------------------------------------------------------------
 Offset_0x008C06:
-		move.w	(A1),d0
+		move.w	(a1),d0
 		move.w	Offset_0x008C1C(pc,d0.w),d0
 		jmp	Offset_0x008C1C(pc,d0.w)
 ; ---------------------------------------------------------------------------
 Offset_0x008C10:
-		lea	6(A1),a1
-		cmpa.l	A1,a2
+		lea	6(a1),a1
+		cmpa.l	a1,a2
 		bne.w	Offset_0x008BB0
 Offset_0x008C1A:
 		rts
@@ -8914,33 +8868,33 @@ Offset_0x008C1C:
 		dc.w	Offset_0x008E46-Offset_0x008C1C
 ; ---------------------------------------------------------------------------
 Offset_0x008C28:
-		move.w	render_flags(A1),d0								; $0004
-		sub.w	y_pos(A0),d0									; $0014
-		neg.w	D0
+		move.w	render_flags(a1),d0								; $0004
+		sub.w	y_pos(a0),d0									; $0014
+		neg.w	d0
 		cmpi.w	#$20,d0
 		blt.s	Offset_0x008C42
-		move.w	#$A00,Obj_Speed_Y(A0)						   ; $001A
+		move.w	#$A00,Obj_Speed_Y(a0)						   ; $001A
 		bra.w	Offset_0x008E9C
 Offset_0x008C42:
-		move.w	2(A1),d0
-		sub.w	x_pos(A0),d0									; $0010
-		neg.w	D0
+		move.w	2(a1),d0
+		sub.w	x_pos(a0),d0									; $0010
+		neg.w	d0
 		cmpi.w	#$20,d0
 		blt.s	Offset_0x008C5C
-		move.w	#$A00,Obj_Speed_X(A0)						   ; $0018
+		move.w	#$A00,Obj_Speed_X(a0)						   ; $0018
 		bra.w	Offset_0x008E9C
 Offset_0x008C5C:
-		move.w	2(A1),d0
-		sub.w	x_pos(A0),d0									; $0010
+		move.w	2(a1),d0
+		sub.w	x_pos(a0),d0									; $0010
 		cmpi.w	#$20,d0
 		blt.s	Offset_0x008C6E
 		move.w	#$20,d0
 Offset_0x008C6E:
-		add.w	4(A1),d0
+		add.w	4(a1),d0
 		subq.w	#8,d0
-		move.w	y_pos(A0),d1									; $0014
+		move.w	y_pos(a0),d1									; $0014
 		addi.w	#$E,d1
-		sub.w	D1,d0
+		sub.w	d1,d0
 		bcc.s	Offset_0x008C8A
 		move.w	#$20,d3
 		bsr.s	Offset_0x008C8C
@@ -8948,61 +8902,61 @@ Offset_0x008C6E:
 Offset_0x008C8A:
 		rts
 Offset_0x008C8C:
-		move.w	Obj_Speed_X(A0),d1								; $0018
-		move.w	Obj_Speed_Y(A0),d2								; $001A
+		move.w	Obj_Speed_X(a0),d1								; $0018
+		move.w	Obj_Speed_Y(a0),d2								; $001A
 		jsr	(CalcAngle).l							 ; Offset_0x001DB8
-		move.b	D0,(CNz_Triangle_Angle_Buffer).w			; $FFFFFFDC
-		sub.w	D3,d0
-		move.w	D0,d1
+		move.b	d0,(CNz_Triangle_Angle_Buffer).w			; $FFFFFFDC
+		sub.w	d3,d0
+		move.w	d0,d1
 		bpl.s	Offset_0x008CA6
-		neg.w	D1
+		neg.w	d1
 Offset_0x008CA6:
-		neg.w	D0
-		add.w	D3,d0
-		move.b	D0,(CNz_Triangle_Angle_Buffer+1).w		  ; $FFFFFFDD
-		move.b	D1,(CNz_Triangle_Angle_Buffer+3).w		  ; $FFFFFFDF
+		neg.w	d0
+		add.w	d3,d0
+		move.b	d0,(CNz_Triangle_Angle_Buffer+1).w		  ; $FFFFFFDD
+		move.b	d1,(CNz_Triangle_Angle_Buffer+3).w		  ; $FFFFFFDF
 		cmpi.b	#$38,d1
 		bcs.s	Offset_0x008CBA
-		move.w	D3,d0
+		move.w	d3,d0
 Offset_0x008CBA:
-		move.b	D0,(CNz_Triangle_Angle_Buffer+2).w		  ; $FFFFFFDE
+		move.b	d0,(CNz_Triangle_Angle_Buffer+2).w		  ; $FFFFFFDE
 		jsr	(CalcSine).l							 ; Offset_0x001B20
 		muls.w	#$F600,d1
 		asr.l	#8,d1
-		move.w	D1,Obj_Speed_X(A0)								; $0018
+		move.w	d1,Obj_Speed_X(a0)								; $0018
 		muls.w	#$F600,d0
 		asr.l	#8,d0
-		move.w	D0,Obj_Speed_Y(A0)								; $001A
+		move.w	d0,Obj_Speed_Y(a0)								; $001A
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x008CDA:
-		move.w	4(A1),d0
-		sub.w	y_pos(A0),d0									; $0014
-		neg.w	D0
+		move.w	4(a1),d0
+		sub.w	y_pos(a0),d0									; $0014
+		neg.w	d0
 		cmpi.w	#$20,d0
 		blt.s	Offset_0x008CF4
-		move.w	#$A00,Obj_Speed_Y(A0)						   ; $001A
+		move.w	#$A00,Obj_Speed_Y(a0)						   ; $001A
 		bra.w	Offset_0x008E9C
 Offset_0x008CF4:
-		move.w	2(A1),d0
-		sub.w	x_pos(A0),d0									; $0010
+		move.w	2(a1),d0
+		sub.w	x_pos(a0),d0									; $0010
 		cmpi.w	#$20,d0
 		blt.s	Offset_0x008D0C
-		move.w	#$F600,Obj_Speed_X(A0)							; $0018
+		move.w	#$F600,Obj_Speed_X(a0)							; $0018
 		bra.w	Offset_0x008E9C
 Offset_0x008D0C:
-		move.w	2(A1),d0
-		sub.w	x_pos(A0),d0									; $0010
-		neg.w	D0
+		move.w	2(a1),d0
+		sub.w	x_pos(a0),d0									; $0010
+		neg.w	d0
 		cmpi.w	#$20,d0
 		blt.s	Offset_0x008D20
 		move.w	#$20,d0
 Offset_0x008D20:
-		add.w	4(A1),d0
+		add.w	4(a1),d0
 		subq.w	#8,d0
-		move.w	y_pos(A0),d1									; $0014
+		move.w	y_pos(a0),d1									; $0014
 		addi.w	#$E,d1
-		sub.w	D1,d0
+		sub.w	d1,d0
 		bcc.s	Offset_0x008D3E
 		move.w	#$60,d3
 		bsr.w	Offset_0x008C8C
@@ -9135,6 +9089,9 @@ Offset_0x008E9C:
 		move.w	#sfx_S2LargeBumper,d0						; $00D9
 		jmp	(PlaySound).l							; Offset_0x001176
 CNz_Triangles_Act_1:										   ; Offset_0x008EBC
+	if FixBugs
+		dc.w 0,0,0
+	endif
 		binclude	"data\s2_cnz\tri_act1.dat"
 CNz_Triangles_Act_2:										   ; Offset_0x009000
 		binclude	"data\s2_cnz\tri_act2.dat"
@@ -9534,16 +9491,6 @@ c := 0
 		dc.w	c
 c := c+$80
 	endm
-; ---------------------------------------------------------------------------
-; Tabela contendo os endere�os dos tiles 128x128 -> Ex: Tile 1 = $0080
-; <<<-
-; ---------------------------------------------------------------------------
-
-;===============================================================================
-; Rotina para testar em qual tile o objeto esta
-; <<<-
-;===============================================================================
-
 ;===============================================================================
 ; Rotina para localizar o ch�o
 ; ->>>
@@ -10001,7 +9948,6 @@ Offset_0x009B78:
 		bra.w	Offset_0x009ECE
 ;===============================================================================
 ; Rotina para calcular o quanto de espa�o h� acima do jogador
-; ->>>
 ;===============================================================================
 CalcRoomOverHead:											   ; Offset_0x009B94
 		move.l	(Primary_Collision_Ptr).w,(Current_Collision_Ptr).w ; $FFFFF7B4, $FFFFF796
@@ -10168,13 +10114,7 @@ Offset_0x009D5C:
 Offset_0x009D82:
 		rts
 ;===============================================================================
-; Rotina para detectar se o jogador tocou o ch�o
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para detectar se o objeto tocou o ch�o
-; ->>>
 ;===============================================================================
 ObjHitFloor:												   ; Offset_0x009D84
 		move.w	x_pos(a0),d3									; $0010
@@ -10196,13 +10136,7 @@ ObjHitFloor_D3:												   ; Offset_0x009D88
 Offset_0x009DB8:
 		rts
 ;===============================================================================
-; Rotina para detectar se o objeto tocou o ch�o
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para detectar se o objeto bola de fogo tocou o ch�o
-; ->>>
 ;===============================================================================
 Fire_FindFloor:												   ; Offset_0x009DBA
 		move.w	x_pos(a1),d3									; $0010
@@ -10217,13 +10151,7 @@ Fire_FindFloor:												   ; Offset_0x009DBA
 		moveq	#$C,d5
 		bra.w	FindFloor							   ; Offset_0x00973A
 ;===============================================================================
-; Rotina para detectar se o objeto bola de fogo tocou o ch�o
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para detectar se o objeto anel tocou o ch�o
-; ->>>
 ;===============================================================================
 Ring_FindFloor:												   ; Offset_0x009DE0
 		move.w	x_pos(a0),d3									; $0010
@@ -10237,10 +10165,6 @@ Ring_FindFloor:												   ; Offset_0x009DE0
 		move.w	#0,d6
 		moveq	#$C,d5
 		bra.w	Object_FindFloor					   ; Offset_0x0098AC
-;===============================================================================
-; Rotina para detectar se o objeto anel tocou o ch�o
-; <<<-
-;===============================================================================
 Player_DontRunOnWallsR:										   ; Offset_0x009E06
 		move.w	y_pos(a0),d2									; $0014
 		move.w	x_pos(a0),d3									; $0010
@@ -10320,7 +10244,6 @@ Offset_0x009ECE:
 		bra.w	Offset_0x009C84
 ;===============================================================================
 ; Rotina para detectar se o objeto tocou a parede a direita
-; ->>>
 ;===============================================================================
 Object_HitWall_Right:										   ; Offset_0x009EEE
 		add.w	x_pos(A0),d3									; $0010
@@ -10337,15 +10260,6 @@ Object_HitWall_Right:										   ; Offset_0x009EEE
 		move.b	#-$40,d3
 Offset_0x009F1A:
 		rts
-;===============================================================================
-; Rotina para detectar se o objeto tocou a parede a direita
-; <<<-
-;===============================================================================
-
-;===============================================================================
-; Rotina para detectar se o objeto tocou a parede a direita
-; <<<-
-;===============================================================================
 Player_DontRunOnWalls:										   ; Offset_0x009F1C
 		move.w	y_pos(A0),d2									; $0014
 		move.w	x_pos(A0),d3									; $0010
@@ -10398,7 +10312,6 @@ Offset_0x009F90:
 		bra.w	Offset_0x009C84
 ;===============================================================================
 ; Rotina para detectar se o objeto tocou o teto
-; ->>>
 ;===============================================================================
 Object_HitCeiling:											   ; Offset_0x009FB4
 		move.w	y_pos(A0),d2									; $0014
@@ -10419,10 +10332,6 @@ Object_HitCeiling:											   ; Offset_0x009FB4
 		move.b	#$80,d3
 Offset_0x009FEA:
 		rts
-;===============================================================================
-; Rotina para detectar se o objeto tocou o teto
-; <<<-
-;===============================================================================
 Player_DontRunOnWallsL:										   ; Offset_0x009FEC
 		move.w	y_pos(A0),d2									; $0014
 		move.w	x_pos(A0),d3									; $0010
@@ -10532,7 +10441,6 @@ Offset_0x00A136:
 		rts
 ;===============================================================================
 ; Rotina para detectar se o objeto tocou a parede a esquerda
-; ->>>
 ;===============================================================================
 Object_HitWall_Left:										  ;	 Offset_0x00A138
 		add.w	x_pos(A0),d3									; $0010
@@ -10549,15 +10457,10 @@ Object_HitWall_Left:										  ;	 Offset_0x00A138
 		move.b	#$40,d3
 Exit_Object_HitWall_Left:									   ; Offset_0x00A164
 		rts
-;===============================================================================
-; Rotina para detectar se o objeto tocou a parede a esquerda
-; <<<-
-;===============================================================================
 ; Offset_0x00A166:
 		rts
 ;===============================================================================
 ; Rotina usada para responder quando o jogador tocar em algum objeto
-; ->>>
 ;===============================================================================
 Touch_Response_2P:											   ; Offset_0x00A168
 		nop
@@ -10711,7 +10614,7 @@ Touch_Check_Value:											   ; Offset_0x00A27A
 		beq.s	Offset_0x00A2B0
 		move.b	Obj_P_Invunerblt_Time(A0),d0					; $0034
 Offset_0x00A2B0:
-		cmpi.b	#$5A,d0
+		cmpi.b	#90,d0
 		bcc.w	Offset_0x00A2C2
 		move.b	#4,routine(A1)							  ; $0005
 		move.w	A0,Obj_Parent_Ref(A1)							; $003E
@@ -10788,7 +10691,7 @@ Offset_0x00A384:
 		move.w	#1000,d0	   ; 10000
 		move.w	#$A,Obj_Player_Spdsh_Cnt(A1)				 ; $003E
 Offset_0x00A39E:
-		move.w	A0,a3
+		movea.w	a0,a3
 		bsr.w	Add_Points							   ; Offset_0x007AEC
 		move.l	#Obj_Explosion,(A1)						 ; Offset_0x013D7C
 		move.b	#0,routine(A1)							  ; $0005
@@ -10825,7 +10728,7 @@ Touch_Hurt:													   ; Offset_0x00A3F0
 		nop
 		tst.b	Obj_P_Invunerblt_Time(A0)						 ; $0034
 		bne.s	Offset_0x00A3EC
-		move.l	A1,a2
+		movea.l	a1,a2
 Hurt_Player:												   ; Offset_0x00A3FA
 		move.w	(Ring_count).w,d0					; $FFFFFE20
 		cmpa.w	#Obj_Player_One,a0								; $B000
@@ -10873,7 +10776,6 @@ Offset_0x00A486:
 		rts
 ;===============================================================================
 ; Rotina Kill_Player - Rotina para matar o jogador
-; ->>>
 ;===============================================================================
 Kill_Player:												   ; Offset_0x00A4A4
 		tst.w	(Debug_placement_mode).w					; $FFFFFE08
@@ -10894,13 +10796,7 @@ Kill_NoDeath:												   ; Offset_0x00A4EA
 		moveq	#-1,d0
 		rts
 ;===============================================================================
-; Rotina Kill_Player - Rotina para matar o jogador
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina Touch_Special
-; ->>>
 ;===============================================================================
 Touch_Special:												   ; Offset_0x00A4EE
 		move.b	Obj_Col_Flags(A1),d1							; $0028
@@ -10925,7 +10821,7 @@ Touch_Special:												   ; Offset_0x00A4EE
 		beq.s	Offset_0x00A52E
 		rts
 Offset_0x00A52E:
-		move.w	A0,d1
+		move.w	a0,d1
 		subi.w	#Obj_Memory_Address,d1							; $B000
 		beq.s	Offset_0x00A53A
 		addq.b	#1,Obj_Col_Prop(A1)							  ; $0029
@@ -12198,7 +12094,7 @@ LoadShieldDynamicPLC:
 		cmp.b	Obj_Control_Var_04(a0),d0
 		beq.s	Offset_0x010606
 		move.b	d0,Obj_Control_Var_04(a0)
-		move.l	Obj_Control_Var_0C(a0),a2
+		movea.l	Obj_Control_Var_0C(a0),a2
 		add.w	d0,d0
 		adda.w	(a2,d0.w),a2
 		move.w	(a2)+,d5
@@ -12669,10 +12565,6 @@ Offset_0x010AD0:
 		jmp	(PlaySound).l
 ; End of function CollectRing
 
-;===============================================================================
-; Rotina para adicionar an�is ao contador, verificando o limmite e bonificando
-; <<<-		  com vida extra ao adiquirir 100 e 200 an�is
-;===============================================================================
 Rings_Lost:													   ; Offset_0x010AD6
 		include "objects\ringlost.asm"
 Obj_S1_0x4B_Big_Ring: ; Sonic 1 Left over					   ; Offset_0x010C60
@@ -12810,19 +12702,19 @@ Offset_0x011076:
 		moveq	#1,d1
 		moveq	#80-1,d7
 Offset_0x01107C:
-		move.w	D0,(A0)
-		move.b	D1,3(A0)
+		move.w	d0,(a0)
+		move.b	d1,3(a0)
 		addq.w	#1,d1
 		addq.w	#8,a0
-		dbf	D7,Offset_0x01107C
-		move.b	D0,-5(A0)
+		dbf	d7,Offset_0x01107C
+		move.b	d0,-5(A0)
 		rts
 Offset_0x011090:
-		lea	-$280(A0),a0
-		move.l	#$EB0301,(A0)+
-		move.l	#1,(A0)+
-		move.l	#$EB0302,(A0)+
-		move.l	#0,(A0)
+		lea	-$280(a0),a0
+		move.l	#$EB0301,(a0)+
+		move.l	#1,(a0)+
+		move.l	#$EB0302,(a0)+
+		move.l	#0,(a0)
 		rts
 ; ---------------------------------------------------------------------------
 ; This runs the code of all the objects that are in Object_RAM
@@ -12884,7 +12776,6 @@ Offset_0x0110F4:
 
 ;===============================================================================
 ; Rotina para fazer o objeto cair
-; ->>>
 ;===============================================================================
 ObjectFall:													   ; Offset_0x0110FE
 		move.w	x_vel(A0),d0								; $0018
@@ -12897,11 +12788,6 @@ ObjectFall:													   ; Offset_0x0110FE
 		lsl.l	#8,d0
 		add.l	D0,y_pos(A0)									; $0014
 		rts
-;===============================================================================
-; Rotina para fazer o objeto cair
-; <<<-
-;===============================================================================
-
 SpeedToPos:													   ; Offset_0x01111E
 		move.w	x_vel(A0),d0								; $0018
 		ext.l	D0
@@ -12957,7 +12843,6 @@ Exit_DisplaySprite:
 
 ;===============================================================================
 ; Rotina para anima��o do sprite
-; ->>>
 ;===============================================================================
 AnimateSprite:												   ; Offset_0x01115E
 		moveq	#0,d0
@@ -13078,13 +12963,7 @@ Offset_0x011282:
 Offset_0x011294:
 		rts
 ;===============================================================================
-; Rotina para anima��o do sprite
-; <<<-
-;===============================================================================
-
-;===============================================================================
 ; Rotina para compilar os sprites de acordo com as defini��es dos objetos
-; ->>>
 ;===============================================================================
 Build_Sprites:												   ; Offset_0x011296
 		tst.w	(Two_Player_Flag).w							 ; $FFFFFFD8
@@ -14807,11 +14686,6 @@ Offset_0x0123C6:
 		move.w	D0,(A1)
 		move.w	D1,(A4)
 		rts
-; ---------------------------------------------------------------------------
-; Rotina para rolar o tela durante o jogo tamb�m conhecido como rasteriza��o ou
-; <<<-	 rolagem por software
-; ---------------------------------------------------------------------------
-
 ; Offset_0x123D8: Load_Tiles_From_Start_Ptr:
 JmpTo_Setup_TileDrawing:
 		jmp	(Setup_TileDrawing).l
