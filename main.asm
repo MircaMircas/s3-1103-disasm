@@ -1221,6 +1221,7 @@ SoundDriverLoad:
 Offset_0x001128:
 		move.b	(a0)+,(a1)+
 		dbf	d0,Offset_0x001128
+	if ~~FixBugs
 		; load default variables
 		lea	(Z80_DefaultVariables).l,a0
 		lea	(Z80_RAM+zDataStart).l,a1
@@ -1229,6 +1230,7 @@ Offset_0x001128:
 Offset_0x00113E:
 		move.b	(a0)+,(a1)+
 		dbf	d0,Offset_0x00113E
+	endif
 	if FixBugs
 		; Detect PAL region consoles
 		btst	#6,(Hardware_Id).w
@@ -1238,15 +1240,22 @@ Offset_0x00113E:
 .notpal:
 	endif
 		move.w	#0,(Z80_Reset).l		; reset Z80
+	if FixBugs
+		; ensures that the YM2612 is ready to be written to
+		moveq	#200/10,d0	; set to wait for 200 cycles
+		dbf	d0,*	; wait for YM2612
+	else
 		nop
 		nop
 		nop
 		nop
+	endif
 		move.w	#$100,(Z80_Reset).l		; release reset
 		startZ80
 		rts
 ; End of function SoundDriverLoad
 
+	if ~~FixBugs
 ; ---------------------------------------------------------------------------
 ; Default Z80 variables; only the third/fourth value is set to anything
 ; meaningful (which is more than can be said for the final)
@@ -1268,6 +1277,7 @@ Z80_DefaultVariables:
 		dc.b	0	; zFadeDelay
 		dc.b	0	; zFadeDelayTimeout
 Z80_DefaultVariables_End:
+	endif
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to put a sound ID into the sound queue
