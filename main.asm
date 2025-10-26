@@ -40954,7 +40954,6 @@ DAC_98_99_9A_Data_End:
 DAC_9B_Data:
 		binclude	"Sound\DAC\dac_9B.bin"
 DAC_9B_Data_End:
-; ---------------------------------------------------------------------------
 		binclude	"data\star trek\part14.bin"
 	finishBank
 ; ---------------------------------------------------------------------------
@@ -46284,7 +46283,6 @@ Art_Knuckles_2:
 		binclude	"data\art\knuckls2.dat"
 Art_Tornado:
 		binclude	"data\art\tornado.kosm"
-		binclude	"data\art\intro plane shadows.kos"
 Art_AIz_Swinging_Vine:
 		binclude	"data\aiz\swngvine.nem"
 		even
