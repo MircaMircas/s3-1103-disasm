@@ -48034,7 +48034,7 @@ Left_Over_Incomplete_LRz_Rocks_Layout_2:					   ; Offset_0x1F6840
 Left_Over_LRz_Rocks_Layout_2a:								  ; Offset_0x1F5D0A
 		binclude	"data\lrz\rockpos2.dat"
 ; ---------------------------------------------------------------------------
-		align	 $1000
+		align	$1000
 ; ---------------------------------------------------------------------------
 Player_Start_Speed_Array:
 		dc.w	$0600, $0010, $0020, $0000
@@ -48212,16 +48212,14 @@ LBz_Automatic_Tunnel_From_To_Data:							   ; Offset_0x1F7258
 ; ---------------------------------------------------------------------------
 ; Offset_0x1F72DE:
 AIz_Obj_Act1:	binclude	"Levels\AIZ\Object Layout - Act 1.bin"
-		dc.w	$FFFF, 0, 0
 ; Offset_0x1F75C6:
 AIz_Obj_Act2:	binclude	"Levels\AIZ\Object Layout - Act 2.bin"
-		dc.w	$FFFF, 0, 0
 ; Offset_0x1F7A4C:
 AIz_Rng_Act1:	binclude	"Levels\AIZ\Ring Layout - Act 1.bin"
 ; Offset_0x1F7BE4:
 AIz_Rng_Act2:	binclude	"Levels\AIZ\Ring Layout - Act 2.bin"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 Hz_Obj_Act1:												   ; Offset_0x1F7F46
 		binclude	"data\hz\obj_act1.dat"
 Hz_Obj_Act2:												   ; Offset_0x1F8762
@@ -48231,19 +48229,19 @@ Hz_Rng_Act1:												   ; Offset_0x1F8FA8
 Hz_Rng_Act2:												   ; Offset_0x1F93F0
 		binclude	"data\hz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 MGz_Obj_Act1:												   ; Offset_0x1F970E
 		binclude	"data\mgz\obj_act1.dat"
 MGz_Rng_Act1:												   ; Offset_0x1F9F18
 		binclude	"data\mgz\rng_act1.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 MGz_Obj_Act2:												   ; Offset_0x1FA4A2
 		binclude	"data\mgz\obj_act2.dat"
 MGz_Rng_Act2:												   ; Offset_0x1FABD4
 		binclude	"data\mgz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 CNz_Obj_Act1:												   ; Offset_0x1FB0FE
 		binclude	"data\cnz\obj_act1.dat"
 CNz_Obj_Act2:												   ; Offset_0x1FB9FE
@@ -48253,7 +48251,7 @@ CNz_Rng_Act1:												   ; Offset_0x1FC4A2
 CNz_Rng_Act2:												   ; Offset_0x1FC7DA
 		binclude	"data\cnz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 FBz_Obj_Act1:												   ; Offset_0x1FC970
 		binclude	"data\fbz\obj_act1.dat"
 FBz_Obj_Act2:												   ; Offset_0x1FC982
@@ -48268,7 +48266,7 @@ FBz_Rng_Act2:												   ; Offset_0x1FC9C2
 		dc.w	$23B0, $8618, $2A04
 		dc.w	$23B0, $8620, $2A06
 		dc.w	$23B0, $8628, $2A08
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 ; ---------------------------------------------------------------------------
 Iz_Obj_Act1:												   ; Offset_0x1FCA0E
 		binclude	"data\iz\obj_act1.dat"
@@ -48279,7 +48277,7 @@ Iz_Rng_Act1:												   ; Offset_0x1FD344
 Iz_Rng_Act2:												   ; Offset_0x1FD550
 		binclude	"data\iz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 LBz_Obj_Act1:												   ; Offset_0x1FD896
 		binclude	"data\lbz\obj_act1.dat"
 LBz_Obj_Act2:												   ; Offset_0x1FE100
@@ -48662,7 +48660,7 @@ Teleport_Data_0x14:											   ; Offset_0x1FF5F0
 		dc.w	$36A8, $07F0
 ; ---------------------------------------------------------------------------
 Offset_0x1FF61A:
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 ; ---------------------------------------------------------------------------
 MVz_Obj_Act1:												   ; Offset_0x1FF620
 		binclude	"data\mvz\obj_act1.dat"
@@ -48673,7 +48671,7 @@ MVz_Rng_Act1:												   ; Offset_0x1FF7E2
 MVz_Rng_Act2:												   ; Offset_0x1FF7E8
 		binclude	"data\mvz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 Sz_Obj_Act1:												   ; Offset_0x1FF7F4
 		binclude	"data\sz\obj_act1.dat"
 Sz_Obj_Act2:												   ; Offset_0x1FF800
@@ -48683,7 +48681,7 @@ Sz_Rng_Act1:												   ; Offset_0x1FF80C
 Sz_Rng_Act2:												   ; Offset_0x1FF812
 		binclude	"data\sz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 LRz_Obj_Act1:												   ; Offset_0x1FF81E
 		binclude	"data\lrz\obj_act1.dat"
 LRz_Obj_Act2:												   ; Offset_0x1FF82A
@@ -48693,7 +48691,7 @@ LRz_Rng_Act1:												   ; Offset_0x1FF836
 LRz_Rng_Act2:												   ; Offset_0x1FF83C
 		binclude	"data\lrz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 SSz_Obj_Act1:												   ; Offset_0x1FF848
 		binclude	"data\ssz\obj_act1.dat"
 SSz_Obj_Act2:												   ; Offset_0x1FF854
@@ -48703,7 +48701,7 @@ SSz_Rng_Act1:												   ; Offset_0x1FF860
 SSz_Rng_Act2:												   ; Offset_0x1FF866
 		binclude	"data\ssz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 DEz_Obj_Act1:												   ; Offset_0x1FF872
 		binclude	"data\dez\obj_act1.dat"
 DEz_Obj_Act2:												   ; Offset_0x1FF87E
@@ -48713,7 +48711,7 @@ DEz_Rng_Act1:												   ; Offset_0x1FF88A
 DEz_Rng_Act2:												   ; Offset_0x1FF890
 		binclude	"data\dez\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 TDz_Obj_Act1:												   ; Offset_0x1FF89C
 		binclude	"data\tdz\obj_act1.dat"
 TDz_Obj_Act2:												   ; Offset_0x1FF8A8
@@ -48723,7 +48721,7 @@ TDz_Rng_Act1:												   ; Offset_0x1FF8B4
 TDz_Rng_Act2:												   ; Offset_0x1FF8BA
 		binclude	"data\tdz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 SSz_KTe_Boss_Obj_Act1:										   ; Offset_0x1FF8C6
 		binclude	"data\ssz\obj_act3.dat"
 SSz_KTe_Boss_Obj_Act2:										   ; Offset_0x1FF8D2
@@ -48733,7 +48731,7 @@ SSz_KTe_Boss_Rng_Act1:										   ; Offset_0x1FF8DE
 SSz_KTe_Boss_Rng_Act2:										   ; Offset_0x1FF8E4
 		binclude	"data\ssz\rng_act4.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 ALz_Obj_Act1:												   ; Offset_0x1FF8F0
 		binclude	"data\alz\obj_act1.dat"
 ALz_Obj_Act2:												   ; Offset_0x1FF92C
@@ -48743,7 +48741,7 @@ ALz_Rng_Act1:												   ; Offset_0x1FF938
 ALz_Rng_Act2:												   ; Offset_0x1FF93E
 		binclude	"data\alz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 BPz_Obj_Act1:												   ; Offset_0x1FF94A
 		binclude	"data\bpz\obj_act1.dat"
 BPz_Obj_Act2:												   ; Offset_0x1FF99E
@@ -48753,7 +48751,7 @@ BPz_Rng_Act1:												   ; Offset_0x1FF9AA
 BPz_Rng_Act2:												   ; Offset_0x1FF9B0
 		binclude	"data\bpz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 DPz_Obj_Act1:												   ; Offset_0x1FF9BC
 		binclude	"data\dpz\obj_act1.dat"
 DPz_Obj_Act2:												   ; Offset_0x1FFA28
@@ -48763,7 +48761,7 @@ DPz_Rng_Act1:												   ; Offset_0x1FFA34
 DPz_Rng_Act2:												   ; Offset_0x1FFA3A
 		binclude	"data\dpz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 CGZ_Obj_Act1:												   ; Offset_0x1FFA46
 		binclude	"data\cgz\obj_act1.dat"
 CGZ_Obj_Act2:												   ; Offset_0x1FFAA6
@@ -48773,7 +48771,7 @@ CGZ_Rng_Act1:												   ; Offset_0x1FFAB2
 CGZ_Rng_Act2:												   ; Offset_0x1FFAB8
 		binclude	"data\cgz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 EMz_Obj_Act1:												   ; Offset_0x1FFAC4
 		binclude	"data\emz\obj_act1.dat"
 EMz_Obj_Act2:												   ; Offset_0x1FFAEE
@@ -48783,7 +48781,7 @@ EMz_Rng_Act1:												   ; Offset_0x1FFAFA
 EMz_Rng_Act2:												   ; Offset_0x1FFB00
 		binclude	"data\emz\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 BS_GM_Obj_Act1:												   ; Offset_0x1FFB0C
 		binclude	"data\bs_gm\obj_act1.dat"
 BS_GM_Obj_Act2:												   ; Offset_0x1FFB18
@@ -48793,7 +48791,7 @@ BS_GM_Rng_Act1:												   ; Offset_0x1FFB24
 BS_GM_Rng_Act2:												   ; Offset_0x1FFB2A
 		binclude	"data\bs_gm\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 BS_GS_Obj_Act1:												   ; Offset_0x1FFB36
 		binclude	"data\bs_gs\obj_act1.dat"
 BS_GS_Obj_Act2:												   ; Offset_0x1FFB42
@@ -48803,7 +48801,7 @@ BS_GS_Rng_Act1:												   ; Offset_0x1FFB4E
 BS_GS_Rng_Act2:												   ; Offset_0x1FFB54
 		binclude	"data\bs_gs\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 BS_SM_Obj_Act1:												   ; Offset_0x1FFB60
 		binclude	"data\bs_sm\obj_act1.dat"
 BS_SM_Obj_Act2:												   ; Offset_0x1FFB6C
@@ -48813,7 +48811,7 @@ BS_SM_Rng_Act1:												   ; Offset_0x1FFB78
 BS_SM_Rng_Act2:												   ; Offset_0x1FFB7E
 		binclude	"data\bs_sm\rng_act2.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 LRz_Act2_Boss_Obj:											   ; Offset_0x1FFB8A
 		binclude	"data\lrz\obj_act3.dat"
 HPz_Obj:													   ; Offset_0x1FFB96
@@ -48823,7 +48821,7 @@ LRz_Act2_Boss_Rng:											   ; Offset_0x1FFBA2
 HPz_Rng:													   ; Offset_0x1FFBA8
 		binclude	"data\hpz\rng_act1.dat"
 ; ---------------------------------------------------------------------------
-		dc.w	$FFFF, $0000, $0000
+		dc.w	$FFFF, 0, 0
 DEz_Final_Boss_Obj:											   ; Offset_0x1FFBB4
 		binclude	"data\dez\obj_act3.dat"
 HPz_Obj_2:													   ; Offset_0x1FFBC0
