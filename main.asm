@@ -5810,9 +5810,7 @@ Demo_Index:
 		dc.l	Demo_Angel_Island
 ; ---------------------------------------------------------------------------
 Demo_End_Index: ; Leftover from Sonic 1
-		dc.w	$008B, $0837, $0042, $085C, $006A, $085F, $002F, $082C
-		dc.w	$0021, $0803, $2830, $0808, $002E, $0815, $000F, $0846
-		dc.w	$001A, $08FF, $08CA, $0000, $0000, $0000, $0000, $0000
+		binclude	"demodata\Unused Demo.bin"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to load collision for 16x16 level blocks
@@ -8078,7 +8076,7 @@ Offset_0x007E22:
 		move.l	#HUD_Art_Numbers,d1					  ; Offset_0x0080BA
 		move.w	#$DC40,d2
 		move.w	#$160,d3
-		jmp	(QueueDMATransfer).l						; Offset_0x0012FC
+		jmp	(QueueDMATransfer).l
 ; ---------------------------------------------------------------------------
 HUD_ScoreTime_Mask:											   ; Offset_0x007E3A
 		dc.l	$16FFFFFF, $FFFFFF00, $00140000
@@ -10789,7 +10787,7 @@ Kill_Player:												   ; Offset_0x00A4A4
 		move.w	#0,Obj_Speed_X(A0)							; $0018
 		move.w	#0,Obj_Inertia(A0)							; $001C
 		move.b	#$18,anim(A0)							; $0020
-		bset	#7,Obj_Art_VRAM(A0)							  ; $000A
+		bset	#7,art_tile(A0)							  ; $000A
 		moveq	#sfx_Death,d0									   ; $35
 		jsr	(PlaySound).l							; Offset_0x001176
 Kill_NoDeath:												   ; Offset_0x00A4EA
@@ -11604,7 +11602,7 @@ ClassicShield_Init:
 		move.b	#4,render_flags(a0)
 		move.w	#$80,priority(a0)
 		move.b	#$18,width_pixels(a0)
-		move.w	#$79C,Obj_Art_VRAM(a0)
+		move.w	#$79C,art_tile(a0)
 ; Offset_0x00F9A8:
 ClassicShield_Main:
 		move.w	Obj_Player_Last(a0),a2
@@ -11615,10 +11613,10 @@ ClassicShield_Main:
 		move.w	x_pos(a2),x_pos(a0)
 		move.w	y_pos(a2),y_pos(a0)
 		move.b	status(a2),status(a0)
-		andi.w	#$7FFF,Obj_Art_VRAM(a0)
-		tst.w	Obj_Art_VRAM(a2)
+		andi.w	#$7FFF,art_tile(a0)
+		tst.w	art_tile(a2)
 		bpl.s	ClassicShield_Display
-		ori.w	#$8000,Obj_Art_VRAM(a0)
+		ori.w	#$8000,art_tile(a0)
 ; Offset_0x00F9E0:
 ClassicShield_Display:
 		lea	(Classic_Shield_Animate_Data).l,a1
@@ -11674,7 +11672,7 @@ Offset_0x00FA2A:
 		move.l	(a0),(a1)
 		move.b	#4,routine(a1)
 		move.l	#Invincibility_Mappings,mappings(a1)
-		move.w	#$79C,Obj_Art_VRAM(a1)
+		move.w	#$79C,art_tile(a1)
 		move.w	#$80,priority(a1)
 		move.b	#4,render_flags(a1)
 		bset	#6,render_flags(a1)
@@ -11952,11 +11950,11 @@ Obj_FireShield:
 		move.w	#$80,priority(a0)
 		move.b	#$18,width_pixels(a0)
 		move.b	#$18,height_pixels(a0)
-		move.w	#$79C,Obj_Art_VRAM(a0)
+		move.w	#$79C,art_tile(a0)
 		move.w	#$F380,Obj_Control_Var_10(a0)
-		btst	#7,(Obj_Player_One+Obj_Art_VRAM).w
+		btst	#7,(Obj_Player_One+art_tile).w
 		beq.s	.notHighPriority
-		bset	#7,Obj_Art_VRAM(a0)
+		bset	#7,art_tile(a0)
 ; Offset_0x010410:
 .notHighPriority:
 		move.l	#FireShield_Main,(a0)
@@ -11970,10 +11968,10 @@ FireShield_Main:
 		move.w	x_pos(a2),x_pos(a0)
 		move.w	y_pos(a2),y_pos(a0)
 		move.b	status(a2),status(a0)
-		andi.w	#$7FFF,Obj_Art_VRAM(a0)
-		tst.w	Obj_Art_VRAM(A2)
+		andi.w	#$7FFF,art_tile(a0)
+		tst.w	art_tile(A2)
 		bpl.s	FireShield_Display
-		ori.w	#$8000,Obj_Art_VRAM(a0)
+		ori.w	#$8000,art_tile(a0)
 ; Offset_0x01044E: .notHighPriority:
 FireShield_Display:
 		lea	(FireShield_AnimateData).l,a1
@@ -12000,11 +11998,11 @@ Obj_LightningShield:
 		move.w	#$80,priority(a0)
 		move.b	#$18,width_pixels(a0)
 		move.b	#$18,height_pixels(a0)
-		move.w	#$79C,Obj_Art_VRAM(a0)
+		move.w	#$79C,art_tile(a0)
 		move.w	#$F380,Obj_Control_Var_10(a0)
-		btst	#7,(Obj_Player_One+Obj_Art_VRAM).w
+		btst	#7,(Obj_Player_One+art_tile).w
 		beq.s	.notHighPriority
-		bset	#7,Obj_Art_VRAM(a0)
+		bset	#7,art_tile(a0)
 ; Offset_0x0104B6:
 .notHighPriority:
 		move.l	#LightningShield_Main,(a0)
@@ -12018,10 +12016,10 @@ LightningShield_Main:
 		move.w	x_pos(a2),x_pos(a0)
 		move.w	y_pos(a2),y_pos(a0)
 		move.b	status(a2),status(a0)
-		andi.w	#$7FFF,Obj_Art_VRAM(a0)
-		tst.w	Obj_Art_VRAM(A2)
+		andi.w	#$7FFF,art_tile(a0)
+		tst.w	art_tile(A2)
 		bpl.s	LightningShield_Display
-		ori.w	#$8000,Obj_Art_VRAM(a0)
+		ori.w	#$8000,art_tile(a0)
 ; Offset_0x0104F4: .notHighPriority:
 LightningShield_Display:
 		lea	(LightningShield_AnimateData).l,a1
@@ -12048,11 +12046,11 @@ Obj_BubbleShield:
 		move.w	#$80,priority(a0)
 		move.b	#$18,width_pixels(a0)
 		move.b	#$18,height_pixels(a0)
-		move.w	#$79C,Obj_Art_VRAM(a0)
+		move.w	#$79C,art_tile(a0)
 		move.w	#$F380,Obj_Control_Var_10(a0)
-		btst	#7,(Obj_Player_One+Obj_Art_VRAM).w
+		btst	#7,(Obj_Player_One+art_tile).w
 		beq.s	.notHighPriority
-		bset	#7,Obj_Art_VRAM(a0)
+		bset	#7,art_tile(a0)
 ; Offset_0x01055C:
 .notHighPriority:
 		move.l	#BubbleShield_Main,(a0)
@@ -12066,10 +12064,10 @@ BubbleShield_Main:
 		move.w	x_pos(a2),x_pos(a0)
 		move.w	y_pos(a2),y_pos(a0)
 		move.b	status(a2),status(a0)
-		andi.w	#$7FFF,Obj_Art_VRAM(a0)
-		tst.w	Obj_Art_VRAM(A2)
+		andi.w	#$7FFF,art_tile(a0)
+		tst.w	art_tile(A2)
 		bpl.s	BubbleShield_Display
-		ori.w	#$8000,Obj_Art_VRAM(a0)
+		ori.w	#$8000,art_tile(a0)
 ; Offset_0x01059A: .notHighPriority:
 BubbleShield_Display:
 		lea	(BubbleShield_AnimateData).l,a1
@@ -12462,14 +12460,14 @@ Rings_Index:	dc.w Rings_Init-Rings_Index
 Rings_Init:
 		addq.b	#2,routine(a0)
 		move.l	#Rings_Mappings,mappings(a0)
-		move.w	#$A6BC,Obj_Art_VRAM(a0)
+		move.w	#$A6BC,art_tile(a0)
 		move.b	#4,render_flags(a0)
 		move.w	#$100,priority(a0)
 		move.b	#$47,Obj_Col_Flags(a0)
 		move.b	#8,width_pixels(a0)
 		tst.w	(Two_Player_Flag).w
 		beq.s	Rings_Main
-		move.w	#$63D2,Obj_Art_VRAM(a0)
+		move.w	#$63D2,art_tile(a0)
 ; Offset_0x0109F2:
 Rings_Main:
 		move.b	(Object_Frame_Buffer).w,mapping_frame(a0)
@@ -13028,7 +13026,7 @@ Offset_0x011328:
 		subq.w	#1,d4
 		bmi.s	Offset_0x011356
 Offset_0x01134E:
-		move.w	Obj_Art_VRAM(a0),d5								; $000A
+		move.w	art_tile(a0),d5								; $000A
 		jsr	Offset_0x0114D6(pc)
 Offset_0x011356:
 		subq.w	#2,(a5)
@@ -13120,7 +13118,7 @@ Offset_0x01144E:
 		ori.b	#$80,render_flags(a0)								; $0004
 		tst.w	d7
 		bmi.w	Offset_0x011356
-		move.w	Obj_Art_VRAM(a0),d5								; $000A
+		move.w	art_tile(a0),d5								; $000A
 		move.l	mappings(a0),a2									; $000C
 		moveq	#0,d4
 		move.b	mapping_frame(a0),d4								; $0022
@@ -13523,7 +13521,7 @@ Offset_0x0117FE:
 		subq.w	#1,d4
 		bmi.s	Offset_0x01182C
 Offset_0x011824:
-		move.w	Obj_Art_VRAM(a0),d5								; $000A
+		move.w	art_tile(a0),d5								; $000A
 		jsr	Offset_0x0114D6(pc)
 Offset_0x01182C:
 		subq.b	#2,(a5)
@@ -13611,7 +13609,7 @@ Offset_0x0118FA:
 		subq.w	#1,d4
 		bmi.s	Offset_0x01192C
 Offset_0x011924:
-		move.w	Obj_Art_VRAM(a0),d5								; $000A
+		move.w	art_tile(a0),d5								; $000A
 		jsr	Offset_0x0114D6(pc)
 Offset_0x01192C:
 		subq.b	#2,1(a5)
@@ -13657,7 +13655,7 @@ Offset_0x011956:
 		ori.b	#$80,render_flags(a0)								; $0004
 		tst.w	d7
 		bmi.w	Offset_0x01182C
-		move.w	Obj_Art_VRAM(a0),d5								; $000A
+		move.w	art_tile(a0),d5								; $000A
 		move.l	mappings(a0),a2									; $000C
 		moveq	#0,d4
 		move.b	mapping_frame(a0),d4								; $0022
@@ -13731,7 +13729,7 @@ Offset_0x011A22:
 		ori.b	#$80,render_flags(a0)								; $0004
 		tst.w	d7
 		bmi.w	Offset_0x01192C
-		move.w	Obj_Art_VRAM(a0),d5								; $000A
+		move.w	art_tile(a0),d5								; $000A
 		move.l	mappings(a0),a2									; $000C
 		moveq	#0,d4
 		move.b	mapping_frame(a0),d4								; $0022
@@ -13786,7 +13784,7 @@ Offset_0x011AE8:
 ; ---------------------------------------------------------------------------
 MarkObjGone:
 		move.w	x_pos(a0),d0
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x011B0A
@@ -13800,7 +13798,7 @@ Offset_0x011B16:
 		bra.w	DeleteObject
 ; ---------------------------------------------------------------------------
 MarkObjGone_2:
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x011B2E
@@ -13815,7 +13813,7 @@ Offset_0x011B3A:
 ; ---------------------------------------------------------------------------
 MarkObjGone_3:
 		move.w	x_pos(a0),d0
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x011B54
@@ -13832,7 +13830,7 @@ MarkObjGone_4:
 		tst.w	(Two_Player_Flag).w
 		bne.s	MarkObjGone_4_2P
 		move.w	x_pos(a0),d0
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x011B82
@@ -13869,7 +13867,7 @@ Offset_0x011BC8:
 MarkObjGone_5: ; Usado pelos an�is ; MarkObjGone_2 in Sonic 2
 		move.w	x_pos(a0),d0
 MarkObjGone_5_D0:
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x011BE8
@@ -13958,7 +13956,7 @@ Offset_0x011C60:
 		moveq	#0,d6					; cap at zero
 
 Offset_0x011C78:
-		andi.w	#$FF80,d6				; limit to increments of $80 (width of a chunk)
+		andi.w	#-$80,d6				; limit to increments of $80 (width of a chunk)
 		movea.l	(Object_Pos_Next).w,a0			; load address of object placement list
 
 Offset_0x011C80:
@@ -13998,12 +13996,12 @@ Offset_0x011CAA:
 ObjectsManager_Main:
 		move.w	(Camera_X).w,d1
 		subi.w	#$80,d1
-		andi.w	#$FF80,d1
+		andi.w	#-$80,d1
 		move.w	d1,(Camera_X_Left).w
 
 		lea	(Object_List).l,a4
 		move.w	(Camera_X).w,d6
-		andi.w	#$FF80,d6
+		andi.w	#-$80,d6
 		cmp.w	(Camera_X_Current).w,d6			; is the X range the same as last time?
 		beq.w	ObjectsManager_SameXRange		; if yes, branch
 		bge.s	ObjectsManager_GoingForward		; if new pos is greater than old pos, branch
@@ -15464,11 +15462,11 @@ LRz_Rocks_Mappings:											   ; Offset_0x012A90
 ; Offset_0x012AE8: Obj_0x02_Layer_Switch:
 Obj02_Pathswappers:
 		move.l	#Layer_Switch_Mappings,mappings(a0)
-		move.w	#$26BC,Obj_Art_VRAM(a0)
+		move.w	#$26BC,art_tile(a0)
 		ori.b	#4,render_flags(a0)
 		move.b	#$40,width_pixels(a0)
 		move.b	#$40,height_pixels(a0)
-		move.w	#$280,Obj_Priority(a0)
+		move.w	#$280,priority(a0)
 		move.b	subtype(a0),d0
 		btst	#2,d0			; is this a horizontal type?
 		beq.s	Pathswapper_CheckX	; if yes, branch
@@ -15495,7 +15493,7 @@ Offset_0x012B50:
 		tst.w	(Two_Player_Flag).w
 		beq.w	Offset_0x012D2E
 		move.l	#Pathswappers_MainY,(a0)
-		move.w	#$63D2,Obj_Art_VRAM(a0)
+		move.w	#$63D2,art_tile(a0)
 		bra.w	Pathswappers_MainY
 ; ===========================================================================
 ; Size of the pathswapper's collision (in pixels)
@@ -15526,7 +15524,7 @@ Offset_0x012BAA:
 		tst.w	(Two_Player_Flag).w				; $FFFFFFD8
 		beq.s	Offset_0x012BC4
 		move.l	#Offset_0x012BEE,(A0)
-		move.w	#$63D2,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$63D2,art_tile(A0)				; $000A
 		bra.s	Offset_0x012BEE
 Offset_0x012BC4:
 		tst.w	(Debug_placement_mode).w			; $FFFFFE08
@@ -15590,10 +15588,10 @@ Offset_0x012C62:
 		move.b	#$E,Obj_Player_Top_Solid(A1)			; $0046
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x012C90:
-		andi.w	#$7FFF,Obj_Art_VRAM(A1)				; $000A
+		andi.w	#$7FFF,art_tile(A1)				; $000A
 		btst	#5,d0
 		beq.w	Offset_0x012D2C
-		ori.w	#$8000,Obj_Art_VRAM(A1)				; $000A
+		ori.w	#$8000,art_tile(A1)				; $000A
 		bra.w	Offset_0x012D2C
 Offset_0x012CA8:
 		cmp.w	x_pos(A1),d1					; $0010
@@ -15630,10 +15628,10 @@ Offset_0x012CEE:
 		move.b	#$E,Obj_Player_Top_Solid(A1)			; $0046
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x012D1A:
-		andi.w	#$7FFF,Obj_Art_VRAM(A1)				; $000A
+		andi.w	#$7FFF,art_tile(A1)				; $000A
 		btst	#6,d0
 		beq.s	Offset_0x012D2C
-		ori.w	#$8000,Obj_Art_VRAM(A1)				; $000A
+		ori.w	#$8000,art_tile(A1)				; $000A
 Offset_0x012D2C:
 		rts
 ; ---------------------------------------------------------------------------
@@ -15703,10 +15701,10 @@ Offset_0x012DCC:
 		move.b	#$E,Obj_Player_Top_Solid(A1)			; $0046
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x012DFA:
-		andi.w	#$7FFF,Obj_Art_VRAM(A1)				; $000A
+		andi.w	#$7FFF,art_tile(A1)				; $000A
 		btst	#5,d0
 		beq.w	Offset_0x012E96
-		ori.w	#$8000,Obj_Art_VRAM(A1)				; $000A
+		ori.w	#$8000,art_tile(A1)				; $000A
 		bra.w	Offset_0x012E96
 Offset_0x012E12:
 		cmp.w	y_pos(A1),d1					; $0014
@@ -15743,10 +15741,10 @@ Offset_0x012E58:
 		move.b	#$E,Obj_Player_Top_Solid(A1)			; $0046
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x012E84:
-		andi.w	#$7FFF,Obj_Art_VRAM(A1)				; $000A
+		andi.w	#$7FFF,art_tile(A1)				; $000A
 		btst	#6,d0
 		beq.s	Offset_0x012E96
-		ori.w	#$8000,Obj_Art_VRAM(A1)				; $000A
+		ori.w	#$8000,art_tile(A1)				; $000A
 Offset_0x012E96:
 		rts
 ; ---------------------------------------------------------------------------
@@ -15781,9 +15779,9 @@ Monitors_Init:
 		move.b	#$F,Obj_Height_2(a0)
 		move.b	#$F,Obj_Width_2(a0)
 		move.l	#Monitors_Mappings,mappings(a0)
-		move.w	#$4C4,Obj_Art_VRAM(a0)
+		move.w	#$4C4,art_tile(a0)
 		move.b	#4,render_flags(a0)
-		move.w	#$180,Obj_Priority(a0)
+		move.w	#$180,priority(a0)
 		move.b	#$E,width_pixels(a0)
 		move.b	#$10,height_pixels(a0)
 		move.w	respawn_addr(a0),a2
@@ -15948,9 +15946,9 @@ MonitorContents_Index:
 ; Offset_0x013138:
 MonitorContents_Init:
 		addq.b	#2,routine(a0)
-		move.w	#$84C4,Obj_Art_VRAM(a0)
+		move.w	#$84C4,art_tile(a0)
 		move.b	#$24,render_flags(a0)
-		move.w	#$180,Obj_Priority(a0)
+		move.w	#$180,priority(a0)
 		move.b	#8,width_pixels(a0)
 		move.w	#-$300,Obj_Speed_Y(a0)
 		moveq	#0,d0
@@ -17076,12 +17074,12 @@ Explosion_Init:
 Explosion_Main:
 		addq.b	#2,routine(a0)
 		move.l	#Object_Hit_Mappings,mappings(a0)
-		move.w	Obj_Art_VRAM(a0),d0
+		move.w	art_tile(a0),d0
 		andi.w	#$8000,d0
 		ori.w	#$5A0,d0
-		move.w	d0,Obj_Art_VRAM(a0)
+		move.w	d0,art_tile(a0)
 		move.b	#4,render_flags(a0)
-		move.w	#$80,Obj_Priority(a0)
+		move.w	#$80,priority(a0)
 		move.b	#0,Obj_Col_Flags(a0)
 		move.b	#$C,width_pixels(a0)
 		move.b	#$C,height_pixels(a0)
@@ -17109,9 +17107,9 @@ Offset_0x013E22:
 ; Offset_0x013E28: Obj_Fire_Shield_Dissipate:
 Obj_FireShield_Dissipate:
 		move.l	#Object_Hit_Mappings,mappings(a0)
-		move.w	#$5A0,Obj_Art_VRAM(a0)
+		move.w	#$5A0,art_tile(a0)
 		move.b	#4,render_flags(a0)
-		move.w	#$280,Obj_Priority(a0)
+		move.w	#$280,priority(a0)
 		move.b	#$C,width_pixels(a0)
 		move.b	#$C,height_pixels(a0)
 		move.b	#3,anim_frame_timer(a0)
@@ -17132,9 +17130,9 @@ FireShieldDissipate_Display:
 ; ---------------------------------------------------------------------------
 Obj_Dissipate:												   ; Offset_0x013E86
 		move.l	#Object_Hit_Mappings,mappings(A0) ; Offset_0x013EF2, $000C
-		move.w	#$85A0,Obj_Art_VRAM(A0)							; $000A
+		move.w	#$85A0,art_tile(A0)							; $000A
 		move.b	#4,render_flags(A0)								; $0004
-		move.w	#$100,Obj_Priority(A0)							; $0008
+		move.w	#$100,priority(A0)							; $0008
 		move.b	#$C,width_pixels(A0)								; $0007
 		move.b	#$C,height_pixels(A0)								; $0006
 		move.b	#0,mapping_frame(A0)							  ; $0022
@@ -17186,10 +17184,10 @@ Offset_0x013F1C:
 ; Offset_0x013F24: Obj_0x09_AIz_Tree:
 Obj09_AIZTree:
 		move.l	#AIZTree_Mappings,mappings(a0)
-		move.w	#$180,Obj_Priority(a0)
+		move.w	#$180,priority(a0)
 		move.b	#8,width_pixels(a0)
 		move.b	#4,render_flags(a0)
-		move.w	#$4001,Obj_Art_VRAM(a0)
+		move.w	#$4001,art_tile(a0)
 		move.l	#AIZTree_ChkDel,(a0)
 ; Offset_0x013F4A:
 AIZTree_ChkDel:
@@ -17207,10 +17205,10 @@ AIZTree_Mappings:	include	"data/mappings/09 - AIZ Tree.asm"
 ; Offset_0x013F66: Obj_0x0A_AIz_Zipline_Peg:
 Obj0A_ZiplinePeg:
 		move.l	#ZiplinePeg_Mappings,mappings(a0)
-		move.w	#$380,Obj_Priority(a0)
+		move.w	#$380,priority(a0)
 		move.b	#$20,width_pixels(a0)
 		move.b	#4,render_flags(a0)
-		move.w	#$4324,Obj_Art_VRAM(a0)
+		move.w	#$4324,art_tile(a0)
 		move.l	#ZiplinePeg_ChkDel,(a0)
 ; Offset_0x013F8C:
 ZiplinePeg_ChkDel:
@@ -17245,7 +17243,7 @@ Obj_0x03_AIz_Hollow_Tree:									   ; Offset_0x014E88
 ; Object 05 - Rocks from Angel Island and Endless Mine
 ; ---------------------------------------------------------------------------
 Offset_0x0150F4:
-		dc.b	$18, $27, $18, $17, $18, $0F, $0E, $0F
+		dc.b	$18, $27, $18, $17, $18, $F, $E, $F
 ; ---------------------------------------------------------------------------
 ; Offset_0x0150FC: Obj_0x05_Rock:
 Obj05_Rock:
@@ -17259,20 +17257,20 @@ Obj05_Rock:
 		move.b	d1,height_pixels(a0)
 		move.b	d1,Obj_Height_2(a0)
 		move.l	#Rock_Mappings,mappings(a0)
-		move.w	#$2333,Obj_Art_VRAM(a0)
+		move.w	#$2333,art_tile(a0)
 		ori.b	#4,render_flags(a0)
-		move.w	#$200,Obj_Priority(a0)
+		move.w	#$200,priority(a0)
 		move.w	#$40,Obj_Control_Var_12(a0)
 		cmpi.w	#AIz_Act_2,(Current_ZoneAndAct).w
 		bne.s	Offset_0x015152
 		move.l	#AIz_2_Rock_Mappings,mappings(a0)
-		move.w	#$42F0,Obj_Art_VRAM(a0)
+		move.w	#$42F0,art_tile(a0)
 
 Offset_0x015152:
 		cmpi.w	#EMz_Act_1,(Current_ZoneAndAct).w
 		bne.s	Offset_0x01516E
 		move.l	#EMz_Rock_Mappings,mappings(a0)
-		move.w	#$E300,Obj_Art_VRAM(a0)
+		move.w	#$E300,art_tile(a0)
 		move.b	#0,mapping_frame(a0)
 
 Offset_0x01516E:
@@ -17285,10 +17283,10 @@ Offset_0x01516E:
 ; Offset_0x015186:
 Rock_SmallMedium:
 		move.w	(Enemy_Hit_Chain_Count).w,Obj_Control_Var_08(a0)
-		move.b	(Obj_Player_One+Obj_Ani_Number).w,Obj_Control_Var_02(a0)
-		move.b	(Obj_Player_Two+Obj_Ani_Number).w,Obj_Control_Var_03(a0)
-		move.b	(Obj_Player_One+Obj_Status).w,Obj_Control_Var_0A(a0)
-		move.b	(Obj_Player_Two+Obj_Status).w,Obj_Control_Var_0B(a0)
+		move.b	(Obj_Player_One+anim).w,Obj_Control_Var_02(a0)
+		move.b	(Obj_Player_Two+anim).w,Obj_Control_Var_03(a0)
+		move.b	(Obj_Player_One+status).w,Obj_Control_Var_0A(a0)
+		move.b	(Obj_Player_Two+status).w,Obj_Control_Var_0B(a0)
 		moveq	#0,d1
 		move.b	width_pixels(a0),d1
 		addi.w	#$B,d1
@@ -17321,61 +17319,61 @@ Offset_0x0151EC:
 Offset_0x0151F2:
 		cmpi.b	#$18,d0
 		bne.s	Offset_0x015220
-		cmpi.b	#2,Obj_Control_Var_02(A0)			; $0032
+		cmpi.b	#2,Obj_Control_Var_02(A0)
 		beq.s	Offset_0x015208
-		cmpi.b	#2,Obj_Control_Var_03(A0)			; $0033
+		cmpi.b	#2,Obj_Control_Var_03(A0)
 		bne.s	Offset_0x0151E0
 Offset_0x015208:
-		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		move.b	Obj_Control_Var_02(A0),d0				; $0032
+		lea	(Obj_Player_One).w,a1
+		move.b	Obj_Control_Var_02(a0),d0
 		bsr.s	Offset_0x015238
-		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		move.b	Obj_Control_Var_03(A0),d0				; $0033
+		lea	(Obj_Player_Two).w,a1
+		move.b	Obj_Control_Var_03(a0),d0
 		bsr.s	Offset_0x015238
 		bra.w	Offset_0x015288
 Offset_0x015220:
-		move.b	D0,d1
+		move.b	d0,d1
 		andi.b	#8,d1
 		beq.s	Offset_0x015270
-		cmpi.b	#2,Obj_Control_Var_02(A0)			; $0032
+		cmpi.b	#2,Obj_Control_Var_02(a0)
 		bne.s	Offset_0x0151E0
-		lea	(Obj_Player_One).w,a1				; $FFFFB000
+		lea	(Obj_Player_One).w,a1
 		bsr.s	Offset_0x01523E
 		bra.s	Offset_0x015288
 Offset_0x015238:
 		cmpi.b	#2,d0
 		bne.s	Offset_0x01525C
 Offset_0x01523E:
-		bset	#2,status(A1)					; $002A
-		move.b	#$E,Obj_Height_2(A1)				 ; $001E
-		move.b	#7,Obj_Width_2(A1)					; $001F
-		move.b	#2,anim(A1)				; $0020
-		move.w	#-$300,Obj_Speed_Y(A1)				; $001A
+		bset	#2,status(a1)
+		move.b	#$E,Obj_Height_2(a1)
+		move.b	#7,Obj_Width_2(a1)
+		move.b	#2,anim(a1)
+		move.w	#-$300,Obj_Speed_Y(a1)
 Offset_0x01525C:
-		bset	#1,status(A1)					; $002A
-		bclr	#3,status(A1)					; $002A
-		move.b	#2,routine(A1)					; $0005
+		bset	#1,status(a1)
+		bclr	#3,status(a1)
+		move.b	#2,routine(a1)
 		rts
 Offset_0x015270:
 		andi.b	#$10,d0
 		beq.w	Offset_0x0151E0
-		cmpi.b	#2,Obj_Control_Var_03(A0)			; $0033
+		cmpi.b	#2,Obj_Control_Var_03(a0)
 		bne.w	Offset_0x0151E0
-		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
+		lea	(Obj_Player_Two).w,a1
 		bsr.s	Offset_0x01523E
 Offset_0x015288:
-		move.w	Obj_Control_Var_08(A0),(Enemy_Hit_Chain_Count).w ; $0038, $FFFFF7D0
-		andi.b	#$E7,status(A0)					; $002A
-		tst.w	(Two_Player_Flag).w				; $FFFFFFD8
+		move.w	Obj_Control_Var_08(a0),(Enemy_Hit_Chain_Count).w
+		andi.b	#$E7,status(a0)
+		tst.w	(Two_Player_Flag).w
 		bne.w	Offset_0x0152E4
-		move.l	#Offset_0x0152A6,(A0)
+		move.l	#Offset_0x0152A6,(a0)
 		bsr.w	Offset_0x015564
 ; ---------------------------------------------------------------------------
 Offset_0x0152A6:
-		subq.b	#1,anim_frame_timer(A0)				 ; $0024
+		subq.b	#1,anim_frame_timer(a0)
 		bpl.s	Offset_0x0152C4
-		move.b	#2,anim_frame_timer(A0)				 ; $0024
-		move.b	mapping_frame(A0),d0					; $0022
+		move.b	#2,anim_frame_timer(a0)
+		move.b	mapping_frame(a0),d0
 		addq.b	#1,d0
 		cmpi.b	#7,d0
 		bcs.s	Offset_0x0152C0
@@ -17617,9 +17615,9 @@ Offset_0x01559C:
 		ext.w	D0
 		add.w	D3,d0
 		move.w	D0,y_pos(A1)					; $0014
-		move.w	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		; $000A, $000A
-		ori.w	#$8000,Obj_Art_VRAM(A1)				; $000A
-		move.w	#$80,Obj_Priority(A1)				; $0008
+		move.w	art_tile(A0),art_tile(A1)		; $000A, $000A
+		ori.w	#$8000,art_tile(A1)				; $000A
+		move.w	#$80,priority(A1)				; $0008
 		move.b	#$18,width_pixels(A1)					; $0007
 		move.b	#$18,width_pixels(A1)					; $0007
 		move.w	(A4)+,Obj_Speed_X(A1)				 ; $0018
@@ -17630,7 +17628,7 @@ Offset_0x01559C:
 		bcs.s	Offset_0x0155F0
 		moveq	#3,d6
 Offset_0x0155F0:
-		dbra	D1,Offset_0x015596
+		dbf	D1,Offset_0x015596
 Offset_0x0155F4:
 		moveq	#sfx_Collapse,d0					; $62
 		jmp	(PlaySound).l				 ; Offset_0x001176
@@ -17689,11 +17687,11 @@ EMz_Rock_Mappings:	include	"data/mappings/05 - EMZ Rock.asm"
 ; Offset_0x01582E:
 Obj_0x04_Collapsing_Platform:
 		move.l	#Collapsing_Platform_Mappings,mappings(A0) ; Offset_0x016014, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 		cmpi.w	#AIz_Act_2,(Current_ZoneAndAct).w			; $0001, $FFFFFE10
 		bne.s	Offset_0x015852
 		move.l	#AIz_2_Collapsing_Platform_Mappings,mappings(A0) ; Offset_0x0160F8, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 Offset_0x015852:
 		move.l	#Offset_0x015DE8,Obj_Control_Var_00(A0)		; $0030
 		move.l	#Offset_0x015FA4,Obj_Control_Var_0C(A0)		; $003C
@@ -17702,14 +17700,14 @@ Offset_0x015852:
 		cmpi.b	#Iz_Id,(Current_Zone).w			; $05, $FFFFFE10
 		bne.s	Offset_0x0158A0
 		move.l	#Iz_Collapsing_Platform_Mappings,mappings(A0) ; Offset_0x016D00, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 		move.l	#Offset_0x015E06,Obj_Control_Var_00(A0)		; $0030
 		move.l	#Offset_0x015FE4,Obj_Control_Var_0C(A0)		; $003C
 		move.b	#$30,width_pixels(A0)					; $0007
 		move.b	#$30,height_pixels(A0)					; $0006
 Offset_0x0158A0:
 		ori.b	#4,render_flags(A0)					; $0004
-		move.w	#$200,Obj_Priority(A0)				; $0008
+		move.w	#$200,priority(A0)				; $0008
 		move.b	#7,Obj_Control_Var_08(A0)			; $0038
 		move.b	subtype(A0),mapping_frame(A0)		; $002C, $0022
 		ori.b	#$80,status(A0)					; $002A
@@ -17771,7 +17769,7 @@ Offset_0x01594E:
 Obj_0x0F_Collapsing_Platform:
 		move.l	#Offset_0x015B62,(A0)
 		ori.b	#4,render_flags(A0)					; $0004
-		move.w	#$200,Obj_Priority(A0)				; $0008
+		move.w	#$200,priority(A0)				; $0008
 		cmpi.b	#LBz_Id,(Current_Zone).w			; $06, $FFFFFE10
 		bne.s	Offset_0x0159E6
 		move.b	subtype(A0),d0					; $002C
@@ -17786,7 +17784,7 @@ Offset_0x01598C:
 		btst	#6,subtype(A0)					; $002C
 		bne.s	Offset_0x0159C4
 		move.l	#LBz_Collapsing_Platforms_Mappings,mappings(A0) ; Offset_0x0161E2, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 		move.b	#$40,width_pixels(A0)					; $0007
 		move.b	#$10,height_pixels(A0)					; $0006
 		move.l	#Offset_0x015E26,Obj_Control_Var_00(A0)		; $0030
@@ -17794,7 +17792,7 @@ Offset_0x01598C:
 		bra.s	Offset_0x0159E6
 Offset_0x0159C4:
 		move.l	#LBz_Collapsing_Platforms_Mappings_2,mappings(A0) ; Offset_0x0162DE, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 		move.b	#$20,width_pixels(A0)					; $0007
 		move.b	#$30,height_pixels(A0)					; $0006
 		move.l	#Offset_0x015E46,Obj_Control_Var_00(A0)		; $0030
@@ -17802,7 +17800,7 @@ Offset_0x0159E6:
 		cmpi.b	#Hz_Id,(Current_Zone).w			; $01, $FFFFFE10
 		bne.w	Offset_0x015A80
 		move.l	#Hz_Collapsing_Platform_Mappings,mappings(A0) ; Offset_0x016366, $000C
-		move.w	#$C001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$C001,art_tile(A0)				; $000A
 		move.b	subtype(A0),d0					; $002C
 		bpl.s	Offset_0x015A18
 		move.b	D0,d1
@@ -17847,7 +17845,7 @@ Offset_0x015A80:
 		cmpi.b	#MGz_Id,(Current_Zone).w			; $02, $FFFFFE10
 		bne.s	Offset_0x015B02
 		move.l	#MGz_Collapsing_Platform_Mappings,mappings(A0) ; Offset_0x0167B4, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 		move.b	subtype(A0),d0					; $002C
 		move.b	D0,d1
 		andi.w	#$F,d0
@@ -17899,7 +17897,7 @@ Offset_0x015B24:
 		addq.w	#8,d0
 		move.b	D0,Obj_Control_Var_08(A0)				; $0038
 		move.l	#Iz_Collapsing_Platform_Mappings,mappings(A0) ; Offset_0x016D00, $000C
-		move.w	#$4001,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4001,art_tile(A0)				; $000A
 		move.b	#$50,width_pixels(A0)					; $0007
 		move.b	#$38,height_pixels(A0)					; $0006
 		move.l	#Offset_0x015F4B,Obj_Control_Var_00(A0)			; $0030
@@ -18114,12 +18112,12 @@ Offset_0x015DA4:
 		move.b	D5,render_flags(A1)				; $0004
 		move.w	x_pos(A0),x_pos(A1)			; $0010, $0010
 		move.w	y_pos(A0),y_pos(A1)			; $0014, $0014
-		move.w	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		; $000A, $000A
-		move.w	Obj_Priority(A0),Obj_Priority(A1)		; $0008, $0008
+		move.w	art_tile(A0),art_tile(A1)		; $000A, $000A
+		move.w	priority(A0),priority(A1)		; $0008, $0008
 		move.b	width_pixels(A0),width_pixels(A1)			; $0007, $0007
 		move.b	height_pixels(A0),height_pixels(A1)			; $0006, $0006
 		move.b	(A4)+,Obj_Control_Var_08(A1)			; $0038
-		dbra	D1,Offset_0x015D9C
+		dbf	D1,Offset_0x015D9C
 Offset_0x015DDA:
 		jsr	(DisplaySprite).l				; Offset_0x011148
 		moveq	#sfx_Collapse,d0					; $62
@@ -19003,7 +19001,7 @@ Offset_0x01816A:
 		addi.w	#$10,d3
 		addq.w	#1,Obj_Control_Var_06(A0)			; $0036
 		move.w	Obj_Control_Var_06(A0),Obj_Control_Var_06(A1) ; $0036, $0036
-		dbra	D1,Offset_0x018152
+		dbf	D1,Offset_0x018152
 		move.l	#Offset_0x0182F2,(A1)
 		move.b	#$20,mapping_frame(A1)					; $0022
 		move.w	A1,Obj_Control_Var_10(A0)				; $0040
@@ -19013,13 +19011,13 @@ Offset_0x01819A:
 		move.b	#4,render_flags(A1)					; $0004
 		move.b	#8,width_pixels(A1)					; $0007
 		move.b	#8,height_pixels(A1)					; $0006
-		move.w	#$200,Obj_Priority(A1)				; $0008
+		move.w	#$200,priority(A1)				; $0008
 		move.l	#Ride_Vine_Mappings,mappings(A1) ; Offset_0x018482, $000C
-		move.w	#$422,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$422,art_tile(A1)				; $000A
 		rts
 Offset_0x0181C2:
 		move.w	x_pos(A0),d0					; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0				; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x0181DC
@@ -19033,7 +19031,7 @@ Offset_0x0181E8:
 		movea.l	A2,a1
 		movea.w	Obj_Control_Var_0E(A1),a2				; $003E
 		jsr	(Delete_A1_Object).l			; Offset_0x01113A
-		dbra	D2,Offset_0x0181E8
+		dbf	D2,Offset_0x0181E8
 Offset_0x0181F8:
 		jmp	(DeleteObject).l				; Offset_0x011138
 ; ---------------------------------------------------------------------------
@@ -19251,11 +19249,11 @@ Obj_Knuckles:												   ; Offset_0x018EA0
 ; Offset_0x01921A: Obj_0x07_Springs:
 Obj07_Springs:
 		move.l	#Springs_Mappings,mappings(a0)
-		move.w	#$4A4,Obj_Art_VRAM(a0)
+		move.w	#$4A4,art_tile(a0)
 		ori.b	#4,render_flags(a0)
 		move.b	#$10,width_pixels(a0)
 		move.b	#$10,height_pixels(a0)
-		move.w	#$200,Obj_Priority(a0)
+		move.w	#$200,priority(a0)
 		move.w	x_pos(a0),Obj_Control_Var_02(a0)
 		move.w	y_pos(a0),Obj_Control_Var_04(a0)
 		move.b	subtype(a0),d0
@@ -19275,11 +19273,11 @@ Offset_0x01925E:
 
 Obj_0x07_Springs_2P:							; Offset_0x019268
 		move.l	#Springs_Mappings,mappings(A0)	; Offset_0x019C1A, $000C
-		move.w	#$4A4,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4A4,art_tile(A0)				; $000A
 		ori.b	#4,render_flags(A0)						; $0004
 		move.b	#$10,width_pixels(A0)						; $0007
 		move.b	#$10,height_pixels(A0)					; $0006
-		move.w	#$200,Obj_Priority(A0)				; $0008
+		move.w	#$200,priority(A0)				; $0008
 		move.w	x_pos(A0),Obj_Control_Var_02(A0)		; $0010, $0032
 		move.w	y_pos(A0),Obj_Control_Var_04(A0)		; $0014, $0034
 		move.b	subtype(A0),d0						; $002C
@@ -19303,13 +19301,13 @@ Offset_0x0192B4:
 Offset_0x0192C4:
 		move.b	#2,anim(A0)				; $0020
 		move.b	#3,mapping_frame(A0)					; $0022
-		move.w	#$4B4,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$4B4,art_tile(A0)				; $000A
 		move.b	#8,width_pixels(A0)						; $0007
 		move.l	#Offset_0x019534,(A0)
 		tst.w	(Two_Player_Flag).w					; $FFFFFFD8
 		beq.w	Offset_0x0193B8
 		move.l	#Springs_Mappings_2P,mappings(A0) ; Offset_0x019DC2, $000C
-		move.w	#$3AD,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$3AD,art_tile(A0)				; $000A
 		move.l	#Offset_0x0195C2,(A0)
 		bra.w	Offset_0x0193B8
 ; ---------------------------------------------------------------------------
@@ -19321,16 +19319,16 @@ Offset_0x019302:
 		beq.w	Offset_0x0193B8
 		move.l	#Offset_0x019852,(A0)
 		move.l	#Springs_Mappings_2P,mappings(A0) ; Offset_0x019DC2, $000C
-		move.w	#$391,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$391,art_tile(A0)				; $000A
 		bra.w	Offset_0x0193B8
 ; ---------------------------------------------------------------------------
 Offset_0x019334:
 		move.b	#4,anim(A0)				; $0020
 		move.b	#7,mapping_frame(A0)					; $0022
-		move.w	#$43A,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$43A,art_tile(A0)				; $000A
 		cmpi.b	#2,(Current_Zone).w					; $FFFFFE10
 		bne.s	Offset_0x019354
-		move.w	#$478,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$478,art_tile(A0)				; $000A
 Offset_0x019354:
 		move.l	#Offset_0x01994E,(A0)
 		bra.s	Offset_0x0193B8
@@ -19338,10 +19336,10 @@ Offset_0x019354:
 Offset_0x01935C:
 		move.b	#4,anim(A0)				; $0020
 		move.b	#$A,mapping_frame(A0)					; $0022
-		move.w	#$43A,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$43A,art_tile(A0)				; $000A
 		cmpi.b	#2,(Current_Zone).w					; $FFFFFE10
 		bne.s	Offset_0x01937C
-		move.w	#$478,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$478,art_tile(A0)				; $000A
 Offset_0x01937C:
 		bset	#1,status(A0)					; $002A
 		move.l	#Offset_0x019A90,(A0)
@@ -19353,10 +19351,10 @@ Offset_0x01938A:
 		beq.s	Offset_0x0193B8
 		move.l	#Offset_0x01943A,(A0)
 		move.l	#Springs_Mappings_2P,mappings(A0) ; Offset_0x019DC2, $000C
-		move.w	#$391,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$391,art_tile(A0)				; $000A
 		cmpi.b	#$12,(Current_Zone).w					; $FFFFFE10
 		bne.s	Offset_0x0193B8
-		ori.w	#$8000,Obj_Art_VRAM(A0)				; $000A
+		ori.w	#$8000,art_tile(A0)				; $000A
 Offset_0x0193B8:
 		move.b	subtype(A0),d0						; $002C
 		andi.w	#2,d0
@@ -20071,7 +20069,7 @@ Spikes_Conf:							; Offset_0x01A432
 ; Offset_0x01A442:
 Obj_0x08_Spikes:
 		ori.b	#4,render_flags(A0)					; $0004
-		move.w	#$200,Obj_Priority(A0)				; $0008
+		move.w	#$200,priority(A0)				; $0008
 		move.b	subtype(A0),d0					; $002C
 		andi.w	#$F0,d0
 		lsr.w	#3,d0
@@ -20082,13 +20080,13 @@ Obj_0x08_Spikes:
 		move.b	(A1)+,height_pixels(A0)					; $0006
 		move.l	#Offset_0x01A52C,(A0)
 		move.l	#Spikes_Mappings,mappings(A0)	; Offset_0x01A88C, $000C
-		move.w	#$49C,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$49C,art_tile(A0)				; $000A
 		lsr.w	#1,d0
 		move.b	D0,mapping_frame(A0)					; $0022
 		cmpi.b	#4,d0
 		bcs.s	Offset_0x01A496
 		move.l	#Offset_0x01A57E,(A0)
-		move.w	#$494,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$494,art_tile(A0)				; $000A
 Offset_0x01A496:
 		btst	#1,status(A0)					; $002A
 		beq.s	Offset_0x01A4A4
@@ -20118,7 +20116,7 @@ Obj_0x08_Spikes_2P:							; Offset_0x01A4D0
 		move.b	(A1)+,height_pixels(A0)					; $0006
 		move.l	#Offset_0x01A62A,(A0)
 		move.l	#Spikes_Mappings_2P,mappings(A0) ; Offset_0x01A99C, $000C
-		move.w	#$391,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$391,art_tile(A0)				; $000A
 		lsr.w	#1,d0
 		move.b	D0,mapping_frame(A0)					; $0022
 		cmpi.b	#4,d0
@@ -20559,124 +20557,96 @@ Dynamic_Art_Idx:											   ; Offset_0x01E87A
 		dc.w	Hz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F3EA
 		dc.w	Dynamic_Hz_2-Dynamic_Art_Idx		   ; Offset_0x01EAFA
 		dc.w	Hz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F3FA
-		dc.w	Dynamic_MGz_1-Dynamic_Art_Idx		   ; Offset_0x01ECCE
+		dc.w	Dynamic_MGz-Dynamic_Art_Idx		   ; Offset_0x01ECCE
 		dc.w	MGz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F408
-		dc.w	Dynamic_MGz_2-Dynamic_Art_Idx		   ; Offset_0x01ECCE
+		dc.w	Dynamic_MGz-Dynamic_Art_Idx		   ; Offset_0x01ECCE
 		dc.w	MGz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F408
-		dc.w	Dynamic_CNz_1-Dynamic_Art_Idx		   ; Offset_0x01ECD8
+		dc.w	Dynamic_CNz-Dynamic_Art_Idx		   ; Offset_0x01ECD8
 		dc.w	CNz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F428
-		dc.w	Dynamic_CNz_2-Dynamic_Art_Idx		   ; Offset_0x01ECD8
+		dc.w	Dynamic_CNz-Dynamic_Art_Idx		   ; Offset_0x01ECD8
 		dc.w	CNz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F428
-		dc.w	Dynamic_FBz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	FBz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F4AC
-		dc.w	Dynamic_FBz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	FBz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F4AC
-		dc.w	Dynamic_Iz_1-Dynamic_Art_Idx		   ; Offset_0x01ED6E
+		dc.w	Dynamic_Iz-Dynamic_Art_Idx		   ; Offset_0x01ED6E
 		dc.w	Iz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F4AC
-		dc.w	Dynamic_Iz_2-Dynamic_Art_Idx		   ; Offset_0x01ED6E
+		dc.w	Dynamic_Iz-Dynamic_Art_Idx		   ; Offset_0x01ED6E
 		dc.w	Iz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F4AC
 		dc.w	Dynamic_LBz_1-Dynamic_Art_Idx		   ; Offset_0x01EE70
 		dc.w	LBz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F4BE
 		dc.w	Dynamic_LBz_2-Dynamic_Art_Idx		   ; Offset_0x01EF60
 		dc.w	LBz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F4E8
-		dc.w	Dynamic_MVz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	MVz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_MVz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	MVz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_Sz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	Sz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_Sz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	Sz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
 		dc.w	Dynamic_LRz_1-Dynamic_Art_Idx		   ; Offset_0x01F0FA
 		dc.w	LRz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_LRz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	LRz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_SSz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	SSz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_SSz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	SSz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_DEz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	DEz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_DEz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	DEz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_TDz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	TDz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_TDz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	TDz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_End_Seq_1-Dynamic_Art_Idx	   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx	   ; Offset_0x01E93A
 		dc.w	End_Seq_1_Animate-Dynamic_Art_Idx	   ; Offset_0x01F504
-		dc.w	Dynamic_End_Seq_2-Dynamic_Art_Idx	   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx	   ; Offset_0x01E93A
 		dc.w	End_Seq_2_Animate-Dynamic_Art_Idx	   ; Offset_0x01F504
-		dc.w	Dynamic_ALz_1-Dynamic_Art_Idx		   ; Offset_0x01F2DE
+		dc.w	Dynamic_ALz-Dynamic_Art_Idx		   ; Offset_0x01F2DE
 		dc.w	ALz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_ALz_2-Dynamic_Art_Idx		   ; Offset_0x01F2DE
+		dc.w	Dynamic_ALz-Dynamic_Art_Idx		   ; Offset_0x01F2DE
 		dc.w	ALz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F504
-		dc.w	Dynamic_BPz_1-Dynamic_Art_Idx		   ; Offset_0x01F2DE
+		dc.w	Dynamic_BPz-Dynamic_Art_Idx		   ; Offset_0x01F2DE
 		dc.w	BPz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F512
-		dc.w	Dynamic_BPz_2-Dynamic_Art_Idx		   ; Offset_0x01F2DE
+		dc.w	Dynamic_BPz-Dynamic_Art_Idx		   ; Offset_0x01F2DE
 		dc.w	BPz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F512
-		dc.w	Dynamic_DPz_1-Dynamic_Art_Idx		   ; Offset_0x01F1F8
+		dc.w	Dynamic_DPz-Dynamic_Art_Idx		   ; Offset_0x01F1F8
 		dc.w	DPz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F548
-		dc.w	Dynamic_DPz_2-Dynamic_Art_Idx		   ; Offset_0x01F1F8
+		dc.w	Dynamic_DPz-Dynamic_Art_Idx		   ; Offset_0x01F1F8
 		dc.w	DPz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F548
-		dc.w	Dynamic_CGz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	CGz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_CGz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	CGz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_EMz_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	EMz_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_EMz_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	EMz_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_GM_BS_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	GM_BS_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_GM_BS_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	GM_BS_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_GS_BS_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	GS_BS_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_GS_BS_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	GS_BS_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_SM_BS_1-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	SM_BS_1_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_SM_BS_2-Dynamic_Art_Idx		   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx		   ; Offset_0x01E93A
 		dc.w	SM_BS_2_Animate-Dynamic_Art_Idx		   ; Offset_0x01F558
-		dc.w	Dynamic_LRz_2_Boss-Dynamic_Art_Idx	   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx	   ; Offset_0x01E93A
 		dc.w	LRz_2_Boss_Animate-Dynamic_Art_Idx	   ; Offset_0x01F558
-		dc.w	Dynamic_HPz-Dynamic_Art_Idx			   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx			   ; Offset_0x01E93A
 		dc.w	HPz_Animate-Dynamic_Art_Idx			   ; Offset_0x01F558
-		dc.w	Dynamic_DEz_Final_Boss-Dynamic_Art_Idx ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx ; Offset_0x01E93A
 		dc.w	DEz_Final_Boss_Animate-Dynamic_Art_Idx ; Offset_0x01F558
-		dc.w	Dynamic_HPz_Portal-Dynamic_Art_Idx	   ; Offset_0x01E93A
+		dc.w	Dynamic_None-Dynamic_Art_Idx	   ; Offset_0x01E93A
 		dc.w	HPz_Portal_Animate-Dynamic_Art_Idx	   ; Offset_0x01F558
 ; ---------------------------------------------------------------------------
-Dynamic_FBz_1:												   ; Offset_0x01E93A
-Dynamic_FBz_2:												   ; Offset_0x01E93A
-Dynamic_MVz_1:												   ; Offset_0x01E93A
-Dynamic_MVz_2:												   ; Offset_0x01E93A
-Dynamic_Sz_1:												   ; Offset_0x01E93A
-Dynamic_Sz_2:												   ; Offset_0x01E93A
-Dynamic_LRz_2:												   ; Offset_0x01E93A
-Dynamic_SSz_1:												   ; Offset_0x01E93A
-Dynamic_SSz_2:												   ; Offset_0x01E93A
-Dynamic_DEz_1:												   ; Offset_0x01E93A
-Dynamic_DEz_2:												   ; Offset_0x01E93A
-Dynamic_TDz_1:												   ; Offset_0x01E93A
-Dynamic_TDz_2:												   ; Offset_0x01E93A
-Dynamic_End_Seq_1:											   ; Offset_0x01E93A
-Dynamic_End_Seq_2:											   ; Offset_0x01E93A
-Dynamic_CGz_1:												   ; Offset_0x01E93A
-Dynamic_CGz_2:												   ; Offset_0x01E93A
-Dynamic_EMz_1:												   ; Offset_0x01E93A
-Dynamic_EMz_2:												   ; Offset_0x01E93A
-Dynamic_GM_BS_1:											   ; Offset_0x01E93A
-Dynamic_GM_BS_2:											   ; Offset_0x01E93A
-Dynamic_GS_BS_1:											   ; Offset_0x01E93A
-Dynamic_GS_BS_2:											   ; Offset_0x01E93A
-Dynamic_SM_BS_1:											   ; Offset_0x01E93A
-Dynamic_SM_BS_2:											   ; Offset_0x01E93A
-Dynamic_LRz_2_Boss:											   ; Offset_0x01E93A
-Dynamic_HPz:												   ; Offset_0x01E93A
-Dynamic_DEz_Final_Boss:										   ; Offset_0x01E93A
-Dynamic_HPz_Portal:											   ; Offset_0x01E93A
+Dynamic_None:
 		rts
 ; ---------------------------------------------------------------------------
 Dynamic_AIz_1:												   ; Offset_0x01E93C
@@ -20701,7 +20671,7 @@ Dynamic_AIz_2:												   ; Offset_0x01E94C
 		move.l	#Art_Angel_Island_Leaves,d1			  ; Offset_0x089400
 		move.w	#$1940,d2
 		move.w	#$230,d3
-		jmp	(QueueDMATransfer).l						; Offset_0x0012FC
+		jmp	(QueueDMATransfer).l
 Exit_Dynamic_AIz_2:											   ; Offset_0x01E980
 		rts
 ; ---------------------------------------------------------------------------
@@ -20723,7 +20693,7 @@ Dynamic_Hz_1_A3:											   ; Offset_0x01E986
 		lea	(RAM_Start+$7C00).l,a4				   ; $FFFF7C00
 		lea	(Water_Surface_Scroll_Data).l,a5		  ; Offset_0x1C8000
 		adda.w	D1,a5
-		move.w	#$3F,d1
+		move.w	#$40-1,d1
 Offset_0x01E9BE:
 		moveq	#0,d0
 		move.b	(A5)+,d0
@@ -20749,7 +20719,7 @@ Offset_0x01E9BE:
 		move.l	#RAM_Start+$7C00,d1					   ; $FFFF7C00
 		move.w	#$5100,d2
 		move.w	#$200,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		tst.w	2(A3)
 		bmi.s	Offset_0x01EA22
 		move.w	#$FFFF,2(A3)
@@ -20765,7 +20735,7 @@ Offset_0x01EA26:
 		lea	(RAM_Start+$7C00).l,a4				   ; $FFFF7C00
 		lea	(Water_Surface_Scroll_Data).l,a5		  ; Offset_0x1C8000
 		adda.w	D1,a5
-		move.w	#$3F,d1
+		move.w	#$40-1,d1
 Offset_0x01EA46:
 		moveq	#0,d0
 		move.b	(A5)+,d0
@@ -20791,7 +20761,7 @@ Offset_0x01EA46:
 		move.l	#RAM_Start+$7C00,d1				   ; $FFFF7C00
 		move.w	#$4D00,d2
 		move.w	#$200,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		tst.w	2(A3)
 		beq.s	Offset_0x01EAA8
 		move.w	#0,2(A3)
@@ -20805,12 +20775,12 @@ Offset_0x01EAB4:
 		move.l	#Art_Hydrocity_Background,d1		  ; Offset_0x08A9E0
 		move.w	#$5100,d2
 		move.w	#$200,d3
-		jmp	(QueueDMATransfer).l						; Offset_0x0012FC
+		jmp	(QueueDMATransfer).l
 Offset_0x01EAC8:
 		move.l	#Art_Hydrocity_Background_2,d1		  ; Offset_0x08B1E0
 		move.w	#$4D00,d2
 		move.w	#$200,d3
-		jmp	(QueueDMATransfer).l						; Offset_0x0012FC
+		jmp	(QueueDMATransfer).l
 ; ---------------------------------------------------------------------------
 Offset_0x01EADC:
 		lea	(MGz_1_Animate).l,a2					  ; Offset_0x01F408
@@ -20849,19 +20819,19 @@ Dynamic_Hz_2:												   ; Offset_0x01EAFA
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01EB56
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EB56:
 		addq.w	#2,a3
 		bra.s	Offset_0x01EB6A
 ; ---------------------------------------------------------------------------
 Offset_0x01EB5A:
-		dc.w	$0040, $0000, $0030, $0010, $0020, $0020, $0010, $0030
+		dc.w	$40, 0, $30, $10, $20, $20, $10, $30
 ; ---------------------------------------------------------------------------
 Offset_0x01EB6A:
 		moveq	#0,d1
@@ -20887,19 +20857,19 @@ Offset_0x01EB6A:
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01EBC2
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EBC2:
 		addq.w	#2,a3
 		bra.s	Offset_0x01EBD6
 ; ---------------------------------------------------------------------------
 Offset_0x01EBC6:
-		dc.w	$0080, $0000, $0060, $0020, $0040, $0040, $0020, $0060
+		dc.w	$80, 0, $60, $20, $40, $40, $20, $60
 ; ---------------------------------------------------------------------------
 Offset_0x01EBD6:
 		moveq	#0,d1
@@ -20925,19 +20895,19 @@ Offset_0x01EBD6:
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01EC2E
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EC2E:
 		addq.w	#2,a3
 		bra.s	Offset_0x01EC42
 ; ---------------------------------------------------------------------------
 Offset_0x01EC32:
-		dc.w	$0100, $0000, $00C0, $0040, $0080, $0080, $0040, $00C0
+		dc.w	$100, 0, $C0, $40, $80, $80, $40, $C0
 ; ---------------------------------------------------------------------------
 Offset_0x01EC42:
 		moveq	#0,d1
@@ -20970,29 +20940,27 @@ Offset_0x01EC42:
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01ECA8
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01ECA8:
 		addq.w	#2,a3
 		bra.w	Dynamic_Normal_A3					   ; Offset_0x01F2E2
 ; ---------------------------------------------------------------------------
 Offset_0x01ECAE:
-		dc.w	$0300, $0000, $02A0, $0060, $0240, $00C0, $01E0, $0120
-		dc.w	$0180, $0180, $0120, $01E0, $00C0, $0240, $0060, $02A0
+		dc.w	$300, 0, $2A0, $60, $240, $C0, $1E0, $120
+		dc.w	$180, $180, $120, $1E0, $C0, $240, $60, $2A0
 ; ---------------------------------------------------------------------------
-Dynamic_MGz_1:												   ; Offset_0x01ECCE
-Dynamic_MGz_2:												   ; Offset_0x01ECCE
+Dynamic_MGz:
 		tst.b	(Boss_Flag).w								 ; $FFFFF7AA
 		beq.w	Dynamic_Normal						   ; Offset_0x01F2DE
 		rts
 ; ---------------------------------------------------------------------------
-Dynamic_CNz_1:												   ; Offset_0x01ECD8
-Dynamic_CNz_2:												   ; Offset_0x01ECD8
+Dynamic_CNz:
 		lea	(Animate_Counters).w,a3						; $FFFFF7F0
 		moveq	#0,d1
 		move.w	(Background_Events+$10).w,d1				; $FFFFEEE2
@@ -21018,26 +20986,25 @@ Dynamic_CNz_2:												   ; Offset_0x01ECD8
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01ED38
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01ED38:
 		addq.w	#2,a3
 		bra.w	Dynamic_Normal_A3					   ; Offset_0x01F2E2
 ; ---------------------------------------------------------------------------
 Offset_0x01ED3E:
-		dc.w	$0200, $0000, $01C0, $0040, $0180, $0080, $0140, $00C0
-		dc.w	$0100, $0100, $00C0, $0140, $0080, $0180, $0040, $01C0
+		dc.w	$200, 0, $1C0, $40, $180, $80, $140, $C0
+		dc.w	$100, $100, $C0, $140, $80, $180, $40, $1C0
 ; ---------------------------------------------------------------------------
 Offset_0x01ED5E:
-		dc.w	$0100, $0000, $00C0, $0040, $0080, $0080, $0040, $00C0
+		dc.w	$100, 0, $C0, $40, $80, $80, $40, $C0
 ; ---------------------------------------------------------------------------
-Dynamic_Iz_1:												   ; Offset_0x01ED6E
-Dynamic_Iz_2:												   ; Offset_0x01ED6E
+Dynamic_Iz:
 		lea	(Animate_Counters).w,a3						; $FFFFF7F0
 		moveq	#0,d0
 		move.w	(Background_Events+$10).w,d0				; $FFFFEEE2
@@ -21064,7 +21031,7 @@ Dynamic_Iz_2:												   ; Offset_0x01ED6E
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
@@ -21072,7 +21039,7 @@ Dynamic_Iz_2:												   ; Offset_0x01ED6E
 		beq.s	Offset_0x01EDD4
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EDD4:
 		addq.w	#2,a3
 		tst.b	(Current_Act).w									  ; $FFFFFE11
@@ -21088,7 +21055,7 @@ Offset_0x01EDD4:
 		addi.l	#Art_Iz_Background_2,d1				  ; Offset_0x09CE40
 		move.w	#$23E0,d2
 		move.w	#$100,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		moveq	#0,d1
 		move.b	1(A3),d1
 		andi.w	#$3E,d1
@@ -21096,14 +21063,14 @@ Offset_0x01EDD4:
 		addi.l	#Art_Iz_Background_3,d1				  ; Offset_0x09D040
 		move.w	#$24E0,d2
 		move.w	#$80,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		moveq	#0,d1
 		move.b	1(A3),d1
 		andi.w	#$3C,d1
 		addi.l	#Art_Iz_Background_4,d1				  ; Offset_0x09D140
 		move.w	#$2560,d2
 		move.w	#$40,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		moveq	#0,d1
 		move.b	1(A3),d1
 		andi.w	#$38,d1
@@ -21111,7 +21078,7 @@ Offset_0x01EDD4:
 		addi.l	#Art_Iz_Background_5,d1				  ; Offset_0x09D1C0
 		move.w	#$25A0,d2
 		move.w	#$20,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EE68:
 		addq.w	#2,a3
 		bra.w	Dynamic_Normal_A3					   ; Offset_0x01F2E2
@@ -21132,7 +21099,7 @@ Dynamic_LBz_1:												   ; Offset_0x01EE70
 		add.l	D0,d1
 		move.w	#$6E80,d2
 		move.w	#$100,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EEA4:
 		addq.w	#2,a3
 		moveq	#0,d0
@@ -21166,7 +21133,7 @@ Offset_0x01EEA4:
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
@@ -21174,7 +21141,7 @@ Offset_0x01EEA4:
 		beq.s	Offset_0x01EF14
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EF14:
 		move.l	D6,d1
 		lsl.w	#5,d1
@@ -21182,7 +21149,7 @@ Offset_0x01EF14:
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	#$10,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EF2C:
 		addq.w	#2,a3
 		tst.w	(A3)+
@@ -21198,7 +21165,7 @@ Offset_0x01EF42:
 		bra.w	Dynamic_Normal_A3					   ; Offset_0x01F2E2
 ; ---------------------------------------------------------------------------
 Offset_0x01EF50:
-		dc.w	$0140, $0000, $00F0, $0050, $00A0, $00A0, $0050, $00F0
+		dc.w	$140, 0, $F0, $50, $A0, $A0, $50, $F0
 ; ---------------------------------------------------------------------------
 Dynamic_LBz_2:												   ; Offset_0x01EF60
 		lea	(Animate_Counters).w,a3						; $FFFFF7F0
@@ -21214,7 +21181,7 @@ Dynamic_LBz_2:												   ; Offset_0x01EF60
 		add.l	D0,d1
 		move.w	#$55E0,d2
 		move.w	#$100,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EF94:
 		addq.w	#2,a3
 		moveq	#0,d1
@@ -21228,7 +21195,7 @@ Offset_0x01EF94:
 		addi.l	#Art_LBz_Background_Bricks,d1		  ; Offset_0x09F000
 		move.w	#$5D00,d2
 		move.w	#$20,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01EFC4:
 		bsr.s	Offset_0x01EFCC
 		addq.w	#2,a3
@@ -21266,7 +21233,7 @@ Offset_0x01F002:
 		move.l	#RAM_Start+$7E00,d1				   ; $FFFF7E00
 		move.w	#$5900,d2
 		move.w	#$100,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		tst.w	2(A3)
 		bmi.s	Offset_0x01F04A
 		move.w	#$FFFF,2(A3)
@@ -21298,7 +21265,7 @@ Offset_0x01F068:
 		move.l	#RAM_Start+$7E00,d1				   ; $FFFF7E00
 		move.w	#$5B00,d2
 		move.w	#$100,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		tst.w	2(A3)
 		beq.s	Offset_0x01F0AE
 		move.w	#0,2(A3)
@@ -21314,12 +21281,12 @@ Offset_0x01F0BA:
 		move.l	#Art_LBz_Background_Above_Water,d1	  ; Offset_0x09F600
 		move.w	#$5900,d2
 		move.w	#$100,d3
-		jmp	(QueueDMATransfer).l						; Offset_0x0012FC
+		jmp	(QueueDMATransfer).l
 Offset_0x01F0CE:
 		move.l	#Art_LBz_Background_Under_Water,d1	  ; Offset_0x09FA00
 		move.w	#$5B00,d2
 		move.w	#$100,d3
-		jmp	(QueueDMATransfer).l						; Offset_0x0012FC
+		jmp	(QueueDMATransfer).l
 ; ---------------------------------------------------------------------------
 Offset_0x01F0E2:
 		lea	(Animate_Counters).w,a3						; $FFFFF7F0
@@ -21365,20 +21332,20 @@ Dynamic_LRz_1:												   ; Offset_0x01F0FA
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01F168
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01F168:
 		addq.w	#2,a3
 		bra.w	Offset_0x01F186
 ; ---------------------------------------------------------------------------
 Offset_0x01F16E:
-		dc.w	$0240, $0000, $01E0, $0060, $0180, $00C0, $0120, $0120
-		dc.w	$00C0, $0180, $0060, $01E0
+		dc.w	$240, 0, $1E0, $60, $180, $C0, $120, $120
+		dc.w	$C0, $180, $60, $1E0
 ; ---------------------------------------------------------------------------
 Offset_0x01F186:
 		moveq	#0,d0
@@ -21407,21 +21374,20 @@ Offset_0x01F186:
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01F1E6
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01F1E6:
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x01F1E8:
-		dc.w	$0080, $0000, $0060, $0020, $0040, $0040, $0020, $0060
+		dc.w	$80, 0, $60, $20, $40, $40, $20, $60
 ; ---------------------------------------------------------------------------
-Dynamic_DPz_1:												   ; Offset_0x01F1F8
-Dynamic_DPz_2:												   ; Offset_0x01F1F8
+Dynamic_DPz:
 		lea	(Animate_Counters).w,a3						; $FFFFF7F0
 		moveq	#0,d1
 		move.w	(Background_Events+$10).w,d1				; $FFFFEEE2
@@ -21447,20 +21413,20 @@ Dynamic_DPz_2:												   ; Offset_0x01F1F8
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01F258
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01F258:
 		addq.w	#2,a3
 		bra.s	Offset_0x01F27C
 ; ---------------------------------------------------------------------------
 Offset_0x01F25C:
-		dc.w	$0200, $0000, $01C0, $0040, $0180, $0080, $0140, $00C0
-		dc.w	$0100, $0100, $00C0, $0140, $0080, $0180, $0040, $01C0
+		dc.w	$200, 0, $1C0, $40, $180, $80, $140, $C0
+		dc.w	$100, $100, $C0, $140, $80, $180, $40, $1C0
 ; ---------------------------------------------------------------------------
 Offset_0x01F27C:
 		moveq	#0,d1
@@ -21487,67 +21453,64 @@ Offset_0x01F27C:
 		move.w	(A4)+,d3
 		add.w	D3,d4
 		add.w	D3,d4
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 		move.l	D5,d1
 		add.l	A0,d1
 		move.w	D4,d2
 		move.w	(A4)+,d3
 		beq.s	Offset_0x01F2D8
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01F2D8:
 		addq.w	#2,a3
 		bra.w	Dynamic_Normal_A3					   ; Offset_0x01F2E2
 ; ---------------------------------------------------------------------------
-Dynamic_ALz_1:												   ; Offset_0x01F2DE
-Dynamic_ALz_2:												   ; Offset_0x01F2DE
-Dynamic_BPz_1:												   ; Offset_0x01F2DE
-Dynamic_BPz_2:												   ; Offset_0x01F2DE
+Dynamic_ALz:
+Dynamic_BPz:
 ; ---------------------------------------------------------------------------
-Dynamic_Normal:												   ; Offset_0x01F2DE
-		lea	(Animate_Counters).w,a3						; $FFFFF7F0
-Dynamic_Normal_A3:											   ; Offset_0x01F2E2
-		move.w	(A2)+,d6
+Dynamic_Normal:
+		lea	(Animate_Counters).w,a3
+Dynamic_Normal_A3:
+		move.w	(a2)+,d6
 Offset_0x01F2E4:
-		subq.b	#1,(A3)
+		subq.b	#1,(a3)
 		bcc.s	Offset_0x01F32A
 		moveq	#0,d0
-		move.b	1(A3),d0
-		cmp.b	6(A2),d0
+		move.b	1(a3),d0
+		cmp.b	6(a2),d0
 		bcs.s	Offset_0x01F2FA
 		moveq	#0,d0
-		move.b	D0,1(A3)
+		move.b	d0,1(a3)
 Offset_0x01F2FA:
-		addq.b	#1,1(A3)
-		move.b	(A2),(A3)
+		addq.b	#1,1(a3)
+		move.b	(a2),(a3)
 		bpl.s	Offset_0x01F308
-		add.w	D0,d0
-		move.b	9(A2,d0.w),(A3)
+		add.w	d0,d0
+		move.b	9(a2,d0.w),(a3)
 Offset_0x01F308:
-		move.b	8(A2,d0.w),d0
+		move.b	8(a2,d0.w),d0
 		lsl.w	#5,d0
-		move.w	4(A2),d2
-		move.l	(A2),d1
+		move.w	4(a2),d2
+		move.l	(a2),d1
 		andi.l	#$FFFFFF,d1
-		add.l	D0,d1
+		add.l	d0,d1
 		moveq	#0,d3
-		move.b	7(A2),d3
+		move.b	7(a2),d3
 		lsl.w	#4,d3
-		jsr	(QueueDMATransfer).l						; Offset_0x0012FC
+		jsr	(QueueDMATransfer).l
 Offset_0x01F32A:
-		move.b	6(A2),d0
-		tst.b	(A2)
+		move.b	6(a2),d0
+		tst.b	(a2)
 		bpl.s	Offset_0x01F334
-		add.b	D0,d0
+		add.b	d0,d0
 Offset_0x01F334:
 		addq.b	#1,d0
 		andi.w	#$FE,d0
-		lea	8(A2,d0.w),a2
+		lea	8(a2,d0.w),a2
 		addq.w	#2,a3
-		dbf	D6,Offset_0x01F2E4
+		dbf	d6,Offset_0x01F2E4
 		rts
 ; ---------------------------------------------------------------------------
 ; Script de anima��o das sprites para a Angel Island
-; ->>>
 ; ---------------------------------------------------------------------------
 AIz_1_Animate:												   ; Offset_0x01F346
 		dc.w	$0002								; Total de Anima��es
@@ -21852,20 +21815,20 @@ Obj_0x2C_AIz_Collapsing_Bridge:
 		move.b	D0,Obj_Control_Var_05(A0)				; $0035
 		move.b	#8,Obj_Control_Var_07(A0)			; $0037
 		move.l	#Collapsing_Bridge_Mappings,mappings(A0) ; Offset_0x0222A2, $000C
-		move.w	#$42F0,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$42F0,art_tile(A0)				; $000A
 		move.b	#$5A,width_pixels(A0)					; $0007
 		move.b	#8,height_pixels(A0)					 ; $0006
 		move.b	#4,render_flags(A0)					; $0004
-		move.w	#$200,Obj_Priority(A0)				; $0008
+		move.w	#$200,priority(A0)				; $0008
 		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
 		bne.w	Offset_0x021FCE
 		move.l	#Offset_0x0220E4,(A1)
 		move.l	#Collapsing_Bridge_Mappings,mappings(A1) ; Offset_0x0222A2, $000C
-		move.w	#$42F0,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$42F0,art_tile(A1)				; $000A
 		ori.b	#4,render_flags(A1)					; $0004
 		move.b	#$5A,width_pixels(A1)					; $0007
 		move.b	#8,height_pixels(A1)					 ; $0006
-		move.w	#$200,Obj_Priority(A1)				; $0008
+		move.w	#$200,priority(A1)				; $0008
 		move.w	x_pos(A0),x_pos(A1)			 ; $0010, $0010
 		move.w	y_pos(A0),y_pos(A1)			 ; $0014, $0014
 		bset	#6,render_flags(A1)					; $0004
@@ -21895,20 +21858,20 @@ Offset_0x021FD8:
 		move.b	D0,Obj_Control_Var_05(A0)				; $0035
 		move.b	#8,Obj_Control_Var_07(A0)			; $0037
 		move.l	#Collapsing_Bridge_Mappings_2,mappings(A0) ; Offset_0x0222C4, $000C
-		move.w	#$C2F0,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$C2F0,art_tile(A0)				; $000A
 		move.b	#$60,width_pixels(A0)					; $0007
 		move.b	#8,height_pixels(A0)					 ; $0006
 		move.b	#4,render_flags(A0)					; $0004
-		move.w	#$200,Obj_Priority(A0)				; $0008
+		move.w	#$200,priority(A0)				; $0008
 		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
 		bne.w	Offset_0x022096
 		move.l	#Offset_0x0220E4,(A1)
 		move.l	#Collapsing_Bridge_Mappings_2,mappings(A1) ; Offset_0x0222C4, $000C
-		move.w	#$C2F0,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$C2F0,art_tile(A1)				; $000A
 		ori.b	#4,render_flags(A1)					; $0004
 		move.b	#$60,width_pixels(A1)					; $0007
 		move.b	#8,height_pixels(A1)					 ; $0006
-		move.w	#$200,Obj_Priority(A1)				; $0008
+		move.w	#$200,priority(A1)				; $0008
 		move.w	x_pos(A0),x_pos(A1)			 ; $0010, $0010
 		move.w	y_pos(A0),y_pos(A1)			 ; $0014, $0014
 		bset	#6,render_flags(A1)					; $0004
@@ -21925,7 +21888,7 @@ Offset_0x02207E:
 		move.w	D2,(A2)+
 		addq.w	#2,a2
 		addi.w	#$20,d3
-		dbra	D6,Offset_0x02207E
+		dbf	D6,Offset_0x02207E
 		move.w	#2,-2(A2)
 		move.w	A1,Obj_Control_Var_0C(A0)				; $003C
 Offset_0x022096:
@@ -22073,8 +22036,8 @@ Offset_0x02224E:
 		move.l	D4,(A1)
 		move.l	mappings(A3),mappings(A1)			; $000C, $000C
 		move.b	render_flags(A3),render_flags(A1)			; $0004, $0004
-		move.w	Obj_Art_VRAM(A3),Obj_Art_VRAM(A1)		 ; $000A, $000A
-		move.w	Obj_Priority(A3),Obj_Priority(A1)		 ; $0008, $0008
+		move.w	art_tile(A3),art_tile(A1)		 ; $000A, $000A
+		move.w	priority(A3),priority(A1)		 ; $0008, $0008
 		move.b	width_pixels(A3),width_pixels(A1)			; $0007, $0007
 		move.b	height_pixels(A3),height_pixels(A1)			; $0006, $0006
 		move.w	(A2)+,x_pos(A1)				 ; $0010
@@ -22142,16 +22105,16 @@ Offset_0x0227FA:
 		move.w	x_pos(A0),x_pos(A1)			 ; $0010, $0010
 		move.w	y_pos(A0),y_pos(A1)			 ; $0014, $0014
 		move.l	#AIz_2_Falling_Log_Mappings,mappings(A1) ; Offset_0x02297E, $000C
-		move.w	#$42F0,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$42F0,art_tile(A1)				; $000A
 		tst.b	(Current_Act).w					; $FFFFFE11
 		bne.s	Offset_0x022848
 		move.l	#AIz_Falling_Log_Mappings,mappings(A1) ; Offset_0x02298E, $000C
-		move.w	#$43CF,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$43CF,art_tile(A1)				; $000A
 Offset_0x022848:
 		move.b	#$18,width_pixels(A1)					; $0007
 		move.b	#8,height_pixels(A1)					; $0006
 		move.b	#4,render_flags(A1)					; $0004
-		move.w	#$280,Obj_Priority(A1)				; $0008
+		move.w	#$280,priority(A1)				; $0008
 		movea.l	A1,a2
 		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
 		bne.w	Offset_0x0228C0
@@ -22159,16 +22122,16 @@ Offset_0x022848:
 		move.w	x_pos(A0),x_pos(A1)			 ; $0010, $0010
 		move.w	y_pos(A0),y_pos(A1)			 ; $0014, $0014
 		move.l	#AIz_2_Falling_Log_Mappings_2,mappings(A1) ; Offset_0x02299E, $000C
-		move.w	#$62F0,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$62F0,art_tile(A1)				; $000A
 		tst.b	(Current_Act).w					; $FFFFFE11
 		bne.s	Offset_0x0228A0
 		move.l	#AIz_Falling_Log_Mappings_2,mappings(A1) ; Offset_0x022A0E, $000C
-		move.w	#$43CF,Obj_Art_VRAM(A1)				; $000A
+		move.w	#$43CF,art_tile(A1)				; $000A
 Offset_0x0228A0:
 		move.b	#$20,width_pixels(A1)					; $0007
 		move.b	#$10,height_pixels(A1)					; $0006
 		move.b	#4,render_flags(A1)					; $0004
-		move.w	#$200,Obj_Priority(A1)				; $0008
+		move.w	#$200,priority(A1)				; $0008
 		move.w	A2,Obj_Control_Var_0C(A1)				; $003C
 		move.w	A1,Obj_Control_Var_0C(A2)				; $003C
 Offset_0x0228C0:
@@ -22200,7 +22163,7 @@ Offset_0x0228FE:
 		move.w	x_pos(A0),d4					; $0010
 		jsr	(Platform_Object).l			 ; Offset_0x013AF6
 		move.w	x_pos(A0),d0					; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0				; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x022932
@@ -22261,8 +22224,8 @@ Obj2F_StaticDecoration:
 		add.w	d0,d0
 		add.w	d1,d0
 		lea	StaticDecoration_ObjData(pc,d0.w),a1
-		move.w	(a1)+,Obj_Art_VRAM(a0)
-		move.w	(a1)+,Obj_Priority(a0)
+		move.w	(a1)+,art_tile(a0)
+		move.w	(a1)+,priority(a0)
 		move.b	(a1)+,width_pixels(a0)
 		move.b	(a1)+,height_pixels(a0)
 		move.l	#StaticDecoration_Display,(a0)
@@ -22318,8 +22281,8 @@ Obj30_AnimatedDecoration:
 		add.w	d0,d0
 		add.w	d1,d0
 		lea	AniDecoration_ObjData(pc,d0.w),a1
-		move.w	(a1)+,Obj_Art_VRAM(a0)
-		move.w	(a1)+,Obj_Priority(a0)
+		move.w	(a1)+,art_tile(a0)
+		move.w	(a1)+,priority(a0)
 		move.b	(a1)+,width_pixels(a0)
 		move.b	(a1)+,height_pixels(a0)
 		move.l	#AniDecoration_Display,(a0)
@@ -22371,8 +22334,8 @@ Obj35_AIZPlants:
 		add.w	d0,d0
 		add.w	d1,d0
 		lea	AIZPlants_ObjData(pc,d0.w),a1
-		move.w	(a1)+,Obj_Art_VRAM(a0)
-		move.w	(a1)+,Obj_Priority(a0)
+		move.w	(a1)+,art_tile(a0)
+		move.w	(a1)+,priority(a0)
 		move.b	(a1)+,width_pixels(a0)
 		move.b	(a1)+,height_pixels(a0)
 		move.b	subtype(a0),d0
@@ -22646,11 +22609,11 @@ Offset_0x023F84:
 Offset_0x023F8E:
 		addq.b	#2,routine(A0)					; $0005
 		move.l	#Star_Post_Mappings,mappings(A0) ; Offset_0x024282, $000C
-		move.w	#$5EC,Obj_Art_VRAM(A0)				; $000A
+		move.w	#$5EC,art_tile(A0)				; $000A
 		move.b	#4,render_flags(A0)					; $0004
 		move.b	#8,width_pixels(A0)					; $0007
 		move.b	#$28,height_pixels(A0)					; $0006
-		move.w	#$280,Obj_Priority(A0)				; $0008
+		move.w	#$280,priority(A0)				; $0008
 		move.w	respawn_addr(A0),a2				 ; $0048
 		bclr	#7,(A2)
 		btst	#0,(A2)
@@ -22703,11 +22666,11 @@ Offset_0x02400C:
 		move.w	y_pos(A0),Obj_Control_Var_02(A1)		; $0014, $0032
 		subi.w	#$14,Obj_Control_Var_02(A1)			; $0032
 		move.l	mappings(A0),mappings(A1)			; $000C, $000C
-		move.w	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		; $000A, $000A
+		move.w	art_tile(A0),art_tile(A1)		; $000A, $000A
 		move.b	#4,render_flags(A1)					; $0004
 		move.b	#8,width_pixels(A1)					; $0007
 		move.b	#8,height_pixels(A1)					; $0006
-		move.w	#$200,Obj_Priority(A1)				; $0008
+		move.w	#$200,priority(A1)				; $0008
 		move.b	#2,mapping_frame(A1)					; $0022
 		move.w	#$20,Obj_Control_Var_06(A1)			; $0036
 		move.w	A0,Obj_Control_Var_0E(A1)				; $003E
@@ -22771,7 +22734,7 @@ Star_Post_Save_Info:						 ; Offset_0x024150
 		move.b	(Saved_Level_Flag).w,(Saved_Last_Start_Post_Hit).w ; $FFFFFE30, $FFFFFE31
 		move.w	x_pos(A0),(Saved_Obj_X_P1).w		; $0010, $FFFFFE32
 		move.w	y_pos(A0),(Saved_Obj_Y_P1).w		; $0014, $FFFFFE34
-		move.w	(Obj_Player_One+Obj_Art_VRAM).w,(Saved_Obj_Art_VRAM_P1).w ; $FFFFB00A, $FFFFFE3C
+		move.w	(Obj_Player_One+art_tile).w,(Saved_Obj_Art_VRAM_P1).w ; $FFFFB00A, $FFFFFE3C
 		move.w	(Obj_Player_One+Obj_Player_Top_Solid).w,(Saved_Top_Solid_P1).w ; $FFFFB046, $FFFFFE3E
 		move.w	(Ring_count).w,(Saved_Ring_Count_Address).w ; $FFFFFE20, $FFFFFE36
 		move.b	(Extra_life_flags).w,(Saved_Ring_Status_Flag).w ; $FFFFFE1B, $FFFFFE54
@@ -22789,7 +22752,7 @@ Star_Post_Save_Info_P2:						; Offset_0x0241B4
 		move.b	(Saved_Level_Flag_P2).w,(Saved_Last_Start_Post_Hit_P2).w ; $FFFFFEE0, $FFFFFEE1
 		move.w	x_pos(A0),(Saved_Obj_X_P2).w		; $0010, $FFFFFEE2
 		move.w	y_pos(A0),(Saved_Obj_Y_P2).w		; $0014, $FFFFFEE4
-		move.w	(Obj_Player_Two+Obj_Art_VRAM).w,(Saved_Obj_Art_VRAM_P2).w ; $FFFFB054, $FFFFFEEC
+		move.w	(Obj_Player_Two+art_tile).w,(Saved_Obj_Art_VRAM_P2).w ; $FFFFB054, $FFFFFEEC
 		move.w	(Obj_Player_Two+Obj_Player_Top_Solid).w,(Saved_Top_Solid_P2).w ; $FFFFB090, $FFFFFEEE
 		move.w	(Ring_Count_Address_P2).w,(Saved_Ring_Count_Address_P2).w ; $FFFFFED0, $FFFFFEE6
 		move.b	(Ring_Status_Flag_P2).w,(Saved_Ring_Status_Flag_P2).w ; $FFFFFEC7, $FFFFFE55
@@ -22810,7 +22773,7 @@ Star_Post_Load_Info:						 ; Offset_0x0241EC
 		move.l	(Saved_Time).w,(Timer).w ; $FFFFFE38, $FFFFFE22
 		move.b	#59,(Timer_frame).w	; $FFFFFE25
 		subq.b	#1,(Timer_second).w		; $FFFFFE24
-		move.w	(Saved_Obj_Art_VRAM_P1).w,(Obj_Player_One+Obj_Art_VRAM).w ; $FFFFFE3C, $FFFFB00A
+		move.w	(Saved_Obj_Art_VRAM_P1).w,(Obj_Player_One+art_tile).w ; $FFFFFE3C, $FFFFB00A
 		move.w	(Saved_Top_Solid_P1).w,(Obj_Player_One+Obj_Player_Top_Solid).w ; $FFFFFE3E, $FFFFB046
 		move.b	(Saved_Dynamic_Resize_Routine).w,(Dynamic_Resize_Routine).w ; $FFFFFE58, $FFFFEE33
 		move.w	(Saved_Sonic_Level_Limits_Max_Y).w,(Sonic_Level_Limits_Max_Y).w ; $FFFFFE56, $FFFFEE1A
@@ -22826,52 +22789,52 @@ Offset_0x02425E:
 		bpl.s	Offset_0x024270
 		move.w	(Saved_Obj_X_P1).w,d0				; $FFFFFE32
 		subi.w	#$A0,d0
-		move.w	D0,(Sonic_Level_Limits_Min_X).w			; $FFFFEE14
+		move.w	d0,(Sonic_Level_Limits_Min_X).w			; $FFFFEE14
 Offset_0x024270:
 		rts
 ; ---------------------------------------------------------------------------
-Star_Post_Animate_Data:						; Offset_0x024272
+Star_Post_Animate_Data:
 		dc.w	Offset_0x024278-Star_Post_Animate_Data
 		dc.w	Offset_0x02427B-Star_Post_Animate_Data
 		dc.w	Offset_0x02427E-Star_Post_Animate_Data
 Offset_0x024278:
-		dc.b	$0F, $00, $FF
+		dc.b	$F, 0, $FF
 Offset_0x02427B:
-		dc.b	$0F, $01, $FF
+		dc.b	$F, 1, $FF
 Offset_0x02427E:
-		dc.b	$03, $00, $04, $FF
+		dc.b	3, 0, 4, $FF
 ; ---------------------------------------------------------------------------
 ; Offset_0x024282:
 Star_Post_Mappings:		include	"data/mappings/34 - Starpost Pole.asm"
 ; Offset_0x0242E4:
 Star_Post_Stars_Mappings:	include	"data/mappings/34 - Starpost Stars.asm"
 ; ---------------------------------------------------------------------------
-Load_Star_Post_Stars:						; Offset_0x024302
+Load_Star_Post_Stars:
 		moveq	#3,d1
 		moveq	#0,d2
 Offset_0x024306:
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.s	Offset_0x024370
-		move.l	(A0),(A1)
-		move.l	#Star_Post_Stars_Mappings,mappings(A1) ; Offset_0x0242E4, $000C
-		move.w	#$5EC,Obj_Art_VRAM(A1)				; $000A
-		move.b	#4,render_flags(A1)					; $0004
-		move.b	#8,routine(A1)					; $0005
-		move.w	x_pos(A0),d0					; $0010
-		move.w	D0,x_pos(A1)					; $0010
-		move.w	D0,Obj_Control_Var_00(A1)				; $0030
-		move.w	y_pos(A0),d0					; $0014
+		move.l	(a0),(a1)
+		move.l	#Star_Post_Stars_Mappings,mappings(a1)
+		move.w	#$5EC,art_tile(a1)
+		move.b	#4,render_flags(a1)
+		move.b	#8,routine(a1)
+		move.w	x_pos(a0),d0
+		move.w	d0,x_pos(a1)
+		move.w	d0,Obj_Control_Var_00(a1)
+		move.w	y_pos(a0),d0
 		subi.w	#$30,d0
-		move.w	D0,y_pos(A1)					; $0014
-		move.w	D0,Obj_Control_Var_02(A1)				; $0032
-		move.w	Obj_Priority(A0),Obj_Priority(A1)		; $0008, $0008
-		move.b	#8,width_pixels(A1)					; $0007
-		move.b	#1,mapping_frame(A1)					; $0022
-		move.w	#-$400,Obj_Speed_X(A1)				; $0018
-		move.w	#0,Obj_Speed_Y(A1)				; $001A
-		move.w	D2,Obj_Control_Var_04(A1)				; $0034
+		move.w	d0,y_pos(a1)
+		move.w	d0,Obj_Control_Var_02(a1)
+		move.w	priority(a0),priority(a1)
+		move.b	#8,width_pixels(a1)
+		move.b	#1,mapping_frame(a1)
+		move.w	#-$400,Obj_Speed_X(a1)
+		move.w	#0,Obj_Speed_Y(a1)
+		move.w	d2,Obj_Control_Var_04(a1)
 		addi.w	#$40,d2
-		dbf	D1,Offset_0x024306
+		dbf	d1,Offset_0x024306
 Offset_0x024370:
 		rts
 ; ---------------------------------------------------------------------------
@@ -27917,10 +27880,10 @@ Offset_0x0322E8:
 		cmp.w	height_pixels(A1),d1								; $0006
 		bcc.s	Offset_0x032330
 		move.w	D2,(Background_Events+$10).w				; $FFFFEEE2
-		move.w	Obj_Priority(A1),d0								; $0008
+		move.w	priority(A1),d0								; $0008
 		move.w	D0,(Sonic_Level_Limits_Max_Y).w				; $FFFFEE1A
 		move.w	D0,(Level_Limits_Max_Y).w					; $FFFFEE12
-		move.w	Obj_Art_VRAM(A1),d0								; $000A
+		move.w	art_tile(A1),d0								; $000A
 		cmpi.w	#4,d2
 		bne.s	Offset_0x032326
 		move.w	D0,(Sonic_Level_Limits_Max_X).w				; $FFFFEE16
@@ -31076,8 +31039,8 @@ AIZPlaneIntro_Index:
 AIZPlaneIntro_Init:
 		addq.b	#2,routine(a0)
 		move.l	#Sonic_Mappings,mappings(a0)
-		move.w	#$680,Obj_Art_VRAM(a0)
-		move.w	#$280,Obj_Priority(a0)
+		move.w	#$680,art_tile(a0)
+		move.w	#$280,priority(a0)
 		move.b	#1,mapping_frame(a0)
 		move.b	#$40,width_pixels(a0)
 		move.b	#$20,width_pixels(a0)
@@ -31276,8 +31239,8 @@ AIZPlaneIntro_DisableSuper:
 Obj_IntroTornado:
 		move.l	#Offset_0x035DB0,(a0)
 		move.l	#Tornado_Mappings,mappings(a0)
-		move.w	#$529,Obj_Art_VRAM(a0)
-		move.w	#$280,Obj_Priority(a0)
+		move.w	#$529,art_tile(a0)
+		move.w	#$280,priority(a0)
 		move.b	#$40,width_pixels(a0)
 		move.b	#$20,width_pixels(a0)
 		lea	(Art_Tornado).l,a1
@@ -31317,8 +31280,8 @@ Offset_0x035DE8:
 ; Offset_0x035DEE:
 Obj_IntroTornadoProp:
 		move.l	#Tornado_Mappings,mappings(a0)
-		move.w	#$529,Obj_Art_VRAM(a0)
-		move.w	#$280,Obj_Priority(a0)
+		move.w	#$529,art_tile(a0)
+		move.w	#$280,priority(a0)
 		move.b	#4,width_pixels(a0)
 		move.b	#$C,width_pixels(a0)
 		move.l	#IntroTornadoProp_Animate,(a0)
@@ -31335,8 +31298,8 @@ IntroTornadoProp_Animate:
 ; Offset_0x035E2C:
 Obj_IntroTornadoBooster:
 		move.l	#Tornado_Mappings,mappings(a0)
-		move.w	#$529,Obj_Art_VRAM(a0)
-		move.w	#$280,Obj_Priority(a0)
+		move.w	#$529,art_tile(a0)
+		move.w	#$280,priority(a0)
 		move.b	#4,width_pixels(a0)
 		move.b	#$C,width_pixels(a0)
 		move.l	#IntroTornadoBooster_Animate,(a0)
@@ -31354,8 +31317,8 @@ IntroTornadoBooster_Animate:
 Obj_IntroSuperSonicWaves:
 		move.l	#IntroSSWaves_Animate,(a0)
 		move.l	#Surfboard_Waves_Mappings,mappings(a0)
-		move.w	#$3D1,Obj_Art_VRAM(a0)
-		move.w	#$100,Obj_Priority(a0)
+		move.w	#$3D1,art_tile(a0)
+		move.w	#$100,priority(a0)
 		move.b	#$10,width_pixels(a0)
 		bset	#0,render_flags(a0)
 		move.w	Obj_Child_Ref(a0),a1
@@ -32669,7 +32632,7 @@ Offset_0x039356:
 Offset_0x03935C:
 		moveq	#0,d0
 		move.b	subtype(A0),d0					; $002C
-		move.w	Offset_0x03936A(PC,d0.w),Obj_Priority(A0)		; $0008
+		move.w	Offset_0x03936A(PC,d0.w),priority(A0)		; $0008
 		rts
 ; ---------------------------------------------------------------------------
 Offset_0x03936A:
@@ -33268,7 +33231,7 @@ Offset_0x040760:
 		add.w	d0,d0
 		move.w	d0,d1
 		lea	HeyHo_Priority(pc,d0.w),a2
-		move.w	(a2)+,Obj_Priority(a0)
+		move.w	(a2)+,priority(a0)
 		add.w	d1,d1
 		add.b	subtype(a0),d1
 		lea	HeyHo_Position(pc,d1.w),a2
@@ -33908,10 +33871,10 @@ SetupObjectAttributes:
 		move.l	(a1)+,mappings(a0)
 ; Offset_0x041D76: Object_Settings_2:
 SetupObjectAttributes2:
-		move.w	(a1)+,Obj_Art_VRAM(a0)
+		move.w	(a1)+,art_tile(a0)
 ; Offset_0x041D7A: Object_Settings_3:
 SetupObjectAttributes3:
-		move.w	(a1)+,Obj_Priority(a0)
+		move.w	(a1)+,priority(a0)
 		move.b	(a1)+,width_pixels(a0)
 		move.b	(a1)+,height_pixels(a0)
 		move.b	(a1)+,mapping_frame(a0)
@@ -33943,7 +33906,7 @@ Offset_0x041D9E:
 
 		move.l	mappings(a0),mappings(a1)
 		; not sure why this is also a longword, given that VRAM is stored as a word
-		move.l	Obj_Art_VRAM(a0),Obj_Art_VRAM(a1)	; mappings and VRAM offset copied from parent object
+		move.l	art_tile(a0),art_tile(a1)	; mappings and VRAM offset copied from parent object
 		move.l	(a2)+,(a1)				; object address
 		move.b	d2,subtype(a1)			; index of child object
 		move.w	x_pos(a0),d0
@@ -33986,7 +33949,7 @@ Offset_0x041DEE:
 		move.w	a0,Obj_Child_Ref(a1)
 
 		move.l	mappings(A0),mappings(a1)
-		move.l	Obj_Art_VRAM(A0),Obj_Art_VRAM(a1)
+		move.l	art_tile(A0),art_tile(a1)
 		move.l	(a2)+,(a1)
 		move.l	(a2)+,Obj_Control_Var_0E(a1)
 		move.l	(a2)+,Obj_Control_Var_00(a1)
@@ -34034,7 +33997,7 @@ Offset_0x041E52:
 		move.w	a0,Obj_Child_Ref(a1)
 
 		move.l	mappings(a0),mappings(a1)
-		move.l	Obj_Art_VRAM(a0),Obj_Art_VRAM(a1)
+		move.l	art_tile(a0),art_tile(a1)
 		move.l	(a3)+,(a1)
 		move.b	d2,subtype(a1)
 		move.w	x_pos(a0),d0
@@ -34070,7 +34033,7 @@ Offset_0x041EA6:
 		move.w	A1,Obj_Height_3(A3)								; $0044
 		movea.l	A1,a3
 		move.l	mappings(A0),mappings(A1)					 ; $000C, $000C
-		move.l	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		 ; $000A, $000A
+		move.l	art_tile(A0),art_tile(A1)		 ; $000A, $000A
 		move.l	(A2),(A1)
 		move.b	D2,subtype(A1)								; $002C
 		move.w	x_pos(A0),x_pos(A1)						 ; $0010, $0010
@@ -34089,7 +34052,7 @@ Offset_0x041EE4:
 		bne.s	Offset_0x041F58
 		move.w	A0,Obj_Child_Ref(A1)							; $0046
 		move.l	mappings(A0),mappings(A1)					 ; $000C, $000C
-		move.l	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		 ; $000A, $000A
+		move.l	art_tile(A0),art_tile(A1)		 ; $000A, $000A
 		move.l	(A2)+,(A1)
 		move.l	(A2)+,Obj_Control_Var_0E(A1)					; $003E
 		move.l	(A2)+,Obj_Control_Var_00(A1)					; $0030
@@ -34149,7 +34112,7 @@ Offset_0x041F8A:
 		bne.s	Offset_0x041FD4
 		move.w	A0,Obj_Child_Ref(A1)							; $0046
 		move.l	mappings(A0),mappings(A1)					 ; $000C, $000C
-		move.l	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		 ; $000A, $000A
+		move.l	art_tile(A0),art_tile(A1)		 ; $000A, $000A
 		move.l	(A2)+,(A1)
 		move.b	D2,subtype(A1)								; $002C
 		move.w	x_pos(A0),d0									; $0010
@@ -34181,7 +34144,7 @@ Offset_0x041FDC:
 		move.w	A0,Obj_Height_3(A1)								; $0044
 		movea.l	A1,a3
 		move.l	mappings(A0),mappings(A1)					 ; $000C, $000C
-		move.l	Obj_Art_VRAM(A0),Obj_Art_VRAM(A1)		 ; $000A, $000A
+		move.l	art_tile(A0),art_tile(A1)		 ; $000A, $000A
 		move.l	(A2),(A1)
 		move.b	D2,subtype(A1)								; $002C
 		move.w	x_pos(A0),x_pos(A1)						 ; $0010, $0010
@@ -35225,9 +35188,9 @@ SetupSlottedObjectAttributes:
 		bset	d0,(a2)				; activate slot
 		move.b	d0,Obj_Control_Var_0B(a0)
 		move.w	a2,Obj_Control_Var_0C(a0)	; keep track of address and bit number
-		move.w	d3,Obj_Art_VRAM(a0)
+		move.w	d3,art_tile(a0)
 		move.l	(a1)+,mappings(a0)
-		move.w	(a1)+,Obj_Priority(a0)
+		move.w	(a1)+,priority(a0)
 		move.b	(a1)+,width_pixels(a0)
 		move.b	(a1)+,height_pixels(a0)
 		move.b	(a1)+,mapping_frame(a0)
@@ -35257,7 +35220,7 @@ LoadDynamicPLC:
 		move.b	d0,Obj_Control_Var_0A(a0)
 
 		movea.l	(a2)+,a3
-		move.w	Obj_Art_VRAM(a0),d4		; get source address of art
+		move.w	art_tile(a0),d4		; get source address of art
 
 		andi.w	#$7FF,d4			; isolate tile location offset
 		lsl.w	#5,d4				; convert to VRAM address
@@ -35301,7 +35264,7 @@ Offset_0x042A56:
 ; Offset_0x042A58: Delete_Sprite_Check_X:
 MarkObjectGone:
 		move.w	x_pos(a0),d0
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0
 		cmpi.w	#$280,d0
 		bhi.s	MarkObjectGone_Respawn
@@ -35323,7 +35286,7 @@ Offset_0x042A7C:
 ;===============================================================================
 Delete_Sprite_Check_X_2:									   ; Offset_0x042A8A
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Delete_Sprite_Clear_Respaw_Flag_2	   ; Offset_0x042AA2
@@ -35341,7 +35304,7 @@ Offset_0x042AAE:
 ;===============================================================================
 Delete_Sprite_Check_X_3:									   ; Offset_0x042ABC
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	MarkObjectGone_Respawn		  ; Offset_0x042A70
@@ -35349,7 +35312,7 @@ Delete_Sprite_Check_X_3:									   ; Offset_0x042ABC
 ;===============================================================================
 Delete_Sprite_Check_X_Y:									   ; Offset_0x042AD0
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0					   ; Offset_0x042D3E
@@ -35363,7 +35326,7 @@ Delete_Sprite_Check_X_Y:									   ; Offset_0x042AD0
 Obj_Flicker_Move:											   ; Offset_0x042AFE
 		jsr	(ObjectFall).l						   ; Offset_0x0110FE
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0					   ; Offset_0x042D3E
@@ -35378,7 +35341,7 @@ Obj_Flicker_Move:											   ; Offset_0x042AFE
 ;===============================================================================
 Delete_Sprite_Clear_Respaw_Flag_Check_X:					   ; Offset_0x042B3C
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	MarkObjectGone_Respawn		  ; Offset_0x042A70
@@ -35387,7 +35350,7 @@ Delete_Sprite_Clear_Respaw_Flag_Check_X:					   ; Offset_0x042B3C
 ;===============================================================================
 Delete_Sprite_Clear_Respaw_Flag_Check_X_2					   ; Offset_0x042B5C
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Delete_Sprite_Clear_Respaw_Flag_2	   ; Offset_0x042AA2
@@ -35396,7 +35359,7 @@ Delete_Sprite_Clear_Respaw_Flag_Check_X_2					   ; Offset_0x042B5C
 ;===============================================================================
 Delete_Sprite_Clear_Respaw_Flag_Check_X_3:					   ; Offset_0x042B7C
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	MarkObjectGone_Respawn		  ; Offset_0x042A70
@@ -35404,7 +35367,7 @@ Delete_Sprite_Clear_Respaw_Flag_Check_X_3:					   ; Offset_0x042B7C
 ;===============================================================================
 Delete_Sprite_Clear_Respaw_Flag_Check_X_Y:					   ; Offset_0x042B96
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0					   ; Offset_0x042D3E
@@ -35418,7 +35381,7 @@ Delete_Sprite_Clear_Respaw_Flag_Check_X_Y:					   ; Offset_0x042B96
 ;===============================================================================
 Delete_Sprite_Slotted_Check_X:								   ; Offset_0x042BCA
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Go_Delete_Slotted					   ; Offset_0x042BE2
@@ -35441,7 +35404,7 @@ Remove_From_Tracking_Slot:									   ; Offset_0x042BFA
 ;===============================================================================
 Delete_Slotted_Check_X:										   ; Offset_0x042C06
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Go_Delete_Slotted					   ; Offset_0x042BE2
@@ -35451,7 +35414,7 @@ Check_Delete_Touch_Slotted:									   ; Offset_0x042C1E
 		tst.b	status(A0)									 ; $002A
 		bmi.s	Go_Delete_Slotted_3					   ; Offset_0x042C42
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Go_Delete_Slotted					   ; Offset_0x042BE2
@@ -35466,7 +35429,7 @@ Check_Delete_Touch_Slotted_2:								   ; Offset_0x042C4A
 		tst.b	status(A0)									 ; $002A
 		bmi.s	Go_Delete_Slotted_3					   ; Offset_0x042C42
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Slotted					   ; Offset_0x042BE2
@@ -35475,7 +35438,7 @@ Check_Delete_Touch_Slotted_2:								   ; Offset_0x042C4A
 ;===============================================================================
 ; Delete_Sprite_Check_X_4:									   ; Offset_0x042C70
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0					   ; Offset_0x042D3E
@@ -35483,7 +35446,7 @@ Check_Delete_Touch_Slotted_2:								   ; Offset_0x042C4A
 ;===============================================================================
 ; Delete_Sprite_Check_X_5:									   ; Offset_0x042C8A
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0					   ; Offset_0x042D3E
@@ -35492,7 +35455,7 @@ Check_Delete_Touch_Slotted_2:								   ; Offset_0x042C4A
 ;===============================================================================
 ; Delete_Sprite_Check_X_6:									   ; Offset_0x042CAA
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0_2				   ; Offset_0x042D4C
@@ -35500,7 +35463,7 @@ Check_Delete_Touch_Slotted_2:								   ; Offset_0x042C4A
 ;===============================================================================
 ; Delete_Sprite_Touch_Check_X:								   ; Offset_0x042CC4
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0_2				   ; Offset_0x042D4C
@@ -35509,7 +35472,7 @@ Check_Delete_Touch_Slotted_2:								   ; Offset_0x042C4A
 ;===============================================================================
 ; Delete_Sprite_Remove_Tracking_List_Check_X:				   ; Offset_0x042CE4
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Offset_0x042CFC
@@ -35521,7 +35484,7 @@ Offset_0x042CFC:
 ;===============================================================================
 Display_Sprite_Check_X:										   ; Offset_0x042D0C
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Offset_0x042CFC
@@ -35529,7 +35492,7 @@ Display_Sprite_Check_X:										   ; Offset_0x042D0C
 ;===============================================================================
 Display_Sprite_Check_X_2:									   ; Offset_0x042D24
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Go_Delete_Object_A0_2				   ; Offset_0x042D4C
@@ -36063,12 +36026,12 @@ Offset_0x043222:
 ;===============================================================================
 Child_Get_Priority:											   ; Offset_0x043230
 		movea.w	Obj_Child_Ref(A0),a1							; $0046
-		bclr	#7,Obj_Art_VRAM(A0)							; $000A
-		btst	#7,Obj_Art_VRAM(A1)							; $000A
+		bclr	#7,art_tile(A0)							; $000A
+		btst	#7,art_tile(A1)							; $000A
 		beq.s	Offset_0x043248
-		bset	#7,Obj_Art_VRAM(A0)							; $000A
+		bset	#7,art_tile(A0)							; $000A
 Offset_0x043248:
-		move.w	Obj_Priority(A1),Obj_Priority(A0)		 ; $0008, $0008
+		move.w	priority(A1),priority(A0)		 ; $0008, $0008
 		rts
 ;===============================================================================
 Move_0x0E_Bytes_A2_A1:										   ; Offset_0x043250
@@ -36102,7 +36065,7 @@ Offset_0x043292:
 		tst.b	render_flags(A0)									 ; $0004
 		bmi.s	Offset_0x0432C2
 		move.w	x_pos(A0),d0									; $0010
-		andi.w	#$FF80,d0
+		andi.w	#-$80,d0
 		sub.w	(Camera_X_Left).w,d0						; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.s	Offset_0x0432B0
@@ -36457,13 +36420,7 @@ Obj_0xB9_Sub_0x046A94:										   ; Offset_0x046A94
 Offset_0x046AA4:
 		rts
 ; ---------------------------------------------------------------------------
-; Rotinas usada pelo objeto 0xB9
-; <<<-
-; ---------------------------------------------------------------------------
-
-; ---------------------------------------------------------------------------
 ; Dados usados pelos objetos 0xB9, 0xBA e 0xC8
-; ->>>
 ; ---------------------------------------------------------------------------
 Platform_Setup_Data: ; Usado pelo objeto 0xB9				   ; Offset_0x046AA6
 		dc.l	Iz_Platform_Mappings				   ; Offset_0x110BBC
@@ -36513,10 +36470,6 @@ Offset_0x046B02: ; Usado pelo objeto 0xB9
 ; ---------------------------------------------------------------------------
 Offset_0x046B08: ; Usado pelo objeto 0xBA
 		dc.b	$02, $1C, $1D, $25, $26, $FC
-; ---------------------------------------------------------------------------
-; Dados usados pelos objetos 0xB9, 0xBA e 0xC8
-; <<<-
-; ---------------------------------------------------------------------------
 Obj_0xB8_Iz_Crushing_Column:								   ; Offset_0x046B0E
 		include "obj\obj_0xB8.asm"
 Obj_0xBB_Iz_Freezer:										   ; Offset_0x046CF2
@@ -36634,7 +36587,9 @@ Fireworm_Init2:
 		jsr	(SetupSlottedObjectAttributes).l
 ; Offset_0x04A03C:
 Fireworm_TrackSonic:
+	if ~~FixBugs
 		jmp	(Run_Object_Wait_Timer_A0).l	; this was seemingly added to crash the game if it loads...
+	endif
 		move.b	#4,routine(a0)
 		move.w	#3,Obj_Timer(a0)
 		move.l	#Fireworm_LoadChild,Obj_Child(a0)
@@ -36868,11 +36823,10 @@ Obj_0x91_LRz_Iwamodock:
 Obj_0x92_LRz_Toxomister:
 		include "obj\obj_0x92.asm"
 ;===============================================================================
-; Carga dos gr�ficos das fases
-; Cada fase usa seis grupos de LongWord sendo que o primeiro byte dos dois
-; primeiros grupos representam um ponteiro para a lista de carga dos gr�ficos
-; das fases e o primeiro byte do �ltimo grupo representa um ponteiro para a
-; lista de carga das paletas das fases.
+; Loading the phase graphics
+; Each phase uses six LongWord groups, with the first byte of the first two
+; groups representing a pointer to the phase graphics load list
+; and the first byte of the last group representing a pointer to the phase palette load list.
 ;===============================================================================
 TilesMainTable:												   ; Offset_0x04A77E
 		dc.l	($0A<<$18)|Angel_Island_1_Tiles		   ; Offset_0x13D750
@@ -37993,7 +37947,7 @@ Offset_0x04B1C0:
 Offset_0x04B1C4:
 		addq.b	#2,(Debug_placement_mode).w
 		move.l	mappings(a0),(Debug_Player_Obj_Map).w
-		move.w	Obj_Art_VRAM(a0),(Debug_Player_Obj_Art_VRAM).w
+		move.w	art_tile(a0),(Debug_Player_Obj_Art_VRAM).w
 		move.w	(Screen_Wrap_Y).w,d0
 		and.w	d0,(Obj_Player_One+y_pos).w
 		and.w	d0,(Camera_Y).w
@@ -38143,7 +38097,7 @@ Offset_0x04B39A:
 		move.w	d0,(Debug_placement_mode).w
 		lea	(Obj_Memory_Address).w,a1
 		move.l	(Debug_Player_Obj_Map).w,mappings(a1)
-		move.w	(Debug_Player_Obj_Art_VRAM).w,Obj_Art_VRAM(a1)
+		move.w	(Debug_Player_Obj_Art_VRAM).w,art_tile(a1)
 		bsr.s	Offset_0x04B3C8
 		move.b	#$13,Obj_Height_2(a1)
 		move.b	#9,Obj_Width_2(a1)
@@ -38169,7 +38123,7 @@ Offset_0x04B3F6:
 		lsl.w	#2,d0
 		add.w	d1,d0
 		move.l	4(a2,d0.w),mappings(a0)
-		move.w	8(a2,d0.w),Obj_Art_VRAM(a0)
+		move.w	8(a2,d0.w),art_tile(a0)
 		move.b	(a2,d0.w),mapping_frame(a0)
 		rts
 ; ===========================================================================
@@ -40134,58 +40088,58 @@ Offset_0x04CD0E:
 		dc.l	Obj_0xC9_Knuckles_Switch+$88		   ; Offset_0x03550C
 		dc.l	ObjCA_AIZPlaneIntro+$88	; Offset_0x035B5A
 		binclude	"data\star trek\part1.bin"
-Art_Sonic:													   ; Offset_0x050000
+Art_Sonic:
 		binclude	"data\art\sonic.dat"
-Art_Miles:													   ; Offset_0x0676A0
+Art_Miles:
 		binclude	"data\art\miles.dat"
-Art_Knuckles:												   ; Offset_0x072F60
+Art_Knuckles:
 		binclude	"data\art\knuckles.dat"
-Art_Sonic_Surfboard:										   ; Offset_0x075200
+Art_Sonic_Surfboard:
 		binclude	"data\art\sonicsrf.dat"
-Art_Sonic_2P:												   ; Offset_0x077560
+Art_Sonic_2P:
 		binclude	"data\art\sonic_2p.dat"
-Art_Miles_2P:												   ; Offset_0x07A620
+Art_Miles_2P:
 		binclude	"data\art\miles_2p.dat"
-Art_Miles_Tails_2P:											   ; Offset_0x07D3C0
+Art_Miles_Tails_2P:
 		binclude	"data\art\milest_2p.dat"
-Art_Knuckles_2P:											   ; Offset_0x07D960
+Art_Knuckles_2P:
 		binclude	"data\art\kte_2p.dat"
-Art_Invincibility:		 ; N�o usado - Left Over ???				   ; Offset_0x080DE0
+Art_Invincibility:
 		binclude	"data\art\invcblty.dat"
-Art_Dust_Water_Splash:										   ; Offset_0x081220
+Art_Dust_Water_Splash:
 		binclude	"data\art\dustwtrs.dat"
-Art_Fire_Shield:											   ; Offset_0x082B80
+Art_Fire_Shield:
 		binclude	"data\art\f_shield.dat"
-Art_Lightning_Shield:										   ; Offset_0x083E40
+Art_Lightning_Shield:
 		binclude	"data\art\l_shield.dat"
-Art_Water_Shield:											   ; Offset_0x084E80
+Art_Water_Shield:
 		binclude	"data\art\w_shield.dat"
-Art_Dust_2P:												   ; Offset_0x0858E0
+Art_Dust_2P:
 		binclude	"data\art\dust_2p.nem"
 		align0 4
-Art_CNz_Cannon:												   ; Offset_0x0859A0
+Art_CNz_Cannon:
 		binclude	"data\cnz\cannon.dat"
-Art_Angel_Island_Stalk:										   ; Offset_0x0864C0
+Art_Angel_Island_Stalk:
 		binclude	"data\aiz\stalk.dat"
-Art_Angel_Island_Stalk_with_Fruits:							   ; Offset_0x086DC0
+Art_Angel_Island_Stalk_with_Fruits:
 		binclude	"data\aiz\stkfruit.dat"
-Art_Angel_Island_Stalk_2:									   ; Offset_0x087180
+Art_Angel_Island_Stalk_2:
 		binclude	"data\aiz\stalk_2.dat"
-Art_Angel_Island_Leaves_Burning:							   ; Offset_0x087A80
+Art_Angel_Island_Leaves_Burning:
 		binclude	"data\aiz\leavesbn.dat"
-Art_Angel_Island_Burning_Background:						   ; Offset_0x088600
+Art_Angel_Island_Burning_Background:
 		binclude	"data\aiz\brngbg.dat"
-Art_Angel_Island_Leaves_Burning_Background:					   ; Offset_0x089200
+Art_Angel_Island_Leaves_Burning_Background:
 		binclude	"data\aiz\leavesb2.dat"
-Art_Angel_Island_Leaves:									   ; Offset_0x089400
+Art_Angel_Island_Leaves:
 		binclude	"data\aiz\leaves.dat"
-Art_Hydrocity_Conveyor_Belt:								   ; Offset_0x089860
+Art_Hydrocity_Conveyor_Belt:
 		binclude	"data\hz\convbelt.dat"
-Art_Hydrocity_Water_Surface:								   ; Offset_0x08A5E0
+Art_Hydrocity_Water_Surface:
 		binclude	"data\hz\wtrsurfc.dat"
-Art_Hydrocity_Background:									   ; Offset_0x08A9E0
+Art_Hydrocity_Background:
 		binclude	"data\hz\backgnd.dat"
-Art_Hydrocity_Water_Surface_2:								   ; Offset_0x08ADE0
+Art_Hydrocity_Water_Surface_2:
 		binclude	"data\hz\wtrsurf2.dat"
 Art_Hydrocity_Background_2:									   ; Offset_0x08B1E0
 		binclude	"data\hz\backgnd2.dat"
