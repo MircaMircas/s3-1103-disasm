@@ -7787,7 +7787,7 @@ Add_Points_Max_Score_P1:
 		addq.b	#1,(Life_count).w						  ; $FFFFFE12
 		addq.b	#1,(Update_HUD_lives).w				 ; $FFFFFE1C
 		move.w	#mus_S2ExtraLife,d0							  ; $0098
-		jmp	(PlaySound).l							; Offset_0x001176
+		jmp	(PlaySound).l		
 Offset_0x007AEA:
 		rts
 ; ---------------------------------------------------------------------------
@@ -7811,7 +7811,7 @@ Add_Points_Max_Score_P2:
 		addq.b	#1,(Life_Count_P2).w					  ; $FFFFFEC6
 		addq.b	#1,(HUD_Life_Refresh_Flag_P2).w			  ; $FFFFFEC8
 		move.w	#mus_S2ExtraLife,d0							  ; $0098
-		jmp	(PlaySound).l							; Offset_0x001176
+		jmp	(PlaySound).l		
 Offset_0x007B32:
 		rts
 ;===============================================================================
@@ -8001,7 +8001,7 @@ Offset_0x007D3A:
 		cmpi.b	#$C,-1(a1)
 		bne.s	Offset_0x007D66
 		move.w	#mus_S2Drowning,d0								  ; $009F
-		jsr	(PlaySound).l							; Offset_0x001176
+		jsr	(PlaySound).l		
 Offset_0x007D66:
 		subq.b	#1,-(a1)
 		bcc.s	Offset_0x007D70
@@ -9085,7 +9085,7 @@ Offset_0x008E9C:
 		bclr	#5,status(A0)							  ; $002A
 		clr.b	Obj_Player_St_Convex(A0)						 ; $003C
 		move.w	#sfx_S2LargeBumper,d0						; $00D9
-		jmp	(PlaySound).l							; Offset_0x001176
+		jmp	(PlaySound).l		
 CNz_Triangles_Act_1:										   ; Offset_0x008EBC
 	if FixBugs
 		dc.w 0,0,0
@@ -10769,7 +10769,7 @@ Offset_0x00A486:
 		move.b	#$1A,anim(A0)							; $0020
 		move.b	#$78,Obj_P_Invunerblt_Time(A0)					; $0034
 		moveq	#sfx_Death,d0									   ; $35
-		jsr	(PlaySound).l							; Offset_0x001176
+		jsr	(PlaySound).l		
 		moveq	#-1,d0
 		rts
 ;===============================================================================
@@ -10789,7 +10789,7 @@ Kill_Player:												   ; Offset_0x00A4A4
 		move.b	#$18,anim(A0)							; $0020
 		bset	#7,art_tile(A0)							  ; $000A
 		moveq	#sfx_Death,d0									   ; $35
-		jsr	(PlaySound).l							; Offset_0x001176
+		jsr	(PlaySound).l		
 Kill_NoDeath:												   ; Offset_0x00A4EA
 		moveq	#-1,d0
 		rts
@@ -15550,7 +15550,7 @@ Offset_0x012BEE:
 		tst.w	(Debug_Mode_Active).w				; $FFFFFFFA
 		beq.w	Offset_0x012C16
 		bsr.s	Offset_0x012C16
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x012C16:
 		tst.b	(A2)+
 		bne.w	Offset_0x012CA8
@@ -15822,12 +15822,12 @@ SolidObject_Monitor:
 		addq.w	#1,d3
 		move.w	x_pos(a0),d4
 		lea	(Obj_Player_One).w,a1
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	d1-d4,-(sp)
 		bsr.w	SolidObject_Monitor_Sonic
 		movem.l	(sp)+,d1-d4
 		lea	(Obj_Player_Two).w,a1
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	SolidObject_Monitor_Tails
 		jsr	(Add_SpriteToCollisionResponseList).l
 ; Offset_0x013020:
@@ -16264,14 +16264,14 @@ Monitors_Mappings:	include	"data/mappings/01 - Monitors.asm"
 ; ---------------------------------------------------------------------------
 Solid_Object:												   ; Offset_0x013556
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Solid_Object_A1						   ; Offset_0x013574
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
 		tst.b	render_flags(A1)									 ; $0004
 		bpl.w	Offset_0x0135B4
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Solid_Object_A1:											   ; Offset_0x013574
 		btst	D6,status(A0)								; $002A
 		beq.w	Offset_0x013888
@@ -16300,12 +16300,12 @@ Offset_0x0135B4:
 ; ---------------------------------------------------------------------------
 Solid_Object_2:												   ; Offset_0x0135B6
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Solid_Object_2_A1					   ; Offset_0x0135CC
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Solid_Object_2_A1:											   ; Offset_0x0135CC
 		btst	D6,status(A0)								; $002A
 		beq.w	SolidObject_cont				  ; Offset_0x013890
@@ -16333,12 +16333,17 @@ Offset_0x013604:
 ; ---------------------------------------------------------------------------
 Solid_Object_3:												   ; Offset_0x01360E
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Offset_0x013624
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+	if FixBugs
+		moveq	#p2_standing_bit,d6
+	else
+		; This line might become dirty from a call to Offset_0x01365C
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
+	endif
 Offset_0x013624:
 		btst	D6,status(A0)								; $002A
 		beq.w	Offset_0x0137CE
@@ -16369,12 +16374,12 @@ Offset_0x01365C:
 ; ---------------------------------------------------------------------------
 ; S1_Platform_Object: ; Sonic 1 Left over					   ; Offset_0x01366E
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Offset_0x013684
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Offset_0x013684:
 		btst	D6,status(A0)								; $002A
 		beq.w	Offset_0x013828
@@ -16402,12 +16407,17 @@ Offset_0x0136BC:
 ; ---------------------------------------------------------------------------
 Solid_Object_4:												   ; Offset_0x0136C6
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Offset_0x0136DC
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+	if FixBugs
+		moveq	#p2_standing_bit,d6
+	else
+		; This line might become dirty from a call to Offset_0x01370E
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
+	endif
 Offset_0x0136DC:
 		btst	D6,status(A0)								; $002A
 		beq.w	Offset_0x0137CE
@@ -16436,12 +16446,12 @@ Offset_0x01370E:
 		rts
 Solid_Object_Offset:										   ; Offset_0x013720
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Offset_0x013736
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Offset_0x013736:
 		btst	D6,status(A0)								; $002A
 		beq.w	Offset_0x01378C
@@ -16816,12 +16826,12 @@ Offset_0x013AF0:
 ; ---------------------------------------------------------------------------
 Platform_Object:											   ; Offset_0x013AF6
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Platform_Object_A1					   ; Offset_0x013B0C
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Platform_Object_A1:											   ; Offset_0x013B0C
 		btst	D6,status(A0)								; $002A
 		beq.w	Offset_0x013C26
@@ -16849,12 +16859,12 @@ Offset_0x013B44:
 ; ---------------------------------------------------------------------------
 Platform_Object_2:											   ; Offset_0x013B4E
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Platform_Object_2_A1				   ; Offset_0x013B64
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Platform_Object_2_A1:										   ; Offset_0x013B64
 		btst	D6,status(A0)								; $002A
 		beq.w	Solid_Object_Check_Sloped_2			   ; Offset_0x013CE4
@@ -16882,12 +16892,12 @@ Offset_0x013B9C:
 ; ---------------------------------------------------------------------------
 Solid_Object_Top_Sloped:									   ; Offset_0x013BA6
 		lea	(Obj_Player_One).w,a1						; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l	D1-D4,-(sp)
 		bsr.s	Offset_0x013BBC
 		movem.l	(sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1						; $FFFFB04A
-		addq.b	#1,d6
+		addq.b	#p2_standing_bit-p1_standing_bit,d6
 Offset_0x013BBC:
 		btst	D6,status(A0)								; $002A
 		bne.s	Offset_0x013BCE
@@ -17385,9 +17395,9 @@ Offset_0x0152C4:
 		addi.w	#$18,Obj_Speed_Y(A0)				; $001A
 		tst.b	render_flags(A0)					; $0004
 		bpl.w	Offset_0x0152DE
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x0152DE:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 Offset_0x0152E4:
 		bsr.s	Offset_0x015310
 		move.b	#3,mapping_frame(A0)					; $0022
@@ -17399,9 +17409,9 @@ Offset_0x0152F6:
 		addi.w	#$18,Obj_Speed_Y(A0)				; $001A
 		tst.b	render_flags(A0)					; $0004
 		bpl.w	Offset_0x0152DE
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x015310:
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x015338
 		moveq	#$48,d0
 Offset_0x01531C:
@@ -17421,7 +17431,7 @@ Offset_0x01533A:
 		move.l	Obj_Height_3(A0),(A0)				 ; $0044
 		move.b	#0,mapping_frame(A0)					; $0022
 Offset_0x01534A:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 ; Offset_0x015350:
 Rock_Large:
@@ -17444,7 +17454,7 @@ Offset_0x015382:
 		bne.s	Offset_0x01538E
 		jmp	(MarkObjGone).l				; Offset_0x011AF2
 Offset_0x01538E:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x015394:
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
 		move.w	Obj_Control_Var_00(A0),d1				; $0030
@@ -17597,11 +17607,11 @@ Offset_0x015576:
 		move.w	x_pos(A0),d2					; $0010
 		move.w	y_pos(A0),d3					; $0014
 		moveq	#3,d6
-		move.l	A0,a1
+		movea.l	A0,a1
 		bra.s	Offset_0x01559C
 ; ---------------------------------------------------------------------------
 Offset_0x015596:
-		bsr.w	AllocateObjectAfterCurrent			; Offset_0x011DE0
+		bsr.w	AllocateObjectAfterCurrent
 		bne.s	Offset_0x0155F4
 Offset_0x01559C:
 		move.l	D4,(A1)
@@ -17631,7 +17641,7 @@ Offset_0x0155F0:
 		dbf	D1,Offset_0x015596
 Offset_0x0155F4:
 		moveq	#sfx_Collapse,d0					; $62
-		jmp	(PlaySound).l				 ; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 Offset_0x0155FC:
 		dc.w	Offset_0x015604-Offset_0x0155FC
@@ -17729,7 +17739,7 @@ Offset_0x0158E6:
 		movea.l	Obj_Control_Var_0C(A0),a2				; $003C
 		move.w	x_pos(A0),d4					; $0010
 		jsr	(Platform_Object_2).l			; Offset_0x013B4E
-		bra.w	MarkObjGone					; Offset_0x011AF2
+		bra.w	MarkObjGone
 ; ---------------------------------------------------------------------------
 Offset_0x0158FE: ; Referência do objeto 0x0F que é referência deste objeto (0x04)
 		tst.b	Obj_Control_Var_08(A0)				; $0038
@@ -17737,16 +17747,16 @@ Offset_0x0158FE: ; Referência do objeto 0x0F que é referência deste objeto (0
 		tst.b	Obj_Control_Var_0A(A0)				; $003A
 		bne.s	Offset_0x015912
 		subq.b	#1,Obj_Control_Var_08(A0)			; $0038
-		bra.w	DisplaySprite				; Offset_0x011148
+		bra.w	DisplaySprite
 Offset_0x015912:
 		bsr.w	Offset_0x0158E6
 		subq.b	#1,Obj_Control_Var_08(A0)			; $0038
 		bne.s	Offset_0x01594C
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		bsr.s	Offset_0x01592A
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 Offset_0x01592A:
 		btst	D6,status(A0)					; $002A
 		beq.s	Offset_0x01594C
@@ -17758,10 +17768,10 @@ Offset_0x01592A:
 Offset_0x01594C:
 		rts
 Offset_0x01594E:
-		bsr.w	ObjectFall					; Offset_0x0110FE
+		bsr.w	ObjectFall	
 		tst.b	render_flags(A0)					; $0004
-		bpl.w	DeleteObject				; Offset_0x011138
-		bra.w	DisplaySprite				; Offset_0x011148
+		bpl.w	DeleteObject
+		bra.w	DisplaySprite
 ;===============================================================================
 ; Objeto 0x0F - Plataformas que desmoronam ao serem tocadas
 ;===============================================================================
@@ -17938,8 +17948,8 @@ Offset_0x015BBC:
 		move.b	width_pixels(A0),d1				; $0007
 		move.w	#$10,d3
 		move.w	x_pos(A0),d4					; $0010
-		jsr	(Platform_Object).l			; Offset_0x013AF6
-		bra.w	MarkObjGone					; Offset_0x011AF2
+		jsr	(Platform_Object).l
+		bra.w	MarkObjGone
 ; ---------------------------------------------------------------------------
 Offset_0x015BD4:
 		tst.b	Obj_Control_Var_0A(A0)				; $003A
@@ -18024,14 +18034,14 @@ Offset_0x015CB0:
 		tst.b	Obj_Control_Var_0A(A0)				; $003A
 		bne.s	Offset_0x015CE0
 		subq.b	#1,Obj_Control_Var_08(A0)			; $0038
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x015CC8:
-		jsr	(ObjectFall).l				; Offset_0x0110FE
+		jsr	(ObjectFall).l
 		tst.b	render_flags(A0)					; $0004
 		bpl.s	Offset_0x015CDA
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x015CDA:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 Offset_0x015CE0:
 		subq.b	#1,Obj_Control_Var_08(A0)			; $0038
 		move.b	Obj_Control_Var_08(A0),d3				; $0038
@@ -18039,12 +18049,12 @@ Offset_0x015CE0:
 		moveq	#0,d1
 		move.b	width_pixels(A0),d1				; $0007
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		bsr.s	Offset_0x015D06
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.s	Offset_0x015D06
-		bra.w	MarkObjGone					; Offset_0x011AF2
+		bra.w	MarkObjGone
 Offset_0x015D06:
 		btst	D6,status(A0)					; $002A
 		beq.s	Offset_0x015D5C
@@ -18102,7 +18112,7 @@ Offset_0x015D78:
 		bra.s	Offset_0x015DA4
 ; ---------------------------------------------------------------------------
 Offset_0x015D9C:
-		bsr.w	AllocateObjectAfterCurrent			; Offset_0x011DE0
+		bsr.w	AllocateObjectAfterCurrent
 		bne.s	Offset_0x015DDA
 		addq.w	#6,a3
 ; ---------------------------------------------------------------------------
@@ -18119,7 +18129,7 @@ Offset_0x015DA4:
 		move.b	(A4)+,Obj_Control_Var_08(A1)			; $0038
 		dbf	D1,Offset_0x015D9C
 Offset_0x015DDA:
-		jsr	(DisplaySprite).l				; Offset_0x011148
+		jsr	(DisplaySprite).l
 		moveq	#sfx_Collapse,d0					; $62
 		jmp	(PlaySound).l				; Offset_0x001176
 ; ---------------------------------------------------------------------------
@@ -18975,7 +18985,7 @@ Obj_0x0C_Swing_Ride_Vine:
 		move.w	y_pos(A0),d3					; $0014
 		move.b	subtype(A0),d1					; $002C
 		andi.w	#$F,d1
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x018198
 		move.w	#$FE50,Obj_Height_3(A1)				; $0044
 		move.w	#$800,Obj_Control_Var_08(A1)			; $0038
@@ -18988,7 +18998,7 @@ Obj_0x0C_Swing_Ride_Vine:
 		bra.s	Offset_0x01816A
 ; ---------------------------------------------------------------------------
 Offset_0x018152:
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x018198
 		move.l	#Offset_0x018292,(A1)
 		move.w	A2,Obj_Control_Var_0C(A1)				; $003C
@@ -19021,7 +19031,7 @@ Offset_0x0181C2:
 		sub.w	(Camera_X_Left).w,d0				; $FFFFF7DA
 		cmpi.w	#$280,d0
 		bhi.w	Offset_0x0181DC
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x0181DC:
 		move.w	Obj_Control_Var_06(A0),d2				; $0036
 		subq.w	#1,d2
@@ -19030,10 +19040,10 @@ Offset_0x0181DC:
 Offset_0x0181E8:
 		movea.l	A2,a1
 		movea.w	Obj_Control_Var_0E(A1),a2				; $003E
-		jsr	(Delete_A1_Object).l			; Offset_0x01113A
+		jsr	(Delete_A1_Object).l
 		dbf	D2,Offset_0x0181E8
 Offset_0x0181F8:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 ; ---------------------------------------------------------------------------
 Offset_0x0181FE:
 		tst.b	(A0)
@@ -19049,7 +19059,7 @@ Offset_0x0181FE:
 		addq.b	#4,d0
 		lsr.b	#3,d0
 		move.b	D0,mapping_frame(A0)					; $0022
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x018230:
 		moveq	#0,d2
 		move.b	Obj_Control_Var_08(A0),d2				; $0038
@@ -19080,7 +19090,7 @@ Offset_0x018272:
 		addq.b	#4,d0
 		lsr.b	#3,d0
 		move.b	D0,mapping_frame(A0)					; $0022
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x018292:
 		move.w	Obj_Control_Var_0C(A0),a1				; $003C
@@ -19093,7 +19103,7 @@ Offset_0x018292:
 		lsr.b	#3,d0
 		move.b	D0,mapping_frame(A0)					; $0022
 		bsr.w	Offset_0x0182BE
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x0182BE:
 		move.w	Obj_Control_Var_0C(A0),a1				; $003C
 		move.b	Obj_Angle(A1),d0				; $0026
@@ -19132,7 +19142,7 @@ Offset_0x018312:
 		tst.w	Obj_Control_Var_00(A0)				; $0030
 		bne.s	Offset_0x018334
 Offset_0x01832E:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x018334:
 		rts
 ; ---------------------------------------------------------------------------
@@ -19377,7 +19387,7 @@ Offset_0x0193E8:
 		move.w	#$10,d3
 		move.w	x_pos(A0),d4					; $0010
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		btst	#3,status(A0)					; $002A
@@ -19386,7 +19396,7 @@ Offset_0x0193E8:
 Offset_0x019410:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		btst	#4,status(A0)					; $002A
 		beq.s	Offset_0x019428
@@ -19394,7 +19404,7 @@ Offset_0x019410:
 Offset_0x019428:
 		lea	(Springs_Animate_Data).l,a1			; Offset_0x019BE0
 		jsr	(AnimateSprite).l				; Offset_0x01115E
-		jmp	(MarkObjGone).l					; Offset_0x011AF2
+		jmp	(MarkObjGone).l
 ; ---------------------------------------------------------------------------
 Offset_0x01943A:
 		move.w	#$13,d1
@@ -19402,7 +19412,7 @@ Offset_0x01943A:
 		move.w	#$10,d3
 		move.w	x_pos(A0),d4					; $0010
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		btst	#3,status(A0)					; $002A
@@ -19411,7 +19421,7 @@ Offset_0x01943A:
 Offset_0x019462:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		btst	#4,status(A0)					; $002A
 		beq.s	Offset_0x01947A
@@ -19419,7 +19429,7 @@ Offset_0x019462:
 Offset_0x01947A:
 		lea	(Springs_Animate_Data).l,a1			; Offset_0x019BE0
 		jsr	(AnimateSprite).l				; Offset_0x01115E
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x01948C:
 		move.w	#$100,anim(A0)				; $0020
 		addq.w	#8,y_pos(A1)					; $0014
@@ -19461,7 +19471,7 @@ Offset_0x01951A:
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x01952C:
 		moveq	#signextendB(sfx_Spring),d0					; $D2
-		jmp	(PlaySound).l					; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 Offset_0x019534:
 		move.w	#$13,d1
@@ -19469,7 +19479,7 @@ Offset_0x019534:
 		move.w	#$F,d3
 		move.w	x_pos(A0),d4					; $0010
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		swap	D6
@@ -19487,7 +19497,7 @@ Offset_0x01956C:
 Offset_0x019576:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		swap	D6
 		andi.w	#2,d6
@@ -19514,7 +19524,7 @@ Offset_0x0195C2:
 		move.w	#$D,d3
 		move.w	x_pos(A0),d4					; $0010
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		swap	D6
@@ -19532,7 +19542,7 @@ Offset_0x0195FA:
 Offset_0x019602:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		swap	D6
 		andi.w	#2,d6
@@ -19549,7 +19559,7 @@ Offset_0x01962A:
 Offset_0x019632:
 		lea	(Springs_Animate_Data).l,a1			; Offset_0x019BE0
 		jsr	(AnimateSprite).l				; Offset_0x01115E
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x019644:
 		move.w	#$300,anim(A0)				; $0020
 		move.w	Obj_Control_Var_00(A0),Obj_Speed_X(A1)	; $0030, $0018
@@ -19615,7 +19625,7 @@ Offset_0x019730:
 		bclr	#6,status(A0)					; $002A
 		bclr	#5,status(A1)					; $002A
 		moveq	#signextendB(sfx_Spring),d0					; $D2
-		jmp	(PlaySound).l					; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 Offset_0x01974A:
 		cmpi.b	#3,anim(A0)				; $0020
@@ -19633,7 +19643,7 @@ Offset_0x01976C:
 		subi.w	#$18,d2
 		addi.w	#$18,d3
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		btst	#$01,status(A1)					; $002A
+		btst	#1,status(A1)					; $002A
 		bne.s	Offset_0x0197C0
 		move.w	Obj_Inertia(A1),d4						; $001C
 		btst	#0,status(A0)					; $002A
@@ -19686,7 +19696,7 @@ Offset_0x019804:
 		move.w	#9,d3
 		move.w	x_pos(A0),d4					; $0010
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		cmpi.w	#$FFFE,d4
@@ -19695,7 +19705,7 @@ Offset_0x019804:
 Offset_0x01982A:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		cmpi.w	#$FFFE,d4
 		bne.s	Offset_0x019840
@@ -19703,7 +19713,7 @@ Offset_0x01982A:
 Offset_0x019840:
 		lea	(Springs_Animate_Data).l,a1			; Offset_0x019BE0
 		jsr	(AnimateSprite).l				; Offset_0x01115E
-		jmp	(MarkObjGone).l					; Offset_0x011AF2
+		jmp	(MarkObjGone).l
 ; ---------------------------------------------------------------------------
 Offset_0x019852:
 		move.w	#$13,d1
@@ -19711,7 +19721,7 @@ Offset_0x019852:
 		move.w	#9,d3
 		move.w	x_pos(A0),d4					; $0010
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		cmpi.w	#$FFFE,d4
@@ -19721,7 +19731,7 @@ Offset_0x019852:
 Offset_0x01987C:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Solid_Object_2_A1				; Offset_0x0135CC
 		cmpi.w	#$FFFE,d4
 		bne.s	Offset_0x019896
@@ -19730,7 +19740,7 @@ Offset_0x01987C:
 Offset_0x019896:
 		lea	(Springs_Animate_Data).l,a1			; Offset_0x019BE0
 		jsr	(AnimateSprite).l				; Offset_0x01115E
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x0198A8:
 		subq.w	#8,y_pos(A1)					; $0014
@@ -19774,7 +19784,7 @@ Offset_0x019930:
 		clr.b	Obj_Player_Jump(A1)						; $0040
 		move.b	#2,routine(A1)					; $0005
 		moveq	#signextendB(sfx_Spring),d0					; $D2
-		jmp	(PlaySound).l					; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 Offset_0x01994E:
 		move.w	#$1B,d1
@@ -19782,7 +19792,7 @@ Offset_0x01994E:
 		move.w	x_pos(A0),d4					; $0010
 		lea	Offset_0x019BA8(PC),a2
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Offset_0x013624
 		btst	#3,status(A0)					; $002A
@@ -19791,7 +19801,7 @@ Offset_0x01994E:
 Offset_0x019976:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Offset_0x013624
 		btst	#4,status(A0)					; $002A
 		beq.s	Offset_0x01998E
@@ -19862,7 +19872,7 @@ Offset_0x019A76:
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x019A88:
 		moveq	#signextendB(sfx_Spring),d0					; $D2
-		jmp	(PlaySound).l					; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 Offset_0x019A90:
 		move.w	#$1B,d1
@@ -19870,7 +19880,7 @@ Offset_0x019A90:
 		move.w	x_pos(A0),d4					; $0010
 		lea	Offset_0x019BC4(PC),a2
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		movem.l D1-D4,-(sp)
 		bsr.w	Offset_0x013624
 		cmpi.w	#$FFFE,d4
@@ -19879,7 +19889,7 @@ Offset_0x019A90:
 Offset_0x019AB6:
 		movem.l (sp)+,d1-D4
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.w	Offset_0x013624
 		cmpi.w	#$FFFE,d4
 		bne.s	Offset_0x019ACC
@@ -19936,7 +19946,7 @@ Offset_0x019B8E:
 		move.b	#$F,Obj_Player_LRB_Solid(A1)			; $0047
 Offset_0x019BA0:
 		moveq	#signextendB(sfx_Spring),d0					; $D2
-		jmp	(PlaySound).l					; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 Offset_0x019BA8:
 		dc.b	$10, $10, $10, $10, $10, $10, $10, $10
@@ -20050,12 +20060,10 @@ Offset_0x019E94:
 		dc.w	$0002
 		dc.w	$0208, $1003, $FFF4
 		dc.w	$FD08, $1006, $FFF4
-
 Obj_0x3D_Retracting_Spring:									   ; Offset_0x019EA2
 		include "obj\obj_0x3D.asm"
 ; Obj_0x5F_Retracting_Spring:								   ; Offset_0x019FF6
 		include "obj\obj_0x5F.asm"
-
 Spikes_Conf:							; Offset_0x01A432
 		dc.b	$10, $10	; Largura / Altura do espinho
 		dc.b	$20, $10
@@ -20246,7 +20254,7 @@ Offset_0x01A664:
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
 		bsr.w	Hurt_Player_A1				; Offset_0x01A71C
 Offset_0x01A672:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x01A678:
 		bsr.w	Offset_0x01A7F0
@@ -20275,7 +20283,7 @@ Offset_0x01A6B6:
 		bsr.w	Hurt_Player_A1				; Offset_0x01A71C
 		bclr	#6,status(A0)					; $002A
 Offset_0x01A6CA:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x01A6D0:
 		bsr.w	Offset_0x01A7F0
@@ -20302,7 +20310,7 @@ Offset_0x01A708:
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
 		bsr.w	Hurt_Player_A1				; Offset_0x01A71C
 Offset_0x01A716:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ;===============================================================================
 ; Rotina para causar danos ao Sonic / Miles
 ;===============================================================================
@@ -20362,7 +20370,7 @@ Offset_0x01A790:
 		tst.b	render_flags(A0)					; $0004
 		bpl.s	Offset_0x01A7EE
 		moveq	#sfx_SpikeMove,d0				; $58
-		jsr	(PlaySound).l				 ; Offset_0x001176
+		jsr	(PlaySound).l
 		bra.s	Offset_0x01A7EE
 Offset_0x01A7AC:
 		tst.w	Obj_Control_Var_06(A0)				 ; $0036
@@ -20417,7 +20425,7 @@ Offset_0x01A82C:
 		tst.b	render_flags(A0)					; $0004
 		bpl.s	Offset_0x01A88A
 		moveq	#sfx_SpikeMove,d0				; $58
-		jsr	(PlaySound).l				 ; Offset_0x001176
+		jsr	(PlaySound).l
 		bra.s	Offset_0x01A88A
 Offset_0x01A848:
 		tst.w	Obj_Control_Var_06(A0)				 ; $0036
@@ -20486,7 +20494,6 @@ Offset_0x01AA1A:
 		dc.w	$E80A, $0013, $FFF4
 		dc.w	$000A, $0013, $FFF4
 		dc.w	$180A, $0013, $FFF4
-
 Obj_Art_Scaling:											   ; Offset_0x01AA34
 		include "obj\scaling.asm"
 Obj_0x0B_Sphere_Test:										   ; Offset_0x01B338
@@ -21216,7 +21223,7 @@ Offset_0x01EFCC:
 		lea	(RAM_Start+$7E00).l,a4				   ; $FFFF7E00
 		lea	(Water_Surface_Scroll_Data).l,a5		  ; Offset_0x1C8000
 		adda.w	D1,a5
-		move.w	#$3F,d1
+		move.w	#$40-1,d1
 Offset_0x01F002:
 		moveq	#0,d0
 		move.b	(A5)+,d0
@@ -21248,7 +21255,7 @@ Offset_0x01F04C:
 		lea	(RAM_Start+$7E00).l,a4				   ; $FFFF7E00
 		lea	(Water_Surface_Scroll_Data).l,a5		  ; Offset_0x1C8000
 		adda.w	D1,a5
-		move.w	#$3F,d1
+		move.w	#$40-1,d1
 Offset_0x01F068:
 		moveq	#0,d0
 		move.b	(A5)+,d0
@@ -21820,7 +21827,7 @@ Obj_0x2C_AIz_Collapsing_Bridge:
 		move.b	#8,height_pixels(A0)					 ; $0006
 		move.b	#4,render_flags(A0)					; $0004
 		move.w	#$200,priority(A0)				; $0008
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x021FCE
 		move.l	#Offset_0x0220E4,(A1)
 		move.l	#Collapsing_Bridge_Mappings,mappings(A1) ; Offset_0x0222A2, $000C
@@ -21863,7 +21870,7 @@ Offset_0x021FD8:
 		move.b	#8,height_pixels(A0)					 ; $0006
 		move.b	#4,render_flags(A0)					; $0004
 		move.w	#$200,priority(A0)				; $0008
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x022096
 		move.l	#Offset_0x0220E4,(A1)
 		move.l	#Collapsing_Bridge_Mappings_2,mappings(A1) ; Offset_0x0222C4, $000C
@@ -21927,7 +21934,7 @@ Offset_0x0220FA:
 		bpl.s	Offset_0x02210C
 		jmp	(DisplaySprite).l				 ; Offset_0x011148
 Offset_0x02210C:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 Offset_0x022112:
 		tst.b	(Boss_Attack_Started).w			 ; $FFFFFAA2
 		beq.s	Offset_0x022136
@@ -21968,7 +21975,7 @@ Offset_0x022188:
 		bpl.s	Offset_0x02219A
 		jmp	(DisplaySprite).l				 ; Offset_0x011148
 Offset_0x02219A:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 ; ---------------------------------------------------------------------------
 Offset_0x0221A0:
 		subq.b	#1,Obj_Control_Var_04(A0)			; $0034
@@ -21979,10 +21986,10 @@ Offset_0x0221AC:
 		moveq	#0,d1
 		move.b	width_pixels(A0),d1				; $0007
 		lea	(Obj_Player_One).w,a1				; $FFFFB000
-		moveq	#3,d6
+		moveq	#p1_standing_bit,d6
 		bsr.s	Offset_0x0221CC
 		lea	(Obj_Player_Two).w,a1				; $FFFFB04A
-		moveq	#4,d6
+		moveq	#p2_standing_bit,d6
 		bsr.s	Offset_0x0221CC
 		jmp	(MarkObjGone_3).l				 ; Offset_0x011B3E
 Offset_0x0221CC:
@@ -22030,7 +22037,7 @@ Offset_0x02222E:
 		bra.s	Offset_0x02224E
 ; ---------------------------------------------------------------------------
 Offset_0x022246:
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.s	Offset_0x02228C
 Offset_0x02224E:
 		move.l	D4,(A1)
@@ -22051,7 +22058,7 @@ Offset_0x02228C:
 		move.w	#0,Obj_Speed_X(A3)				; $0018
 		move.w	#0,Obj_Speed_Y(A3)				; $001A
 		move.w	#sfx_S2Smash,d0				; $00B9
-		jmp	(PlaySound).l				 ; Offset_0x001176
+		jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 ; Offset_0x0222A2:
 Collapsing_Bridge_Mappings:	include	"data/mappings/2C - AIZ Collapsing Bridge.asm"
@@ -22076,7 +22083,7 @@ Obj_0x2D_AIz_Falling_Log:
 Offset_0x0227BC:
 		tst.b	(Level_Trigger_Array).w			 ; $FFFFF7E0
 		beq.s	Offset_0x0227C8
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 Offset_0x0227C8:
 		move.b	subtype(A0),d0					; $002C
 		move.b	D0,d1
@@ -22099,7 +22106,7 @@ Offset_0x0227FA:
 		add.w	Obj_Control_Var_04(A0),d0				; $0034
 		and.w	Obj_Control_Var_02(A0),d0				; $0032
 		bne.w	Offset_0x0228C0
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x0228C0
 		move.l	#Offset_0x0228C6,(A1)
 		move.w	x_pos(A0),x_pos(A1)			 ; $0010, $0010
@@ -22116,7 +22123,7 @@ Offset_0x022848:
 		move.b	#4,render_flags(A1)					; $0004
 		move.w	#$280,priority(A1)				; $0008
 		movea.l	A1,a2
-		jsr	(AllocateObjectAfterCurrent).l			; Offset_0x011DE0
+		jsr	(AllocateObjectAfterCurrent).l
 		bne.w	Offset_0x0228C0
 		move.l	#Offset_0x022952,(A1)
 		move.w	x_pos(A0),x_pos(A1)			 ; $0010, $0010
@@ -22169,21 +22176,21 @@ Offset_0x0228FE:
 		bhi.w	Offset_0x022932
 		tst.b	Obj_Control_Var_06(A0)				 ; $0036
 		bne.s	Offset_0x022930
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 Offset_0x022930:
 		rts
 Offset_0x022932:
 		move.w	Obj_Control_Var_0C(A0),d0				; $003C
 		beq.s	Offset_0x022940
 		movea.w	D0,a1
-		jsr	(Delete_A1_Object).l			; Offset_0x01113A
+		jsr	(Delete_A1_Object).l
 Offset_0x022940:
 		move.w	respawn_addr(A0),d0				 ; $0048
 		beq.s	Offset_0x02294C
 		movea.w	D0,a2
 		bclr	#7,(A2)
 Offset_0x02294C:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 ; ---------------------------------------------------------------------------
 Offset_0x022952:
 		move.w	Obj_Control_Var_0C(A0),a1				; $003C
@@ -22195,7 +22202,7 @@ Offset_0x022952:
 		addq.b	#1,mapping_frame(A0)					; $0022
 		andi.b	#3,mapping_frame(A0)					; $0022
 Offset_0x022978:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 ; Offset_0x02297E:
 AIz_2_Falling_Log_Mappings:	include	"data/mappings/2D - AIZ2 Falling Log.asm"
@@ -22657,7 +22664,7 @@ Offset_0x02400C:
 		cmpi.w	#$68,d0
 		bcc.w	Offset_0x0240D4
 		moveq	#signextendB(sfx_Starpost2),d0					; $CE
-		jsr	(PlaySound).l				 ; Offset_0x001176
+		jsr	(PlaySound).l
 		jsr	(AllocateObject).l			; Offset_0x011DD8
 		bne.s	Offset_0x0240C2
 		move.l	#Obj_0x34_Star_Post,(A1)			; Offset_0x023F76
@@ -22709,7 +22716,7 @@ Offset_0x0240F6:
 		move.b	#2,anim(A1)				; $0020
 		move.b	#0,mapping_frame(A1)					; $0022
 Offset_0x024114:
-		jmp	(DeleteObject).l				; Offset_0x011138
+		jmp	(DeleteObject).l
 Offset_0x02411A:
 		move.b	Obj_Angle(A0),d0				; $0026
 		subi.b	#$10,Obj_Angle(A0)					; $0026
@@ -32136,7 +32143,7 @@ Offset_0x038CBC:
 		move.w	#$007F,Obj_Timer(A0)					; $002E
 		move.l	#Offset_0x038D02,Obj_Child(A0)			; $0034
 		moveq	#signextendB(cmd_FadeOut),d0					; -$20
-		jsr	(Play_Music).l				 ; Offset_0x001176
+		jsr	(Play_Music).l
 		moveq	#$C,d0
 		jmp	(Set_Indexed_Velocity).l		 ; Offset_0x042D5A
 ; ---------------------------------------------------------------------------
@@ -32145,7 +32152,7 @@ Offset_0x038CE6:
 		jsr	(Run_Object_Wait_Timer_A0).l			; Offset_0x0423D2
 		btst	#0,(Vint_runcount+3).w		; $FFFFFE0F
 		beq.w	Offset_0x038B84
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x038D02:
 		move.l	#Offset_0x038D28,(A0)
@@ -32243,7 +32250,7 @@ Offset_0x038E16:
 		move.w	(sp)+,d4
 		jsr	(Platform_Object).l			 ; Offset_0x013AF6
 		bsr.w	Offset_0x0396B2
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x038E46:
 		dc.w	Offset_0x038E52-Offset_0x038E46
@@ -32326,7 +32333,7 @@ Offset_0x038F3C:
 		jsr	(Platform_Object).l			 ; Offset_0x013AF6
 		jsr	(AnimateRaw).l				; Offset_0x04208E
 		jsr	(Run_Object_Wait_Timer_A0).l			; Offset_0x0423D2
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x038F64:
 		jsr	(Displace_Player_Offset).l			; Offset_0x04315A
@@ -32336,7 +32343,7 @@ Offset_0x038F70:
 		jsr	(SpeedToPos).l				 ; Offset_0x01111E
 		jsr	(AnimateRaw).l				; Offset_0x04208E
 		bsr.w	Offset_0x0396FA
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x038F86:
 		moveq	#0,d0
@@ -32627,7 +32634,7 @@ Offset_0x039342:
 		bcc.s	Offset_0x039356
 		jsr	(Add_SpriteToCollisionResponseList).l		; Offset_0x00A540
 Offset_0x039356:
-		jmp	(DisplaySprite).l				; Offset_0x011148
+		jmp	(DisplaySprite).l
 ; ---------------------------------------------------------------------------
 Offset_0x03935C:
 		moveq	#0,d0
@@ -32889,7 +32896,7 @@ Offset_0x039620:
 		bne.s	Offset_0x039644
 		move.b	#$20,anim(A0)				; $0020
 		moveq	#Boss_Hit_Sfx,d0					; $7C
-		jsr	(Play_Music).l				 ; Offset_0x001176
+		jsr	(Play_Music).l
 Offset_0x039644:
 		bset	#6,status(A0)					; $002A
 		moveq	#0,d0
@@ -36138,7 +36145,7 @@ Obj_Load_End_Level_Art:										   ; Offset_0x043302
 		move.w	#$7F,Obj_Timer(A0)							; $002E
 		move.l	#Offset_0x043344,Obj_Child(A0)					; $0034
 		moveq	#signextendB(cmd_FadeOut),d0								  ; -$20
-		jsr	(PlaySound).l							; Offset_0x001176
+		jsr	(PlaySound).l		
 		lea	PLC_End_Level_Art(PC),a1			  ; Offset_0x043332
 		jmp	(LoadPLC_Direct).l							 ; Offset_0x001502
 ; ---------------------------------------------------------------------------
