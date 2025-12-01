@@ -316,7 +316,7 @@ Obj_BossMusic		= $26
 Obj_Boss_Hit		= $29
 Obj_BossMusicTimer	= $2E
 
-; Status dos jogadores. Também usado pelos escudos para proteção
+; Status dos jogadores. TambÃ©m usado pelos escudos para proteÃ§Ã£o
 Classic_Type		= 0
 Invincibility_Type	= 1
 Speed_Type		= 2
@@ -462,12 +462,17 @@ mus_Drowning			ds.b 1		; $31
 mus__End =			*		; next ID after last music
 	dephase
 
+	if FixBugs
+mus_SuperSonicUnk =	$2E
+mus_ExtraLifeUnk =	$2A
+	else
 mus_SuperSonicUnk =	$0A
 mus_ExtraLifeUnk =	$34
+	endif
 mus_S2ExtraLife =	$98
 mus_S2Drowning =	$9F
 
-; Músicas
+; MÃºsicas
 Angel_Island_1_Snd       = mus_AIZ1
 Angel_Island_2_Snd       = mus_AIZ2
 Hydrocity_1_Snd          = mus_HCZ1
