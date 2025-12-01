@@ -46691,24 +46691,42 @@ PalPointers:
 		dc.l	Pal_Launch_Base_Act_2
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
+	if FixBugs
+		dc.l	Left_Over_Pal_Mushroom_Valley_Act_1
+		dc.w	Palette_Row_1_Offset&$FFFF
+		dc.w	$17
+		dc.l	Left_Over_Pal_Mushroom_Valley_Act_2
+		dc.w	Palette_Row_1_Offset&$FFFF
+		dc.w	$17
+	else
 		dc.l	Pal_Mushroom_Valley_Act_1
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
 		dc.l	Pal_Mushroom_Valley_Act_2
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
+	endif
 		dc.l	Pal_Sandopolis_Act_1
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
 		dc.l	Pal_Sandopolis_Act_2
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
+	if FixBugs
+		dc.l	Left_Over_Pal_Lava_Reef_Act_1
+		dc.w	Palette_Row_1_Offset&$FFFF
+		dc.w	$17
+		dc.l	Left_Over_Pal_Lava_Reef_Act_2
+		dc.w	Palette_Row_1_Offset&$FFFF
+		dc.w	$17
+	else
 		dc.l	Pal_Lava_Reef_Act_1
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
 		dc.l	Pal_Lava_Reef_Act_2
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
+	endif
 		dc.l	Pal_Sky_Sanctuary_Act_1
 		dc.w	Palette_Row_1_Offset&$FFFF
 		dc.w	$17
