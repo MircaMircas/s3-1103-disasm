@@ -3456,7 +3456,11 @@ Offset_0x002B78:
 		rts
 ; ---------------------------------------------------------------------------
 Pal_SuperSonic_Cyc:
+	if FixBugs
+		dc.w	$E66, $E44, $C42, $A22, $844, $A64, $E66, $E88
+	else
 		dc.w	$A22, $C42, $E44, $E66, $844, $A64, $E66, $E88
+	endif
 		dc.w	$666, $A86, $E88, $EAA, $488, $AA8, $EAA, $ECC
 		dc.w	$4AA, $ACA, $ECC, $EEE, $4CC, $AEC, $EEE, $EEE
 		dc.w	$4EE, $AEE, $EEE, $EEE, $6EE, $EEE, $EEE, $EEE
@@ -3466,7 +3470,11 @@ Pal_SuperSonic_Cyc:
 		dc.w	$0EE, $6EE, $AEE, $EEE, $0EE, $8EE, $CEE, $EEE
 ; ---------------------------------------------------------------------------
 Pal_SuperSonic_Underwater_Cyc:
+	if FixBugs
+		dc.w	$E4C, $E2A, $E28, $E08, $C2A, $E4A, $E4C, $E6E
+	else
 		dc.w	$E08, $E28, $E2A, $E4C, $C2A, $E4A, $E4C, $E6E
+	endif
 		dc.w	$A4C, $E6C, $E6E, $E8E, $A6E, $E8E, $E8E, $E8E
 		dc.w	$A6E, $E8E, $E8E, $E8E, $A6E, $E8E, $E8E, $E8E
 		dc.w	$A6E, $E8E, $E8E, $E8E, $A6E, $E8E, $E8E, $E8E
